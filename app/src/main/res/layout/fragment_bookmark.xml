@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.BookmarkFragment">
+
+
+        <TextView
+            android:id="@+id/bookmark_delete_all"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:text="전체 삭제"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/bookmark_recyclerview"
+            app:layout_constraintEnd_toStartOf="@+id/bookmark_edit"
+            app:layout_constraintHorizontal_bias="0.963"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
+
+        <TextView
+            android:id="@+id/bookmark_edit"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:text="퍈집하기"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/bookmark_recyclerview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.954"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
+
+        <TextView
+            android:id="@+id/bookmark_submit"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:text="퍈집완료"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/bookmark_recyclerview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.954"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bookmark_recyclerview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="100dp"
+            android:visibility="invisible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/delete_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_bookmark"/>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/delete_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFC1C1C1"
+            android:text="삭제"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/noBookmark"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="100dp"
+            android:src="@drawable/bookmark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

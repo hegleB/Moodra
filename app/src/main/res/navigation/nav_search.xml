@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_search"
+    app:startDestination="@id/searchFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.moviesimpleapp.view.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_searchDetaileFragment"
+            app:destination="@id/searchDetaileFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.moviesimpleapp.view.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="type"
+            app:argType="string"/>
+
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+
+        <argument android:name="overview"
+            app:argType="string" />
+        <argument android:name="is_adult"
+            app:argType="boolean" />
+        <argument
+            android:name="posterPath"
+            app:argType="string"/>
+        <argument
+            android:name="backdropPath"
+            app:argType="string" />
+        <argument
+            android:name="releaseDate"
+            app:argType="string" />
+
+        <argument
+            android:name="vote_average"
+            app:argType="string" />
+
+
+        <action
+            android:id="@+id/action_detailFragment_to_searchFragment"
+            app:destination="@id/searchFragment"
+            app:popUpTo="@id/searchFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_detailFragment_to_searchDetaileFragment"
+            app:destination="@id/searchDetaileFragment"
+            app:popUpTo="@id/searchDetaileFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_detailFragment_self2"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_videoFragment3"
+            app:destination="@id/videoFragment3" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchDetaileFragment"
+        android:name="com.example.moviesimpleapp.view.SearchDetaileFragment"
+        android:label="fragment_search_detaile"
+        tools:layout="@layout/fragment_search_detail" >
+        <action
+            android:id="@+id/action_searchDetaileFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_searchDetaileFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <argument
+            android:name="query"
+            app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoFragment3"
+        android:name="com.example.moviesimpleapp.view.VideoFragment"
+        android:label="VideoFragment" >
+        <action
+            android:id="@+id/action_videoFragment3_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <argument
+            android:name="videoId"
+            app:argType="string" />
+    </fragment>
+
+</navigation>

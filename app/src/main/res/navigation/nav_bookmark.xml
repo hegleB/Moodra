@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_bookmark"
+    app:startDestination="@id/bookmarkFragment2">
+
+    <fragment
+        android:id="@+id/bookmarkFragment2"
+        android:name="com.example.moviesimpleapp.view.BookmarkFragment"
+        android:label="BookmarkFragment2"
+        tools:layout="@layout/fragment_bookmark">
+        <action
+            android:id="@+id/action_bookmarkFragment_to_detailFragment2"
+            app:destination="@id/detailFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment3"
+        android:name="com.example.moviesimpleapp.view.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail">
+
+        <argument
+            android:name="type"
+            app:argType="string"/>
+
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+
+        <argument android:name="overview"
+            app:argType="string" />
+        <argument android:name="is_adult"
+            app:argType="boolean" />
+        <argument
+            android:name="posterPath"
+            app:argType="string"/>
+        <argument
+            android:name="backdropPath"
+            app:argType="string" />
+        <argument
+            android:name="releaseDate"
+            app:argType="string" />
+
+        <argument
+            android:name="vote_average"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_detailFragment3_self"
+            app:destination="@id/detailFragment3" />
+        <action
+            android:id="@+id/action_detailFragment3_to_videoFragment"
+            app:destination="@id/videoFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.example.moviesimpleapp.view.VideoFragment"
+        android:label="VideoFragment" >
+        <action
+            android:id="@+id/action_videoFragment_to_detailFragment3"
+            app:destination="@id/detailFragment3" />
+        <argument
+            android:name="videoId"
+            app:argType="string" />
+    </fragment>
+</navigation>

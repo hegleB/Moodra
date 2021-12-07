@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.moviesimpleapp.viewmodel.TvViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#42000000"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/tv_actionbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/tv_stickbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:gravity="center"
+                    android:paddingHorizontal="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_scrollFlags="noScroll">
+
+                    <TextView
+                        android:id="@+id/home"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="홈"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/movies_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="16dp"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="영화"
+                        android:textAlignment="center"
+                        android:textColor="#F5FFFFFF"
+                        android:textSize="18dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_show_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bottom_line"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="TV 프로그램"
+                        android:textAlignment="center"
+                        android:textColor="#FFFFFFFF"
+                        android:textSize="17dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/tv_move_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".view.TVshowFragment">
+
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/tv_popular_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/tv_viewpader_number"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="10/20"
+                    android:textSize="10dp"
+                    android:textColor="@color/white"
+                    android:padding="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:background="@drawable/round_corner"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_indicator_layout"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_popular_viewpager"/>
+
+                <RelativeLayout
+                    android:id="@+id/tv_indicator_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_popular_viewpager">
+
+                    <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
+                        android:id="@+id/tv_indicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        app:spi_dotSelectedColor="@color/white"
+                        app:spi_looped="false"/>
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_fantasy_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="#판타지"
+                    android:textSize="30dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_indicator_layout"
+                    app:layout_constraintVertical_bias="0.0" />
+
+
+                <TextView
+                    android:id="@+id/tv_fantasy_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체보기>"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_fantasy_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_fantasy_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/tv_fantasy_text_view"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_indicator_layout"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tv_fantasy_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_fantasy_text_view"
+                    tools:listitem="@layout/item_genre_tv" />
+
+
+                <TextView
+                    android:id="@+id/tv_animation_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="#애니메이션"
+                    android:textSize="30dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_fantasy_recyclerview" />
+
+                <TextView
+                    android:id="@+id/tv_animation_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체보기>"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_animation_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_animation_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/tv_animation_text_view"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tv_animation_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_animation_text_view"
+                    tools:listitem="@layout/item_genre_tv" />
+
+                <TextView
+                    android:id="@+id/tv_music_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="#뮤직"
+                    android:textSize="30dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_animation_recyclerview" />
+
+                <TextView
+                    android:id="@+id/tv_music_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체보기>"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_music_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_music_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/tv_music_text_view"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tv_music_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_music_text_view"
+                    tools:listitem="@layout/item_genre_tv" />
+
+                <TextView
+                    android:id="@+id/tv_comedy_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="#코미디"
+                    android:textSize="30dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_music_recyclerview" />
+
+
+                <TextView
+                    android:id="@+id/tv_comedy_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체보기>"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_comedy_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_comedy_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/tv_comedy_text_view"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tv_comedy_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_comedy_text_view"
+                    tools:listitem="@layout/item_genre_tv" />
+
+                <TextView
+                    android:id="@+id/tv_romance_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="#로맨스"
+                    android:textSize="30dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_comedy_recyclerview" />
+
+
+
+                <TextView
+                    android:id="@+id/tv_romance_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체보기>"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_romance_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_romance_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/tv_romance_text_view"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tv_romance_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_romance_text_view"
+                    tools:listitem="@layout/item_genre_tv" />
+
+                <TextView
+                    android:id="@+id/tv_crime_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="#범죄"
+                    android:textSize="30dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_romance_recyclerview" />
+
+                <TextView
+                    android:id="@+id/tv_crime_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체보기>"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_crime_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_crime_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/tv_crime_text_view"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tv_crime_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_crime_text_view"
+                    tools:listitem="@layout/item_genre_tv" />
+
+                <TextView
+                    android:id="@+id/tv_mystery_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="#미스테리"
+                    android:textSize="30dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_crime_recyclerview" />
+
+                <TextView
+                    android:id="@+id/tv_mystery_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체보기>"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_mystery_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_mystery_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/tv_mystery_text_view"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tv_mystery_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_mystery_text_view"
+                    tools:listitem="@layout/item_genre_tv" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

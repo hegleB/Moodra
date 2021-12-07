@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SearchView">
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:inputType">text</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:background">@null</item>
+        <item name="android:hint">@string/title_menu_search</item>
+        <item name="android:imeOptions">actionSearch|flagNoExtractUi</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+    </style>
+
+</resources>
