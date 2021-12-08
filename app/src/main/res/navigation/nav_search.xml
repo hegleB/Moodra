@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.moviesimpleapp.view.SearchFragment"
+        android:name="com.quere.moodra.view.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search">
         <action
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.moviesimpleapp.view.DetailFragment"
+        android:name="com.quere.moodra.view.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <argument
@@ -75,7 +75,7 @@
 
     <fragment
         android:id="@+id/searchDetaileFragment"
-        android:name="com.example.moviesimpleapp.view.SearchDetaileFragment"
+        android:name="com.quere.moodra.view.SearchDetaileFragment"
         android:label="fragment_search_detaile"
         tools:layout="@layout/fragment_search_detail" >
         <action
@@ -93,7 +93,7 @@
     </fragment>
     <fragment
         android:id="@+id/videoFragment3"
-        android:name="com.example.moviesimpleapp.view.VideoFragment"
+        android:name="com.quere.moodra.view.VideoFragment"
         android:label="VideoFragment" >
         <action
             android:id="@+id/action_videoFragment3_to_detailFragment"

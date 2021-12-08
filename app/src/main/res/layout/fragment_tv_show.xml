@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.moviesimpleapp.viewmodel.TvViewModel" />
+            type="com.quere.moodra.viewmodel.TvViewModel" />
 
     </data>
 

@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.moviesimpleapp.viewmodel.SearchViewModel" />
+            type="com.quere.moodra.viewmodel.SearchViewModel" />
     </data>
 
 

@@ -8,7 +8,7 @@
 
         <variable
             name="viewpager"
-            type="com.example.moviesimpleapp.retrofit.Movie" />
+            type="com.quere.moodra.retrofit.Movie" />
     </data>
 
 

@@ -8,7 +8,7 @@
     <data>
         <variable
             name="credit"
-            type="com.example.moviesimpleapp.retrofit.Actor" />
+            type="com.quere.moodra.retrofit.Actor" />
 
     </data>
 

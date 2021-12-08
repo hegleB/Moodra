@@ -8,11 +8,11 @@
 
         <variable
             name="viewModel"
-            type="com.example.moviesimpleapp.viewmodel.DetailViewModel" />
+            type="com.quere.moodra.viewmodel.DetailViewModel" />
 
         <variable
             name="Detail"
-            type="com.example.moviesimpleapp.retrofit.Movie" />
+            type="com.quere.moodra.retrofit.Movie" />
     </data>
 
 

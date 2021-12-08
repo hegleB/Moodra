@@ -8,7 +8,7 @@
 
         <variable
             name="TVGenreDetail"
-            type="com.example.moviesimpleapp.retrofit.TVshow" />
+            type="com.quere.moodra.retrofit.TVshow" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

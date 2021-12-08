@@ -8,7 +8,7 @@
 
         <variable
             name="movie_search_detail"
-            type="com.example.moviesimpleapp.retrofit.MovieSearch" />
+            type="com.quere.moodra.retrofit.MovieSearch" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -7,7 +7,7 @@
 
         <variable
             name="genreTv"
-            type="com.example.moviesimpleapp.retrofit.TVshow" />
+            type="com.quere.moodra.retrofit.TVshow" />
     </data>
 
     <androidx.cardview.widget.CardView

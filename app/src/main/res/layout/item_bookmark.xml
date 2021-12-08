@@ -9,11 +9,11 @@
 
         <variable
             name="bookmark"
-            type="com.example.moviesimpleapp.room.Bookmark" />
+            type="com.quere.moodra.room.Bookmark" />
 
         <variable
             name="adapter"
-            type="com.example.moviesimpleapp.viewmodel.DetailViewModel" />
+            type="com.quere.moodra.viewmodel.DetailViewModel" />
 
     </data>
 
