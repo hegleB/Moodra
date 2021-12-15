@@ -21,7 +21,8 @@ class MovieGenrePagingSource(
                 AppConstants.api_key,
                 AppConstants.language,
                 type,
-                Integer(1)
+                Integer(1),
+                "KR"
             )
             val photos = response.results
 

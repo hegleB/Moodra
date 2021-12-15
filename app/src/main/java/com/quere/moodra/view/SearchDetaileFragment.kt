@@ -1,7 +1,7 @@
 package com.quere.moodra.view
 
+import android.R.attr.data
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -9,18 +9,22 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
+import androidx.paging.LoadStateAdapter
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.quere.moodra.R
 import com.quere.moodra.adapter.MovieSearchDetailAdapter
+import com.quere.moodra.adapter.MovieSearchLoadStateAdapter
 import com.quere.moodra.adapter.TVSearchDetailAdapter
 import com.quere.moodra.databinding.FragmentSearchDetailBinding
-
 import com.quere.moodra.retrofit.MovieSearch
 import com.quere.moodra.retrofit.TVshowSearch
 import com.quere.moodra.viewmodel.SearchViewModel
@@ -28,7 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_search_movie.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.lang.Exception
+
 
 @AndroidEntryPoint
 class SearchDetaileFragment : Fragment() {
@@ -57,8 +61,11 @@ class SearchDetaileFragment : Fragment() {
 
 
                 binding.apply {
+                    val gridlayout = StaggeredGridLayoutManager(6,StaggeredGridLayoutManager.VERTICAL)
+                    searchDetaileRecyclerview.layoutManager = gridlayout
 
-                    searchDetaileRecyclerview.layoutManager = GridLayoutManager(context,2)
+                    gridlayout.spanCount = 3
+
                     searchDetaileRecyclerview.adapter = adapter
 
 
@@ -69,10 +76,9 @@ class SearchDetaileFragment : Fragment() {
 
                         // empty view
                         if (loadState.source.refresh is LoadState.NotLoading &&
-                            loadState.append.endOfPaginationReached &&
-                            adapter.itemCount < 1
+                            adapter.itemCount ==0
                         ) {
-                            movie_search_recyclerView.isVisible = false
+
                         } else {
 
                         }
@@ -84,11 +90,12 @@ class SearchDetaileFragment : Fragment() {
                     viewLifecycleOwner.lifecycleScope.launch {
                         viewModel.getMoviesDetail(twoDepArgs.query).collectLatest {
 
-                            adapter.submitData(viewLifecycleOwner.lifecycle,it)
-                            adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+                            adapter.submitData(viewLifecycleOwner.lifecycle, it)
+                            adapter.stateRestorationPolicy =
+                                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
                         }
                     }
-                } catch (e:Exception){
+                } catch (e: Exception) {
 
                 }
             }
@@ -100,10 +107,9 @@ class SearchDetaileFragment : Fragment() {
 
                 binding.apply {
 
-                    searchDetaileRecyclerview.layoutManager = GridLayoutManager(context,2)
+                    searchDetaileRecyclerview.layoutManager = StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
 
                     searchDetaileRecyclerview.adapter = adapter
-
 
 
                 }
@@ -127,11 +133,10 @@ class SearchDetaileFragment : Fragment() {
                 try {
                     viewLifecycleOwner.lifecycleScope.launch {
                         viewModel.getTvshowDetail(twoDepArgs.query).collectLatest {
-                            adapter.submitData(viewLifecycleOwner.lifecycle,it)
-                            adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+                            adapter.submitData(viewLifecycleOwner.lifecycle, it)
                         }
                     }
-                } catch (e:Exception){
+                } catch (e: Exception) {
 
                 }
 
@@ -141,7 +146,7 @@ class SearchDetaileFragment : Fragment() {
         binding.apply {
             searchDetailToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios_24)
 
-            searchDetailToolbar.setNavigationOnClickListener(object : View.OnClickListener{
+            searchDetailToolbar.setNavigationOnClickListener(object : View.OnClickListener {
                 override fun onClick(p0: View?) {
                     findNavController().navigateUp()
                 }
@@ -179,7 +184,7 @@ class SearchDetaileFragment : Fragment() {
             movie_search.poster_path ?: "이미지 없음",
             movie_search.backdrop_path ?: "이미지 없음",
             movie_search.release_date ?: "개봉날짜 없음",
-            movie_search.vote_average?: "0"
+            movie_search.vote_average ?: "0"
         )
 
         findNavController().navigate(direction)
@@ -198,7 +203,7 @@ class SearchDetaileFragment : Fragment() {
             tv_search.poster_path ?: "이미지 없음",
             tv_search.backdrop_path ?: "이미지 없음",
             tv_search.first_air_date ?: "개봉날짜 없음",
-            tv_search.vote_average?: "0"
+            tv_search.vote_average ?: "0"
         )
 
         findNavController().navigate(direction)

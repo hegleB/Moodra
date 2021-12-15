@@ -189,7 +189,7 @@ class DetailFragment : Fragment() {
 
             ContentRecycler(detailSimiliarRecyclerview, "similar")
             ContentRecycler(detailRecommendRecyclerview, "recommend")
-            TrailerRecycler(detailTrailerRecyclerview)
+            TrailerRecycler(detailTrailerRecyclerview,twoDepArgs.type)
         }
 
     }
@@ -229,16 +229,25 @@ class DetailFragment : Fragment() {
         recyclerSetting(recyclerView)
     }
 
-    private fun TrailerRecycler(recyclerView: RecyclerView) {
+    private fun TrailerRecycler(recyclerView: RecyclerView,type: String) {
 
         val adapter = TrailerAdapter({ trailer -> trailerDialog(trailer) },
             { trailer -> trailerDialog(trailer) })
 
+        if(type=="movie") {
+            viewLifecycleOwner.lifecycleScope.launch {
+                detailviewModel.getMovieTrailer(twoDepArgs.id).collectLatest {
+                    adapter.submitData(it)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            detailviewModel.getTrailer(twoDepArgs.id).collectLatest {
-                adapter.submitData(it)
+                }
+            }
+        }
+        else {
+            viewLifecycleOwner.lifecycleScope.launch {
+                detailviewModel.getTVTrailer(twoDepArgs.id).collectLatest {
+                    adapter.submitData(it)
 
+                }
             }
         }
         recyclerView.adapter = adapter

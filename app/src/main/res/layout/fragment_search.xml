@@ -23,13 +23,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:textCursorDrawable="@null"
-            app:queryBackground="@null"
+            android:theme="@style/text_search_style"
             app:queryHint="검색어를 입력하세요"
             app:iconifiedByDefault="true"
             tools:ignore="MissingConstraints" />
-
-
 
 
         <TextView
@@ -71,6 +68,20 @@
             app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:listitem="@layout/item_movie_search" />
 
+        <TextView
+            android:id="@+id/movie_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:gravity="center"
+            android:text="검색 결과가 없습니다."
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/search_movie_recyclerview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/search_movie_recyclerview"
+            app:layout_constraintTop_toTopOf="@+id/search_movie_recyclerview" />
+
 
         <TextView
             android:id="@+id/textView4"
@@ -107,6 +118,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             tools:listitem="@layout/item_tv_search" />
+
+
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:gravity="center"
+            android:text="검색 결과가 없습니다."
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/search_tv_recyclerview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 
         <FrameLayout

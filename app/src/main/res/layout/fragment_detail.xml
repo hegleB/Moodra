@@ -36,7 +36,6 @@
                 android:fitsSystemWindows="true"
                 app:contentScrim="@color/black"
                 app:expandedTitleGravity="left|top"
-                app:expandedTitleMarginTop="100dp"
                 app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
                 app:maxLines="3">
 
@@ -77,8 +76,8 @@
 
                 <ImageView
                     android:id="@+id/detail_poster"
-                    android:layout_width="135dp"
-                    android:layout_height="150dp"
+                    android:layout_width="115dp"
+                    android:layout_height="140dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_marginBottom="40dp"

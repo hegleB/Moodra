@@ -19,6 +19,7 @@ class MovieSearchDetailAdapter(val searchItemClick: (MovieSearch) -> Unit, val s
     inner class ViewHolder(val binding: ItemMovieSearchDetailBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(search: MovieSearch){
             binding.movieSearchDetail = search
+
             binding.executePendingBindings()
             binding.root.setOnClickListener{
                 searchItemClick(search)

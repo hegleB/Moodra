@@ -25,7 +25,8 @@ class TVPagingSource(
             val response = mediaService.getTV(
                 type,
                 AppConstants.language,
-                AppConstants.api_key)
+                AppConstants.api_key,
+            "KR")
             val photos = response.results
 
             LoadResult.Page(

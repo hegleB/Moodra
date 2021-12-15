@@ -23,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_bookmark.*
 import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.item_bookmark.*
 
 
 @AndroidEntryPoint
@@ -30,7 +31,6 @@ class BookmarkFragment : Fragment() {
 
     private lateinit var binding: FragmentBookmarkBinding
     private val bookmarkviewModel by viewModels<DetailViewModel>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,6 +64,7 @@ class BookmarkFragment : Fragment() {
                         bookmarkSubmit.visibility = View.VISIBLE
                         deleteButton.visibility = View.VISIBLE
                         bookmarkviewModel.setSeleted(true)
+
 
 
                     } else {
@@ -200,17 +201,19 @@ class BookmarkFragment : Fragment() {
                 delete_button.setBackgroundColor(Color.parseColor("#1565C0"))
                 delete_button.setOnClickListener(object : View.OnClickListener{
                     override fun onClick(p0: View?) {
-                        delete_button.setBackgroundColor(Color.parseColor("#9E9E9E"))
                         val dlg: AlertDialog.Builder = AlertDialog.Builder(requireContext())
                         dlg.setTitle("")
                         dlg.setMessage("선택 항목을 삭제하시겠습니까?")
                         dlg.setPositiveButton("삭제") { dialogInterface: DialogInterface, i: Int ->
                             for (i in 0..it.size - 1) {
+                                delete_button.setBackgroundColor(Color.parseColor("#9E9E9E"))
                                 bookmarkviewModel.delete(it.get(i))
-
                             }
+                            it.clear()
+
                         }
                         dlg.setNegativeButton("아니요") { dialogInterface: DialogInterface, i: Int ->
+                            delete_button.setBackgroundColor(Color.parseColor("#1565C0"))
                             dialogInterface.cancel()
                         }
                         dlg.show()

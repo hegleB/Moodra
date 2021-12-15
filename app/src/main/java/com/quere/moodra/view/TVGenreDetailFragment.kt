@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.quere.moodra.R
 import com.quere.moodra.adapter.*
 import com.quere.moodra.databinding.FragmentTvGenreDetailBinding
@@ -46,7 +47,8 @@ class TVGenreDetailFragment : Fragment() {
 
         binding.apply {
             tvDetaileRecyclerview.setHasFixedSize(true)
-            tvDetaileRecyclerview.layoutManager = GridLayoutManager(context,2)
+            tvDetaileRecyclerview.layoutManager = StaggeredGridLayoutManager(3,
+                StaggeredGridLayoutManager.VERTICAL)
             tvDetaileRecyclerview.itemAnimator = null
             tvDetaileRecyclerview.adapter = adapter
 

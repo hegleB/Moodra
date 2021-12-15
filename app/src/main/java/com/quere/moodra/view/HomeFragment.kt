@@ -1,11 +1,17 @@
 package com.quere.moodra.view
 
 
+import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,7 +38,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel by viewModels<HomeViewModel>()
-
+    private var doubleBackToExit = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +53,37 @@ class HomeFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
         return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
+    }
+
+    protected fun navigateUp() {
+
+        if (doubleBackToExit) {
+            requireActivity().finishAffinity()
+        } else {
+            Toast.makeText(requireContext(), "종료하시려면 뒤로가기를 한번 더 눌러주세요.", Toast.LENGTH_SHORT)
+                .show()
+            doubleBackToExit = true
+            runDelayed(1500L) {
+                doubleBackToExit = false
+
+            }
+        }
+    }
+
+
+    fun runDelayed(millis: Long, function: () -> Unit) {
+        Handler(Looper.getMainLooper()).postDelayed(function, millis)
+    }
+
+    private val backPressedDispatcher = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            navigateUp()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -96,7 +133,7 @@ class HomeFragment : Fragment() {
             movie.release_date ?: "개봉날짜 없음",
             movie.vote_average ?: "0",
 
-        )
+            )
 
         findNavController().navigate(direction)
 
@@ -200,4 +237,5 @@ class HomeFragment : Fragment() {
         recyclerView.addItemDecoration(HorizontalItemDecorator(10))
         recyclerView.setHasFixedSize(true)
     }
+
 }

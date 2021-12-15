@@ -15,6 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.quere.moodra.R
@@ -27,6 +29,8 @@ import com.quere.moodra.retrofit.TVshowSearch
 import com.quere.moodra.viewmodel.SearchViewModel
 
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.fragment_search_tv.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -98,8 +102,8 @@ class SearchFragment : Fragment() {
                 }
 
             })
-            
-            
+
+
             viewModel.query.observe(viewLifecycleOwner, Observer {
                 if(it!=""){
                     noSearch.visibility=View.GONE
@@ -143,47 +147,15 @@ class SearchFragment : Fragment() {
 
 
         }
-
-
-
-        movieAdapter.addLoadStateListener { loadState ->
-            binding.apply {
-
-                // empty view
-                if (loadState.source.refresh is LoadState.NotLoading &&
-                    loadState.append.endOfPaginationReached &&
-                    movieAdapter.itemCount < 1
-                ) {
-                    searchMovieRecyclerview.isVisible = false
-
-                } else {
-
-                }
-            }
-        }
-
-        tvAdapter.addLoadStateListener { loadState ->
-            binding.apply {
-
-                // empty view
-                if (loadState.source.refresh is LoadState.NotLoading &&
-                    loadState.append.endOfPaginationReached &&
-                    movieAdapter.itemCount < 1
-                ) {
-                    searchTvRecyclerview.isVisible = false
-
-                } else {
-
-                }
-            }
-        }
-
         viewModel.query.observe(viewLifecycleOwner, Observer {
 
             MovieRecycler(it, binding.searchMovieRecyclerview)
             TvRecycler(it, binding.searchTvRecyclerview)
 
         })
+
+
+
 
 
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
@@ -243,7 +215,10 @@ class SearchFragment : Fragment() {
         recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        recyclerView.adapter = adapter
+        recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = MovieSearchLoadStateAdapter { adapter.retry()},
+            footer = MovieSearchLoadStateAdapter { adapter.retry()}
+        )
         recyclerView.setHasFixedSize(true)
 
     }
@@ -259,10 +234,11 @@ class SearchFragment : Fragment() {
             }
 
         }
-
-        recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.adapter = adapter
+        recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = MovieSearchLoadStateAdapter { adapter.retry()},
+            footer = MovieSearchLoadStateAdapter { adapter.retry()}
+        )
         recyclerView.setHasFixedSize(true)
     }
 

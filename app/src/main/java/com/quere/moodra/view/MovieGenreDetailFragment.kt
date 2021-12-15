@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.quere.moodra.R
 import com.quere.moodra.adapter.MovieGenreDetailAdapter
 import com.quere.moodra.databinding.FragmentMovieGenreDetailBinding
@@ -45,7 +46,8 @@ class MovieGenreDetailFragment : Fragment() {
 
         binding.apply {
             movieDetaileRecyclerview.setHasFixedSize(true)
-            movieDetaileRecyclerview.layoutManager = GridLayoutManager(context,2)
+            movieDetaileRecyclerview.layoutManager = StaggeredGridLayoutManager(3,
+                StaggeredGridLayoutManager.VERTICAL)
             movieDetaileRecyclerview.itemAnimator = null
             movieDetaileRecyclerview.adapter = adapter
 

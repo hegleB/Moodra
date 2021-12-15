@@ -24,8 +24,8 @@ class TVSearchPagingSource(
 
             LoadResult.Page(
                 data = photos,
-                prevKey = if(position== STARTING_PAGE_INDEX) null else null,
-                nextKey = if(photos.isEmpty()) null else null
+                prevKey = if(position == STARTING_PAGE_INDEX && !(photos.isEmpty())) null else position-1,
+                nextKey = if(photos.isEmpty()) null else position+1
             )
         } catch (e: IOException){
             LoadResult.Error(e)

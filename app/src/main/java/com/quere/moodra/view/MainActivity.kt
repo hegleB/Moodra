@@ -1,7 +1,10 @@
 package com.quere.moodra.view
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.*
 import androidx.navigation.ui.*
@@ -14,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    private var doubleBackToExit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,5 +64,4 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
 }

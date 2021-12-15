@@ -26,17 +26,10 @@ class MovieSearchLoadStateAdapter(private val retry: () -> Unit) :
 
     inner class LoadStateViewHolder(private val binding: SearchLoadFooterBinding): RecyclerView.ViewHolder(binding.root) {
 
-        init{
-           binding.buttonRetry.setOnClickListener{
-                retry.invoke()
-           }
-        }
-
         fun bind(loadState: LoadState){
             binding.apply {
-                processBar.isVisible = loadState is LoadState.Loading
-                buttonRetry.isVisible = loadState is LoadState.Loading
-                textViewError.isVisible = loadState is LoadState.Loading
+
+                errorMsg.isVisible = loadState is LoadState.Error
             }
         }
 

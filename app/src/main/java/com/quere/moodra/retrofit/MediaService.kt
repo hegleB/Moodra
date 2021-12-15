@@ -10,14 +10,16 @@ interface MediaService {
     suspend fun getMovie(
         @Path("type") type: String,
         @Query("language") languaue: String,
-        @Query("api_key") api_key: String
+        @Query("api_key") api_key: String,
+        @Query("region") region: String
     ): Movies
 
     @GET("tv/{type}")
     suspend fun getTV(
         @Path("type") type: String,
         @Query("language") languaue: String,
-        @Query("api_key") api_key: String
+        @Query("api_key") api_key: String,
+        @Query("region") region: String
     ): TVshows
 
     @GET("movie/{movie_id}")
@@ -52,7 +54,7 @@ interface MediaService {
 
     @GET("tv/{tv_id}/videos")
     suspend fun getTVshowTrailer(
-        @Path("tv_id") tvId: Integer,
+        @Path("tv_id") tvId: Int,
         @Query("api_key") api_key: String,
         @Query("language") language: String
     ): Trailers
@@ -69,7 +71,8 @@ interface MediaService {
         @Query("api_key") api_key: String,
         @Query("language") language: String,
         @Query("with_genres") with_genres: String,
-        @Query("page") page: Integer
+        @Query("page") page: Integer,
+        @Query("region") region: String
     ): Movies
 
     @GET("discover/tv")
@@ -77,7 +80,8 @@ interface MediaService {
         @Query("api_key") api_key: String,
         @Query("language") languaue: String,
         @Query("with_genres") with_genres: String,
-        @Query("page") page: Integer
+        @Query("page") page: Integer,
+        @Query("region") region: String
     ): TVshows
 
     @GET("movie/{movie_id}/credits")

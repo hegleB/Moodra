@@ -47,13 +47,14 @@
             android:id="@+id/search_detaile_recyclerview"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
             app:layout_constraintVertical_bias="0.0"
+            app:spanCount="3"
             tools:listitem="@layout/item_movie_search_detail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

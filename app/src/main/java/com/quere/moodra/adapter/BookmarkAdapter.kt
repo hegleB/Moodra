@@ -41,6 +41,13 @@ class BookmarkAdapter(val bookmarkItemClick: (Bookmark) -> Unit, val isSeleted: 
                     checkBoxBackground.visibility = View.GONE
                     selectionList.clear()
                 }
+
+
+                if(selectionList.isEmpty()){
+                    checkBox.visibility=View.GONE
+                } else {
+                    checkBox.visibility=View.VISIBLE
+                }
                 root.setOnClickListener(object : View.OnClickListener {
                     override fun onClick(v: View?) {
 
@@ -51,7 +58,8 @@ class BookmarkAdapter(val bookmarkItemClick: (Bookmark) -> Unit, val isSeleted: 
                                 bookmarkItemClick(bookmark)
                                 selectionList.add(bookmark)
 
-                            } else {
+                            }
+                            else {
 
                                 root.isSelected = false
                                 checkBox.visibility = View.GONE
@@ -62,7 +70,9 @@ class BookmarkAdapter(val bookmarkItemClick: (Bookmark) -> Unit, val isSeleted: 
                         }
                         else{
                             bookmarkItemClick(bookmark)
+
                         }
+
 
                         onItemSelectionChangeListener?.let{ it(selectionList)}
                     }

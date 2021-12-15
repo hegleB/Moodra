@@ -75,41 +75,6 @@ class DetailViewModel @ViewModelInject constructor(
 
     }
 
-//
-//    fun getMovieTrailerData(movieId: Integer): MutableLiveData<List<Trailer>> {
-//        scope.launch(Dispatchers.IO) {
-//            val getMovieTrailerData =
-//                repository.getMovieTrailerData(movieId, AppConstants.api_key, AppConstants.language)
-//            try {
-//                movie_trailer_data.postValue(getMovieTrailerData.results)
-//            } catch (e: Exception) {
-//                withContext(Dispatchers.Main) {
-//                    error
-//                }
-//            }
-//
-//        }
-//
-//        return movie_trailer_data
-//
-//    }
-
-//    fun getTVTrailerData(tvId: Integer): MutableLiveData<List<TVTrailer>> {
-//        scope.launch(Dispatchers.IO) {
-//            val getTVTrailerData =
-//                repository.getTVTrailerData(tvId, AppConstants.api_key, AppConstants.language)
-//            try {
-//                tv_trailer_data.postValue(getTVTrailerData.tvTrailerList)
-//            } catch (e: Exception) {
-//                withContext(Dispatchers.Main) {
-//                    error
-//                }
-//            }
-//        }
-//
-//        return tv_trailer_data
-//    }
-
     fun getMovieCredit(movieId: Integer): MutableLiveData<List<Actor>> {
 
         scope.launch(Dispatchers.IO) {
@@ -139,7 +104,8 @@ class DetailViewModel @ViewModelInject constructor(
     }
     fun getSimilar(id : Int) : Flow<PagingData<OtherContent>> { return repository.getSimilar(id).cachedIn(viewModelScope)}
     fun getRecommend(Id : Int) : Flow<PagingData<OtherContent>> { return repository.getRecommend(Id).cachedIn(viewModelScope)}
-    fun getTrailer(Id : Int) : Flow<PagingData<Trailer>> { return repository.getTrailer(Id).cachedIn(viewModelScope)}
+    fun getMovieTrailer(Id : Int) : Flow<PagingData<Trailer>> { return repository.getMovieTrailer(Id).cachedIn(viewModelScope)}
+    fun getTVTrailer(Id : Int) : Flow<PagingData<Trailer>> { return repository.getTVTrailer(Id).cachedIn(viewModelScope)}
 
 
     fun insert(bookmark: Bookmark) {

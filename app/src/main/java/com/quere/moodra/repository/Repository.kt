@@ -47,10 +47,10 @@ class Repository @Inject constructor(
     fun getMovieSearchData(query: String): Flow<PagingData<MovieSearch>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 20,
+                pageSize = 30,
                 maxSize = 200,
                 enablePlaceholders = false,
-                initialLoadSize = 10,
+                initialLoadSize = 18,
 
                 ),
             pagingSourceFactory = { MovieSearchPagingSource(mediaService, query) }
@@ -63,7 +63,7 @@ class Repository @Inject constructor(
                 pageSize = 30,
                 maxSize = 200,
                 enablePlaceholders = false,
-
+                initialLoadSize = 9
 
                 ),
             pagingSourceFactory = { MovieSearchDetailPagingSource(mediaService, query) }
@@ -75,8 +75,7 @@ class Repository @Inject constructor(
             config = PagingConfig(
                 pageSize = 20,
                 maxSize = 100,
-                enablePlaceholders = false,
-                initialLoadSize = 10,
+                enablePlaceholders = false
 
                 ),
             pagingSourceFactory = { TVSearchPagingSource(mediaService, query) }
@@ -89,7 +88,7 @@ class Repository @Inject constructor(
                 pageSize = 30,
                 maxSize = 100,
                 enablePlaceholders = false,
-
+                initialLoadSize = 9
 
                 ),
             pagingSourceFactory = { TVSearchDetailPagingSource(mediaService, query) }
@@ -102,7 +101,6 @@ class Repository @Inject constructor(
                 pageSize = 20,
                 maxSize = 100,
                 enablePlaceholders = false,
-                initialLoadSize = 10,
 
                 ),
             pagingSourceFactory = { MovieGenrePagingSource(mediaService, movie_genre) }
@@ -115,7 +113,7 @@ class Repository @Inject constructor(
                 pageSize = 20,
                 maxSize = 100,
                 enablePlaceholders = false,
-                initialLoadSize = 10,
+                initialLoadSize = 9
 
                 ),
             pagingSourceFactory = { MovieGenreDetailPagingSource(mediaService, movie_genre) }
@@ -129,7 +127,6 @@ class Repository @Inject constructor(
                 pageSize = 20,
                 maxSize = 100,
                 enablePlaceholders = false,
-                initialLoadSize = 10,
 
                 ),
             pagingSourceFactory = { TvGenrePagingSource(mediaService, tv_genre) }
@@ -142,7 +139,7 @@ class Repository @Inject constructor(
                 pageSize = 20,
                 maxSize = 100,
                 enablePlaceholders = false,
-                initialLoadSize = 10,
+                initialLoadSize = 9
 
                 ),
             pagingSourceFactory = { TVGenreDetailPagingSource(mediaService, tv_genre) }
@@ -155,7 +152,7 @@ class Repository @Inject constructor(
                 pageSize = 20,
                 maxSize = 100,
                 enablePlaceholders = false,
-                initialLoadSize = 10,
+
 
                 ),
             pagingSourceFactory = { SimilarPagingSource(mediaService, id) }
@@ -168,7 +165,7 @@ class Repository @Inject constructor(
                 pageSize = 20,
                 maxSize = 100,
                 enablePlaceholders = false,
-                initialLoadSize = 10,
+               
 
                 ),
             pagingSourceFactory = { RecommendPagingSourcec(mediaService, id) }
@@ -187,7 +184,7 @@ class Repository @Inject constructor(
 
     }
 
-    fun getTrailer(id: Int): Flow<PagingData<Trailer>> {
+    fun getMovieTrailer(id: Int): Flow<PagingData<Trailer>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 20,
@@ -197,6 +194,19 @@ class Repository @Inject constructor(
 
                 ),
             pagingSourceFactory = { MovieTrailerPagingSource(mediaService, id) }
+        ).flow
+    }
+
+    fun getTVTrailer(id: Int): Flow<PagingData<Trailer>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                maxSize = 100,
+                enablePlaceholders = false,
+                initialLoadSize = 10,
+
+                ),
+            pagingSourceFactory = { TVTrailerPagingSource(mediaService, id) }
         ).flow
     }
 

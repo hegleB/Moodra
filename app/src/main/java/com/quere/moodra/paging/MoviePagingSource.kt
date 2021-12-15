@@ -22,7 +22,8 @@ class MoviePagingSource(
             val response = mediaService.getMovie(
                 type,
                 AppConstants.language,
-                AppConstants.api_key)
+                AppConstants.api_key,
+            "KR")
             val photos = response.results
 
             LoadResult.Page(
