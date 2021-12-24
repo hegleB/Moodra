@@ -7,12 +7,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.quere.moodra.AppConstants
-import com.quere.moodra.repository.Repository
+import com.quere.moodra.repository.MovieRepository
 import com.quere.moodra.retrofit.Movie
 import kotlinx.coroutines.flow.Flow
 
 class MovieViewModel @ViewModelInject constructor(
-    private val repository: Repository
+    private val rep: MovieRepository
 ) : ViewModel() {
 
 
@@ -20,39 +20,39 @@ class MovieViewModel @ViewModelInject constructor(
     val error = MutableLiveData<String>()
 
     fun action_movies(): Flow<PagingData<Movie>> {
-        return repository.getMovieGenre(AppConstants.ACTION).cachedIn(viewModelScope)
+        return rep.getMovieGenre(AppConstants.ACTION).cachedIn(viewModelScope)
     }
 
     fun fantasy_movies(): Flow<PagingData<Movie>> {
-        return repository.getMovieGenre(AppConstants.FANTASY).cachedIn(viewModelScope)
+        return rep.getMovieGenre(AppConstants.FANTASY).cachedIn(viewModelScope)
     }
 
     fun animation_movies(): Flow<PagingData<Movie>> {
-        return repository.getMovieGenre(AppConstants.ANIMATION).cachedIn(viewModelScope)
+        return rep.getMovieGenre(AppConstants.ANIMATION).cachedIn(viewModelScope)
     }
 
     fun comedy_movies(): Flow<PagingData<Movie>> {
-        return repository.getMovieGenre(AppConstants.COMEDY).cachedIn(viewModelScope)
+        return rep.getMovieGenre(AppConstants.COMEDY).cachedIn(viewModelScope)
     }
 
     fun music_movies(): Flow<PagingData<Movie>> {
-        return repository.getMovieGenre(AppConstants.MUSIC).cachedIn(viewModelScope)
+        return rep.getMovieGenre(AppConstants.MUSIC).cachedIn(viewModelScope)
     }
 
     fun romance_movies(): Flow<PagingData<Movie>> {
-        return repository.getMovieGenre(AppConstants.ROMANCE).cachedIn(viewModelScope)
+        return rep.getMovieGenre(AppConstants.ROMANCE).cachedIn(viewModelScope)
     }
 
     fun crime_movies(): Flow<PagingData<Movie>> {
-        return repository.getMovieGenre(AppConstants.CRIME).cachedIn(viewModelScope)
+        return rep.getMovieGenre(AppConstants.CRIME).cachedIn(viewModelScope)
     }
 
     fun mystery_movies(): Flow<PagingData<Movie>> {
-        return repository.getMovieGenre(AppConstants.MYSTERY).cachedIn(viewModelScope)
+        return rep.getMovieGenre(AppConstants.MYSTERY).cachedIn(viewModelScope)
     }
 
     fun horror_movies(): Flow<PagingData<Movie>> {
-        return repository.getMovieGenre(AppConstants.HORROR).cachedIn(viewModelScope)
+        return rep.getMovieGenre(AppConstants.HORROR).cachedIn(viewModelScope)
     }
 
 
@@ -68,62 +68,62 @@ class MovieViewModel @ViewModelInject constructor(
             "액션" -> {
 
                 newResult =
-                    repository.getMovieGenreDetail(AppConstants.ACTION).cachedIn(viewModelScope)
+                    rep.getMovieGenreDetail(AppConstants.ACTION).cachedIn(viewModelScope)
 
             }
             "판타지" -> {
 
                 newResult =
-                    repository.getMovieGenreDetail(AppConstants.FANTASY).cachedIn(viewModelScope)
+                    rep.getMovieGenreDetail(AppConstants.FANTASY).cachedIn(viewModelScope)
 
 
             }
             "애니메이션" -> {
 
                 newResult =
-                    repository.getMovieGenreDetail(AppConstants.ANIMATION).cachedIn(viewModelScope)
+                    rep.getMovieGenreDetail(AppConstants.ANIMATION).cachedIn(viewModelScope)
 
 
             }
             "코미디" -> {
 
                 newResult =
-                    repository.getMovieGenreDetail(AppConstants.COMEDY).cachedIn(viewModelScope)
+                    rep.getMovieGenreDetail(AppConstants.COMEDY).cachedIn(viewModelScope)
 
 
             }
             "뮤직" -> {
 
                 newResult =
-                    repository.getMovieGenreDetail(AppConstants.MUSIC).cachedIn(viewModelScope)
+                    rep.getMovieGenreDetail(AppConstants.MUSIC).cachedIn(viewModelScope)
 
 
             }
             "로맨스" -> {
 
                 newResult =
-                    repository.getMovieGenreDetail(AppConstants.ROMANCE).cachedIn(viewModelScope)
+                    rep.getMovieGenreDetail(AppConstants.ROMANCE).cachedIn(viewModelScope)
 
 
             }
             "범죄" -> {
 
                 newResult =
-                    repository.getMovieGenreDetail(AppConstants.CRIME).cachedIn(viewModelScope)
+                    rep.getMovieGenreDetail(AppConstants.CRIME).cachedIn(viewModelScope)
 
 
             }
             "미스테리" -> {
 
                 newResult =
-                    repository.getMovieGenreDetail(AppConstants.MYSTERY).cachedIn(viewModelScope)
+                    rep.getMovieGenreDetail(AppConstants.MYSTERY).cachedIn(viewModelScope)
 
 
             }
             else -> {
 
                 newResult =
-                    repository.getMovieGenreDetail(AppConstants.HORROR).cachedIn(viewModelScope)
+                    rep.getMovieGenreDetail(AppConstants.HORROR).cachedIn(viewModelScope)
 
 
             }

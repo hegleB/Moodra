@@ -1,4 +1,4 @@
-package com.quere.moodra.view
+package com.quere.moodra.view.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

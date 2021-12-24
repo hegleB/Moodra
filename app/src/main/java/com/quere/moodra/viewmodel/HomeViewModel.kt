@@ -5,25 +5,27 @@ import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.quere.moodra.AppConstants
-import com.quere.moodra.repository.Repository
+import com.quere.moodra.repository.MovieRepository
+import com.quere.moodra.repository.TVRepository
 import com.quere.moodra.retrofit.Movie
 import com.quere.moodra.retrofit.TVshow
 import kotlinx.coroutines.flow.Flow
 
 
 class HomeViewModel @ViewModelInject constructor(
-    private val repository: Repository
+    private val movieRepo: MovieRepository,
+    private val tvRepo: TVRepository
 ): ViewModel() {
 
 
-    fun now_movies() : Flow<PagingData<Movie>> { return repository.getMoviesData(AppConstants.NOW_PLAYING).cachedIn(viewModelScope)}
-    fun popular_movies() :Flow<PagingData<Movie>> { return repository.getMoviesData(AppConstants.POPULAR).cachedIn(viewModelScope)}
-    fun top_movies() : Flow<PagingData<Movie>>{ return repository.getMoviesData(AppConstants.TOP_RATED).cachedIn(viewModelScope)}
-    fun upcoming_movies() :Flow<PagingData<Movie>> { return repository.getMoviesData(AppConstants.UPCOMING).cachedIn(viewModelScope)}
+    fun now_movies() : Flow<PagingData<Movie>> { return movieRepo.getMoviesData(AppConstants.NOW_PLAYING).cachedIn(viewModelScope)}
+    fun popular_movies() :Flow<PagingData<Movie>> { return movieRepo.getMoviesData(AppConstants.POPULAR).cachedIn(viewModelScope)}
+    fun top_movies() : Flow<PagingData<Movie>>{ return movieRepo.getMoviesData(AppConstants.TOP_RATED).cachedIn(viewModelScope)}
+    fun upcoming_movies() :Flow<PagingData<Movie>> { return movieRepo.getMoviesData(AppConstants.UPCOMING).cachedIn(viewModelScope)}
 
-    fun onair_tv(): Flow<PagingData<TVshow>> {return repository.getTvData(AppConstants.ONTHEAIR).cachedIn(viewModelScope)}
-    fun popular_tv(): Flow<PagingData<TVshow>> {return repository.getTvData(AppConstants.POPULAR).cachedIn(viewModelScope)}
-    fun top_tv(): Flow<PagingData<TVshow>> {return repository.getTvData(AppConstants.TOP_RATED).cachedIn(viewModelScope)}
+    fun onair_tv(): Flow<PagingData<TVshow>> {return tvRepo.getTvData(AppConstants.ONTHEAIR).cachedIn(viewModelScope)}
+    fun popular_tv(): Flow<PagingData<TVshow>> {return tvRepo.getTvData(AppConstants.POPULAR).cachedIn(viewModelScope)}
+    fun top_tv(): Flow<PagingData<TVshow>> {return tvRepo.getTvData(AppConstants.TOP_RATED).cachedIn(viewModelScope)}
 
 
 

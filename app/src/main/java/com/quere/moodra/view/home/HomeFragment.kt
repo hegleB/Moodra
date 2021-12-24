@@ -1,7 +1,6 @@
-package com.quere.moodra.view
+package com.quere.moodra.view.home
 
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,12 +10,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.quere.moodra.AppConstants
@@ -29,8 +28,8 @@ import com.quere.moodra.retrofit.Movie
 import com.quere.moodra.retrofit.TVshow
 import com.quere.moodra.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -62,9 +61,11 @@ class HomeFragment : Fragment() {
 
     protected fun navigateUp() {
 
-        if (doubleBackToExit) {
+        if (doubleBackToExit==true) {
             requireActivity().finishAffinity()
-        } else {
+        }
+
+        if(doubleBackToExit==false){
             Toast.makeText(requireContext(), "종료하시려면 뒤로가기를 한번 더 눌러주세요.", Toast.LENGTH_SHORT)
                 .show()
             doubleBackToExit = true
@@ -90,25 +91,25 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            MovieRecycler(movieNowplayingRecyclerview, AppConstants.NOW_PLAYING)
-            MovieRecycler(moviePopularRecyclerview, AppConstants.POPULAR)
-            MovieRecycler(movieTopratedRecyclerview, AppConstants.TOP_RATED)
-            MovieRecycler(movieUpcomingRecyclerview, AppConstants.UPCOMING)
+            getMovieRecycler(movieNowplayingRecyclerview, AppConstants.NOW_PLAYING)
+            getMovieRecycler(moviePopularRecyclerview, AppConstants.POPULAR)
+            getMovieRecycler(movieTopratedRecyclerview, AppConstants.TOP_RATED)
+            getMovieRecycler(movieUpcomingRecyclerview, AppConstants.UPCOMING)
 
-            TVshowRecycler(tvOntheairRecyclerview, AppConstants.ONTHEAIR)
-            TVshowRecycler(tvPopularRecyclerview, AppConstants.POPULAR)
-            TVshowRecycler(tvTopratedRecyclerview, AppConstants.TOP_RATED)
+            getTVshowRecycler(tvOntheairRecyclerview, AppConstants.ONTHEAIR)
+            getTVshowRecycler(tvPopularRecyclerview, AppConstants.POPULAR)
+            getTVshowRecycler(tvTopratedRecyclerview, AppConstants.TOP_RATED)
 
             movies.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(p0: View?) {
-                    findNavController().navigate(R.id.movieFragment)
+                    findNavController().navigate(R.id.nav_home_MovieGenre)
                 }
 
             })
 
             tvShow.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(p0: View?) {
-                    findNavController().navigate(R.id.TVshowFragment)
+                    findNavController().navigate(R.id.nav_home_TVshowGenre)
                 }
 
             })
@@ -118,10 +119,10 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun MovieDialog(movie: Movie) {
+    private fun moveMovieToDetail(movie: Movie) {
 
 
-        val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+        val MovieToDetail = HomeFragmentDirections.actionNavHomeHomeToNavHomeDetail(
 
             "movie",
             movie.title ?: "제목 없음",
@@ -135,16 +136,16 @@ class HomeFragment : Fragment() {
 
             )
 
-        findNavController().navigate(direction)
+        findNavController().navigate(MovieToDetail)
 
 
     }
 
 
-    private fun TVDialog(tvshow: TVshow) {
+    private fun moveTVToDetail(tvshow: TVshow) {
 
 
-        val direction = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+        val TvToDetail = HomeFragmentDirections.actionNavHomeHomeToNavHomeDetail(
             "tv",
             tvshow.name ?: "이름 엾음",
             tvshow.id,
@@ -155,18 +156,36 @@ class HomeFragment : Fragment() {
             tvshow.first_air_date ?: "방영날짜 없음",
             tvshow.vote_average ?: "0",
         )
-        findNavController().navigate(direction)
+        findNavController().navigate(TvToDetail)
 
 
     }
 
-    private fun MovieRecycler(
+    private fun getMovieRecycler(
         recyclerView: RecyclerView,
         type: String
     ) {
-        val adapter = MovieAdapter({ movie -> MovieDialog(movie) },
-            { movie -> MovieDialog(movie) })
-        adapter.notifyDataSetChanged()
+        val adapter = MovieAdapter({ movie -> moveMovieToDetail(movie) },
+            { movie -> moveMovieToDetail(movie) })
+
+        adapter.addLoadStateListener { loadState ->
+            binding.apply {
+
+                if (loadState.refresh is LoadState.Loading) {
+                    homeScrollview.visibility = View.GONE
+                    homeStl.visibility = View.VISIBLE
+
+                }
+
+                if(loadState.refresh is LoadState.NotLoading){
+
+                    homeStl.visibility = View.GONE
+                    homeScrollview.visibility = View.VISIBLE
+
+
+                }
+            }
+        }
         when (type) {
             AppConstants.NOW_PLAYING -> viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.now_movies().collectLatest {
@@ -203,12 +222,12 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun TVshowRecycler(
+    private fun getTVshowRecycler(
         recyclerView: RecyclerView,
         type: String
     ) {
-        val adapter = TVshowAdapter({ TVshow -> TVDialog(TVshow) },
-            { TVshow -> TVDialog(TVshow) })
+        val adapter = TVshowAdapter({ TVshow -> moveTVToDetail(TVshow) },
+            { TVshow -> moveTVToDetail(TVshow) })
 
         when (type) {
             AppConstants.ONTHEAIR -> viewLifecycleOwner.lifecycleScope.launch {

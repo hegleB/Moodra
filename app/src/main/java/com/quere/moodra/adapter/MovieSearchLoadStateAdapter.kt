@@ -29,7 +29,8 @@ class MovieSearchLoadStateAdapter(private val retry: () -> Unit) :
         fun bind(loadState: LoadState){
             binding.apply {
 
-                errorMsg.isVisible = loadState is LoadState.Error
+
+
             }
         }
 

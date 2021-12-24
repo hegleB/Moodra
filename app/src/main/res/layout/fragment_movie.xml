@@ -42,51 +42,18 @@
 
                     <TextView
                         android:id="@+id/home"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:padding="10dp"
-                        android:layout_weight="1"
-                        android:background="?selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:text="홈"
-                        android:textStyle="bold"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="15dp" />
+                        android:text="@string/home_text"
+                        style="@style/AppbarTextStyle" />
 
                     <TextView
                         android:id="@+id/movies_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="10dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/bottom_line"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:text="영화"
-                        android:textAlignment="center"
-                        android:textColor="#F5FFFFFF"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
+                        android:text="@string/movie_text"
+                        style="@style/AppbarCurrentTextStyle" />
 
                     <TextView
                         android:id="@+id/tv_show_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:padding="10dp"
-                        android:layout_weight="1"
-                        android:background="?selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:text="TV 프로그램"
-                        android:textAlignment="center"
-                        android:textColor="#FFFFFFFF"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
+                        android:text="@string/tv_text"
+                        style="@style/AppbarTextStyle"/>
                 </LinearLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -106,27 +73,14 @@
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/movie_popular_viewpager"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:scaleType="fitXY"
+                    style="@style/GenreViewPagerStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/viewpader_number"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="10/20"
-                    android:textSize="10dp"
-                    android:textColor="@color/white"
-                    android:padding="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginRight="20dp"
-                    android:gravity="center"
-                    android:background="@drawable/round_corner"
+                    style="@style/GenreViewPagerCounterStyle"
                     app:layout_constraintBottom_toTopOf="@+id/movie_indicator_layout"
                     app:layout_constraintEnd_toEndOf="@+id/movie_popular_viewpager"/>
 
@@ -138,24 +92,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/movie_popular_viewpager">
 
-                    <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
-                        android:id="@+id/movie_indicator"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        app:spi_dotSelectedColor="@color/white"
-                        app:spi_looped="false"/>
-
                 </RelativeLayout>
 
                 <TextView
                     android:id="@+id/movie_action_action_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
                     android:text="#액션"
-                    android:textSize="30dp"
-                    android:textColor="@color/white"
+                    style="@style/GenreTextViewStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -165,9 +107,7 @@
 
                 <TextView
                     android:id="@+id/movie_action_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="전체보기>"
+                    style="@style/GenreAllTextStyle"
                     app:layout_constraintBottom_toBottomOf="@+id/movie_action_action_text_view"
                     app:layout_constraintEnd_toEndOf="@+id/movie_action_action_text_view"
                     app:layout_constraintHorizontal_bias="0.952"
@@ -177,32 +117,23 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_action_action_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/GenreRecyclerViewStyle"
                     app:layout_constraintTop_toBottomOf="@+id/movie_action_action_text_view"
-                    tools:listitem="@layout/item_genre_movie" />
+                    tools:listitem="@layout/item_genre_movie"
+                    tools:ignore="MissingConstraints" />
 
 
                 <TextView
                     android:id="@+id/movie_fantasy_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
                     android:text="#판타지"
-                    android:textSize="30dp"
-                    android:textColor="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_action_action_recyclerview" />
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_action_action_recyclerview"
+                    tools:ignore="MissingConstraints" />
 
 
                 <TextView
                     android:id="@+id/movie_fantasy_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="전체보기>"
+                    style="@style/GenreAllTextStyle"
                     app:layout_constraintBottom_toBottomOf="@+id/movie_fantasy_text_view"
                     app:layout_constraintEnd_toEndOf="@+id/movie_fantasy_text_view"
                     app:layout_constraintHorizontal_bias="0.952"
@@ -212,31 +143,23 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_fantasy_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/GenreRecyclerViewStyle"
                     app:layout_constraintTop_toBottomOf="@+id/movie_fantasy_text_view"
-                    tools:listitem="@layout/item_genre_movie" />
+                    tools:listitem="@layout/item_genre_movie"
+                    tools:ignore="MissingConstraints" />
 
 
                 <TextView
                     android:id="@+id/movie_animation_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
                     android:text="#애니메이션"
-                    android:textSize="30dp"
-                    android:textColor="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_fantasy_recyclerview" />
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_fantasy_recyclerview"
+                    tools:ignore="MissingConstraints" />
 
 
                 <TextView
                     android:id="@+id/movie_animation_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="전체보기>"
+                    style="@style/GenreAllTextStyle"
                     app:layout_constraintBottom_toBottomOf="@+id/movie_animation_text_view"
                     app:layout_constraintEnd_toEndOf="@+id/movie_animation_text_view"
                     app:layout_constraintHorizontal_bias="0.952"
@@ -245,31 +168,22 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_animation_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/GenreRecyclerViewStyle"
                     app:layout_constraintTop_toBottomOf="@+id/movie_animation_text_view"
-                    tools:listitem="@layout/item_genre_movie" />
+                    tools:listitem="@layout/item_genre_movie"
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/movie_music_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
                     android:text="#뮤직"
-                    android:textSize="30dp"
-                    android:textColor="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_animation_recyclerview" />
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_animation_recyclerview"
+                    tools:ignore="MissingConstraints" />
 
 
                 <TextView
                     android:id="@+id/movie_music_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="전체보기>"
+                    style="@style/GenreAllTextStyle"
                     app:layout_constraintBottom_toBottomOf="@+id/movie_music_text_view"
                     app:layout_constraintEnd_toEndOf="@+id/movie_music_text_view"
                     app:layout_constraintHorizontal_bias="0.952"
@@ -278,30 +192,21 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_music_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/GenreRecyclerViewStyle"
                     app:layout_constraintTop_toBottomOf="@+id/movie_music_text_view"
-                    tools:listitem="@layout/item_genre_movie" />
+                    tools:listitem="@layout/item_genre_movie"
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/movie_comedy_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
                     android:text="#코미디"
-                    android:textSize="30dp"
-                    android:textColor="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_music_recyclerview" />
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_music_recyclerview"
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/movie_comedy_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="전체보기>"
+                    style="@style/GenreAllTextStyle"
                     app:layout_constraintBottom_toBottomOf="@+id/movie_comedy_text_view"
                     app:layout_constraintEnd_toEndOf="@+id/movie_comedy_text_view"
                     app:layout_constraintHorizontal_bias="0.952"
@@ -310,30 +215,21 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_comedy_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/GenreRecyclerViewStyle"
                     app:layout_constraintTop_toBottomOf="@+id/movie_comedy_text_view"
-                    tools:listitem="@layout/item_genre_movie" />
+                    tools:listitem="@layout/item_genre_movie"
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/movie_romance_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
                     android:text="#로맨스"
-                    android:textSize="30dp"
-                    android:textColor="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_comedy_recyclerview" />
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_comedy_recyclerview"
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/movie_romance_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="전체보기>"
+                    style="@style/GenreAllTextStyle"
                     app:layout_constraintBottom_toBottomOf="@+id/movie_romance_text_view"
                     app:layout_constraintEnd_toEndOf="@+id/movie_romance_text_view"
                     app:layout_constraintHorizontal_bias="0.952"
@@ -342,30 +238,21 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_romance_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/GenreRecyclerViewStyle"
                     app:layout_constraintTop_toBottomOf="@+id/movie_romance_text_view"
-                    tools:listitem="@layout/item_genre_movie" />
+                    tools:listitem="@layout/item_genre_movie"
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/movie_crime_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
                     android:text="#범죄"
-                    android:textSize="30dp"
-                    android:textColor="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_romance_recyclerview" />
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_romance_recyclerview"
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/movie_crime_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="전체보기>"
+                    style="@style/GenreAllTextStyle"
                     app:layout_constraintBottom_toBottomOf="@+id/movie_crime_text_view"
                     app:layout_constraintEnd_toEndOf="@+id/movie_crime_text_view"
                     app:layout_constraintHorizontal_bias="0.952"
@@ -374,31 +261,22 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_crime_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/GenreRecyclerViewStyle"
                     app:layout_constraintTop_toBottomOf="@+id/movie_crime_text_view"
-                    tools:listitem="@layout/item_genre_movie" />
+                    tools:listitem="@layout/item_genre_movie"
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/movie_mystery_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
                     android:text="#미스테리"
-                    android:textSize="30dp"
-                    android:textColor="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_crime_recyclerview" />
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_crime_recyclerview"
+                    tools:ignore="MissingConstraints" />
 
 
                 <TextView
                     android:id="@+id/movie_mystery_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="전체보기>"
+                    style="@style/GenreAllTextStyle"
                     app:layout_constraintBottom_toBottomOf="@+id/movie_mystery_text_view"
                     app:layout_constraintEnd_toEndOf="@+id/movie_mystery_text_view"
                     app:layout_constraintHorizontal_bias="0.952"
@@ -407,30 +285,21 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_mystery_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/GenreRecyclerViewStyle"
                     app:layout_constraintTop_toBottomOf="@+id/movie_mystery_text_view"
-                    tools:listitem="@layout/item_genre_movie" />
+                    tools:listitem="@layout/item_genre_movie"
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/movie_horror_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
                     android:text="#호러"
-                    android:textSize="30dp"
-                    android:textColor="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_mystery_recyclerview" />
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_mystery_recyclerview"
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/movie_horror_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="전체보기>"
+                    style="@style/GenreAllTextStyle"
                     app:layout_constraintBottom_toBottomOf="@+id/movie_horror_text_view"
                     app:layout_constraintEnd_toEndOf="@+id/movie_horror_text_view"
                     app:layout_constraintHorizontal_bias="0.952"
@@ -439,16 +308,23 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_horror_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/GenreRecyclerViewStyle"
                     app:layout_constraintTop_toBottomOf="@+id/movie_horror_text_view"
-                    tools:listitem="@layout/item_genre_movie" />
+                    tools:listitem="@layout/item_genre_movie"
+                    tools:ignore="MissingConstraints" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/movie_stl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/item_genre_shimmer"/>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

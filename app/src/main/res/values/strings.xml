@@ -2,8 +2,33 @@
     <string name="app_name">Moodra</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_menu_first">홈</string>
-    <string name="title_menu_search">검색</string>
-    <string name="title_menu_second">북마크</string>
-    <string name="adult_movie">19세</string>
+    <string name="home_text">홈</string>
+    <string name="search_text">검색</string>
+    <string name="bookmark_text">북마크</string>
+    <string name="adult_text">19세</string>
+    <string name="delete_bookmark">북마크 삭제</string>
+    <string name="add_bookmark">북마크 추가</string>
+
+
+    <string name="movie_text">영화</string>
+    <string name="tv_text">TV프로그램</string>
+
+    <string name="movie_nowplaying">현재 상영 영화</string>
+    <string name="movie_toprated">평점 높은 영화</string>
+    <string name="movie_popular">인기 영화</string>
+    <string name="movie_upcoming">개봉 예정 영화</string>
+    <string name="tv_nowplaying">현재 방영 프로그램</string>
+    <string name="tv_toprated">평점 높은 프로그램</string>
+    <string name="tv_popular">인기 프로그램</string>
+    
+    <string name="delete">삭제</string>
+    <string name="delete_all">전체 삭제</string>
+    <string name="delete_selection">선택 삭제</string>
+    <string name="edit">편집하기</string>
+    <string name="finish_editithing">편집완료</string>
+    
+    
+
+
+
 </resources>

@@ -1,4 +1,4 @@
-package com.quere.moodra.view
+package com.quere.moodra.view.detail
 
 
 import android.animation.ValueAnimator
@@ -25,16 +25,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.quere.moodra.AppConstants
 import com.quere.moodra.R
 import com.quere.moodra.adapter.*
 import com.quere.moodra.databinding.FragmentDetailBinding
+import com.quere.moodra.imagebind.ImageBindingAdapter
 import com.quere.moodra.retrofit.*
 import com.quere.moodra.room.Bookmark
 import com.quere.moodra.viewmodel.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.fragment_detail.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -46,8 +47,8 @@ import kotlinx.coroutines.withContext
 class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
-    val baseUrl = "https://image.tmdb.org/t/p/w500/"
-    val twoDepArgs by navArgs<DetailFragmentArgs>()
+
+    val DetailArgs by navArgs<DetailFragmentArgs>()
     private val detailviewModel by viewModels<DetailViewModel>()
 
     override fun onCreateView(
@@ -73,43 +74,46 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        when (twoDepArgs.type) {
-            "movie" -> getRecyclerViewData(Integer(twoDepArgs.id))
-            else -> getRecyclerViewData(Integer(twoDepArgs.id))
+        when (DetailArgs.type) {
+
+            AppConstants.MOVIE -> getRecyclerViewData(Integer(DetailArgs.id))
+            else -> getRecyclerViewData(Integer(DetailArgs.id))
         }
+
         binding.apply {
 
 
-            Glide.with(detailBackdrop.context).load(baseUrl + twoDepArgs.backdropPath)
-                .apply(RequestOptions.bitmapTransform(BlurTransformation(13, 3)))
-                .error(R.drawable.movielogo)
-                .into(
-                    view.detail_backdrop
-                )
+
 
             detailToolbar.inflateMenu(R.menu.detail_menu)
-            val mark = Bookmark(
-                twoDepArgs.id,
-                twoDepArgs.title,
-                twoDepArgs.overview,
-                twoDepArgs.isAdult,
-                twoDepArgs.posterPath,
-                twoDepArgs.backdropPath,
-                twoDepArgs.releaseDate,
-                twoDepArgs.voteAverage
+
+            val bookmark = Bookmark(
+                DetailArgs.id,
+                DetailArgs.title,
+                DetailArgs.overview,
+                DetailArgs.isAdult,
+                DetailArgs.posterPath,
+                DetailArgs.backdropPath,
+                DetailArgs.releaseDate,
+                DetailArgs.voteAverage
             )
 
             var _isCheck = false
+
             CoroutineScope(Dispatchers.IO).launch {
-                val count = detailviewModel.check(mark.id.toString())
+                val count = detailviewModel.check(bookmark.id.toString())
 
                 withContext(Dispatchers.Main) {
                     if (count > 0) {
                         _isCheck = true
-                        detailToolbar.menu.getItem(0).setIcon(R.drawable.ic_baseline_bookmark_exist)
+
+                        setBookmarkImage(R.drawable.ic_baseline_bookmark_exist)
+
+
                     } else {
                         _isCheck = false
-                        detailToolbar.menu.getItem(0).setIcon(R.drawable.ic_baseline_bookmark_24)
+
+                        setBookmarkImage(R.drawable.ic_baseline_bookmark_24)
                     }
                 }
             }
@@ -124,17 +128,18 @@ class DetailFragment : Fragment() {
 
 
                             if (_isCheck == true) {
+
                                 _isCheck = false
-                                detailToolbar.menu.getItem(0)
-                                    .setIcon(R.drawable.ic_baseline_bookmark_24)
-                                detailviewModel.delete(mark)
-                                Toast.makeText(requireContext(), "북마크 삭제", Toast.LENGTH_LONG).show()
+                                setBookmarkImage(R.drawable.ic_baseline_bookmark_24)
+                                detailviewModel.delete(bookmark)
+                                showToastMessage(R.string.delete_bookmark)
+
                             } else {
+
                                 _isCheck = true
-                                detailviewModel.insert(mark)
-                                detailToolbar.menu.getItem(0)
-                                    .setIcon(R.drawable.ic_baseline_bookmark_exist)
-                                Toast.makeText(requireContext(), "북마크 추가", Toast.LENGTH_LONG).show()
+                                detailviewModel.insert(bookmark)
+                                setBookmarkImage(R.drawable.ic_baseline_bookmark_exist)
+                                showToastMessage(R.string.add_bookmark)
                             }
                         }
 
@@ -153,43 +158,50 @@ class DetailFragment : Fragment() {
 
             })
 
-            val spannable: Spannable = SpannableString(twoDepArgs.title)
+            val spannable: Spannable = SpannableString(DetailArgs.title)
             spannable.setSpan(
                 BackgroundColorSpan(
                     resources.getColor(android.R.color.black)
-                ), 0, twoDepArgs.title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                ), 0, DetailArgs.title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
 
             detailCollasingtoolbar.title = spannable
-            detailReleaseDate.text = twoDepArgs.releaseDate
-            if (twoDepArgs.type == "movie") {
-                detailviewModel.getMovieDetailData(twoDepArgs.id)
-                    .observe(viewLifecycleOwner, Observer {
+            detailReleaseDate.text = DetailArgs.releaseDate
 
-                        detailRuntime.text = it.runtime.toString() + "분"
-                        detailGenre.text = genreParsing(it.genres!!)
+
+            if (DetailArgs.type == AppConstants.MOVIE) {
+                detailviewModel.getMovieDetailData(DetailArgs.id)
+                    .observe(viewLifecycleOwner, Observer { movieData ->
+
+                        detailRuntime.text = movieData.runtime.toString() + "분"
+                        detailGenre.text = getGenreParsing(movieData.genres!!)
                     })
             } else {
-                detailviewModel.getTVDetailData(Integer(twoDepArgs.id))
-                    .observe(viewLifecycleOwner, Observer {
-                        detailGenre.text = genreParsing(it.genres!!)
+                detailviewModel.getTVDetailData(Integer(DetailArgs.id))
+                    .observe(viewLifecycleOwner, Observer { tvData ->
+                        detailGenre.text = getGenreParsing(tvData.genres!!)
                     })
             }
 
-            detailOverview.text = twoDepArgs.overview
-            Glide.with(detailPoster.context).load(baseUrl + twoDepArgs.posterPath)
-                .error(R.drawable.movielogo).into(
-                    detailPoster
-                )
+
+
+            detailOverview.text = DetailArgs.overview
+
+            ImageBindingAdapter.detailBackdropImage(detailBackdrop,DetailArgs.backdropPath)
+            ImageBindingAdapter.detailPosterImage(detailPoster,DetailArgs.posterPath)
+
             detailCollasingtoolbar.setExpandedTitleTextAppearance(R.style.ExpandedTitleText)
             detailCollasingtoolbar.setCollapsedTitleTextAppearance(R.style.CollapsedTitleText)
 
-            var count = (twoDepArgs.voteAverage.toFloat() * 10).toInt()
-            simulateProgress(count)
 
-            ContentRecycler(detailSimiliarRecyclerview, "similar")
-            ContentRecycler(detailRecommendRecyclerview, "recommend")
-            TrailerRecycler(detailTrailerRecyclerview,twoDepArgs.type)
+
+            var count = (DetailArgs.voteAverage.toFloat() * 10).toInt()
+            getSimulateProgress(count)
+
+            getContentRecycler(detailSimiliarRecyclerview, AppConstants.SIMILAR)
+            getContentRecycler(detailRecommendRecyclerview, AppConstants.RECOMMEND)
+
+            getTrailerRecycler(detailTrailerRecyclerview,DetailArgs.type)
         }
 
     }
@@ -206,69 +218,77 @@ class DetailFragment : Fragment() {
     }
 
     private fun getRecyclerViewData(Id: Integer) {
-        if (twoDepArgs.type == "movie") {
-            detailviewModel.getMovieCredit(Id).observe(viewLifecycleOwner, Observer {
-                CreditRecycler(it, actor_recycler)
+        if (DetailArgs.type == AppConstants.MOVIE) {
+            detailviewModel.getMovieCredit(Id).observe(viewLifecycleOwner, Observer { MovieActorList ->
+                getCreditRecycler(MovieActorList, actor_recycler)
 
             })
-        } else {
-            detailviewModel.getTVCredit(Id).observe(viewLifecycleOwner, Observer {
-                CreditRecycler(it, actor_recycler)
+        }
+
+        if(DetailArgs.type == AppConstants.TV){
+            detailviewModel.getTVCredit(Id).observe(viewLifecycleOwner, Observer { TvActorList ->
+                getCreditRecycler(TvActorList, actor_recycler)
             })
         }
 
     }
 
-    private fun CreditRecycler(actorList: List<Actor>, recyclerView: RecyclerView) {
+    private fun getCreditRecycler(actorList: List<Actor>, recyclerView: RecyclerView) {
 
         val creditAdapter = CreditAdapter()
 
 
         creditAdapter.submitList(actorList)
         recyclerView.adapter = creditAdapter
-        recyclerSetting(recyclerView)
+        getRecyclerView(recyclerView)
     }
 
-    private fun TrailerRecycler(recyclerView: RecyclerView,type: String) {
+    private fun getTrailerRecycler(recyclerView: RecyclerView,type: String) {
 
-        val adapter = TrailerAdapter({ trailer -> trailerDialog(trailer) },
-            { trailer -> trailerDialog(trailer) })
+        val adapter = TrailerAdapter({ trailer -> getTrailerDialog(trailer) },
+            { trailer -> getTrailerDialog(trailer) })
 
-        if(type=="movie") {
+        if(type==AppConstants.MOVIE) {
             viewLifecycleOwner.lifecycleScope.launch {
-                detailviewModel.getMovieTrailer(twoDepArgs.id).collectLatest {
+
+                detailviewModel.getMovieTrailer(DetailArgs.id).collectLatest {
                     adapter.submitData(it)
 
                 }
             }
         }
-        else {
+
+
+        if(type==AppConstants.TV){
+
             viewLifecycleOwner.lifecycleScope.launch {
-                detailviewModel.getTVTrailer(twoDepArgs.id).collectLatest {
+                detailviewModel.getTVTrailer(DetailArgs.id).collectLatest {
                     adapter.submitData(it)
 
                 }
             }
         }
         recyclerView.adapter = adapter
-        recyclerSetting(recyclerView)
+        getRecyclerView(recyclerView)
 
     }
 
 
-    private fun ContentRecycler(recyclerView: RecyclerView, other: String) {
-        val adapter = DetailContentsAdapter({ contents -> ContentsDialog(contents) },
-            { contents -> ContentsDialog(contents) })
+    private fun getContentRecycler(recyclerView: RecyclerView, other: String) {
+        val adapter = DetailContentsAdapter({ contents -> moveDetailToContentDetail(contents) },
+            { contents -> moveDetailToContentDetail(contents) })
 
-        if (other == "similar") {
+        if (other == AppConstants.SIMILAR) {
             viewLifecycleOwner.lifecycleScope.launch {
-                detailviewModel.getSimilar(twoDepArgs.id).collectLatest {
+                detailviewModel.getSimilar(DetailArgs.id).collectLatest {
                     adapter.submitData(it)
                 }
             }
-        } else {
+        }
+
+        if(other == AppConstants.RECOMMEND){
             viewLifecycleOwner.lifecycleScope.launch {
-                detailviewModel.getRecommend(twoDepArgs.id).collectLatest {
+                detailviewModel.getRecommend(DetailArgs.id).collectLatest {
                     adapter.submitData(it)
                 }
             }
@@ -276,11 +296,11 @@ class DetailFragment : Fragment() {
         }
 
         recyclerView.adapter = adapter
-        recyclerSetting(recyclerView)
+        getRecyclerView(recyclerView)
     }
 
 
-    private fun simulateProgress(count: Int) {
+    fun getSimulateProgress(count: Int) {
         val animator = ValueAnimator.ofInt(0, count)
         animator.addUpdateListener { animation ->
             val progress = animation.animatedValue as Int
@@ -293,12 +313,12 @@ class DetailFragment : Fragment() {
     }
 
 
-    private fun ContentsDialog(movie: OtherContent) {
+    fun moveDetailToContentDetail(movie: OtherContent) {
 
 
-        val direction = DetailFragmentDirections.actionDetailFragmentSelf(
+        val DetailToContentDetail = DetailFragmentDirections.actionDetailSelf(
 
-            "movie",
+            AppConstants.MOVIE,
             movie.title ?: "제목 없음",
             movie.id,
             movie.overview ?: "줄거리 없음",
@@ -310,12 +330,12 @@ class DetailFragment : Fragment() {
 
         )
 
-        findNavController().navigate(direction)
+        findNavController().navigate(DetailToContentDetail)
 
 
     }
 
-    private fun trailerDialog(trailer: Trailer) {
+    fun getTrailerDialog(trailer: Trailer) {
 
         val args = Bundle()
         args.putString("key", trailer.key)
@@ -325,7 +345,7 @@ class DetailFragment : Fragment() {
 
     }
 
-    private fun recyclerSetting(recyclerView: RecyclerView) {
+    fun getRecyclerView(recyclerView: RecyclerView) {
         recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recyclerView.addItemDecoration(HorizontalItemDecorator(10))
@@ -333,7 +353,7 @@ class DetailFragment : Fragment() {
     }
 
 
-    fun genreParsing(genreList: List<Genre>): String {
+    fun getGenreParsing(genreList: List<Genre>): String {
         var genre = ""
         for (g in genreList) {
             genre += "${g.name}, "
@@ -342,5 +362,15 @@ class DetailFragment : Fragment() {
 
     }
 
+    fun setBookmarkImage(boomarkImage : Int){
+        binding.apply {
+            detailToolbar.menu.getItem(0)
+                .setIcon(boomarkImage)
+        }
+    }
+
+    fun showToastMessage(message: Int){
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
 
 }

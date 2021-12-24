@@ -31,7 +31,7 @@
             android:layout_height="150dp"
             android:layout_marginStart="4dp"
             android:scaleType="fitXY"
-            android:src="@drawable/movielogo"
+            android:src="@drawable/img_movielogo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

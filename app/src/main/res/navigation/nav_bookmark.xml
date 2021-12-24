@@ -3,22 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_bookmark"
-    app:startDestination="@id/bookmarkFragment2">
-
+    app:startDestination="@id/nav_bookmark_Bookmark">
     <fragment
-        android:id="@+id/bookmarkFragment2"
-        android:name="com.quere.moodra.view.BookmarkFragment"
-        android:label="BookmarkFragment2"
-        tools:layout="@layout/fragment_bookmark">
-        <action
-            android:id="@+id/action_bookmarkFragment_to_detailFragment2"
-            app:destination="@id/detailFragment3" />
+        android:id="@+id/nav_bookmark_Video"
+        android:name="com.quere.moodra.view.detail.VideoFragment"
+        android:label="VideoFragment" >
+        <argument android:name="videoId" />
     </fragment>
     <fragment
-        android:id="@+id/detailFragment3"
-        android:name="com.quere.moodra.view.DetailFragment"
+        android:id="@+id/nav_bookmark_Bookmark"
+        android:name="com.quere.moodra.view.bookmark.BookmarkFragment"
+        android:label="BookmarkFragment" >
+        <action
+            android:id="@+id/action_nav_bookmark_Bookmark_to_nav_bookmark_Detail"
+            app:destination="@id/nav_bookmark_Detail" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_bookmark_Detail"
+        android:name="com.quere.moodra.view.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail">
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_Detail_self"
+            app:destination="@id/nav_bookmark_Detail" />
+        <action
+            android:id="@+id/action_nav_bookmark_Detail_to_nav_bookmark_Video"
+            app:destination="@id/nav_bookmark_Video" />
 
         <argument
             android:name="type"
@@ -49,23 +61,6 @@
             android:name="vote_average"
             app:argType="string" />
 
-        <action
-            android:id="@+id/action_detailFragment3_self"
-            app:destination="@id/detailFragment3" />
-        <action
-            android:id="@+id/action_detailFragment3_to_videoFragment"
-            app:destination="@id/videoFragment" />
 
-    </fragment>
-    <fragment
-        android:id="@+id/videoFragment"
-        android:name="com.quere.moodra.view.VideoFragment"
-        android:label="VideoFragment" >
-        <action
-            android:id="@+id/action_videoFragment_to_detailFragment3"
-            app:destination="@id/detailFragment3" />
-        <argument
-            android:name="videoId"
-            app:argType="string" />
     </fragment>
 </navigation>

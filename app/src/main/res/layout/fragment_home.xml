@@ -42,51 +42,18 @@
 
                     <TextView
                         android:id="@+id/home"
-                        android:layout_width="1dp"
-                        android:padding="10dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bottom_line"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:text="홈"
-                        android:textStyle="bold"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="15dp" />
+                        android:text="@string/home_text"
+                        style="@style/AppbarCurrentTextStyle" />
 
                     <TextView
                         android:id="@+id/movies"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="10dp"
-                        android:layout_marginStart="16dp"
-                        android:background="?selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:text="영화"
-                        android:textStyle="bold"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="15dp" />
+                        android:text="@string/movie_text"
+                        style="@style/AppbarTextStyle" />
 
                     <TextView
                         android:id="@+id/tv_show"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:background="?selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:text="TV 프로그램"
-                        android:textStyle="bold"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="15dp" />
+                        android:text="@string/tv_text"
+                        style="@style/AppbarTextStyle"/>
 
 
                 </LinearLayout>
@@ -108,37 +75,27 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/movie_nowplaying_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="64dp"
-                    android:text="현재 상영 영화"
-                    android:textColor="@android:color/white"
-                    android:textSize="28dp"
+                    android:text="@string/movie_nowplaying"
+                    style="@style/HomeRecyclerTextViewStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_nowplaying_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
+                    style="@style/HomeRecyclerViewStyle"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintTop_toBottomOf="@+id/movie_nowplaying_text_view"
-                    tools:listitem="@layout/item_movie" />
+                    tools:listitem="@layout/item_movie"
+                    tools:ignore="MissingConstraints" />
 
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/movie_toprated_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
-                    android:text="평점 높은 영화"
-                    android:textColor="@android:color/white"
-                    android:textSize="28dp"
+                    android:text="@string/movie_toprated"
+                    style="@style/HomeRecyclerTextViewStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -146,24 +103,17 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_toprated_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/HomeRecyclerViewStyle"
                     app:layout_constraintTop_toBottomOf="@+id/movie_toprated_text_view"
-                    tools:listitem="@layout/item_movie" />
+                    tools:listitem="@layout/item_movie"
+                    tools:ignore="MissingConstraints" />
 
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/movie_popular_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
-                    android:text="인기 영화"
-                    android:textColor="@android:color/white"
-                    android:textSize="28dp"
+                    android:text="@string/movie_popular"
+                    style="@style/HomeRecyclerTextViewStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -171,24 +121,17 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_popular_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/HomeRecyclerViewStyle"
                     app:layout_constraintTop_toBottomOf="@+id/movie_popular_text_view"
-                    tools:listitem="@layout/item_movie" />
+                    tools:listitem="@layout/item_movie"
+                    tools:ignore="MissingConstraints" />
 
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/movie_upcoming_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
-                    android:text="개봉 예정 영화"
-                    android:textColor="@android:color/white"
-                    android:textSize="28dp"
+                    android:text="@string/movie_upcoming"
+                    style="@style/HomeRecyclerTextViewStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -197,11 +140,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/movie_upcoming_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/HomeRecyclerViewStyle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -212,13 +151,9 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_ontheair_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
-                    android:text="현재 방영 프로그램"
-                    android:textColor="@android:color/white"
-                    android:textSize="28dp"
+                    android:text="@string/tv_nowplaying"
+                    style="@style/HomeRecyclerTextViewStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -226,11 +161,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tv_ontheair_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/HomeRecyclerViewStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -239,13 +170,9 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_toprated_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
-                    android:text="평점 높은 프로그램"
-                    android:textColor="@android:color/white"
-                    android:textSize="28dp"
+                    android:text="@string/tv_toprated"
+                    style="@style/HomeRecyclerTextViewStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -253,11 +180,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tv_toprated_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/HomeRecyclerViewStyle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -268,13 +191,9 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_popular_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
-                    android:text="인기 프로그램"
-                    android:textColor="@android:color/white"
-                    android:textSize="28dp"
+                    android:text="@string/tv_popular"
+                    style="@style/HomeRecyclerTextViewStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -282,11 +201,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/tv_popular_recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    style="@style/HomeRecyclerViewStyle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -296,5 +211,16 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/home_stl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/item_home_shimmer"/>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

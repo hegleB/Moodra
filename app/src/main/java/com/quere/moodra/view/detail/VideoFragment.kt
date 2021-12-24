@@ -1,4 +1,4 @@
-package com.quere.moodra.view
+package com.quere.moodra.view.detail
 
 import android.app.Dialog
 import android.graphics.Color
@@ -47,40 +47,39 @@ class VideoFragment : DialogFragment() {
     }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val mArgs = arguments
+        val mValue = mArgs!!.getString("key")
 
-override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    val mArgs = arguments
-    val mValue = mArgs!!.getString("key")
-
-    binding.apply {
-
-
-        youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-            override fun onReady(youTubePlayer: YouTubePlayer) {
-                super.onReady(youTubePlayer)
-                val videoId = mValue
-                youTubePlayer.loadVideo(videoId!!, 0.0f)
+        binding.apply {
 
 
-            }
-        })
+            youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    super.onReady(youTubePlayer)
+                    val videoId = mValue
+                    youTubePlayer.loadVideo(videoId!!, 0.0f)
 
-        videoIvFinishButton.setOnClickListener(object: View.OnClickListener{
-            override fun onClick(p0: View?) {
-                dismiss()
-            }
 
-        })
+                }
+            })
+
+            videoIvFinishButton.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(p0: View?) {
+                    dismiss()
+                }
+
+            })
+
+        }
+
 
     }
 
-
-}
-
-override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
 
-    return super.onCreateDialog(savedInstanceState)
-}
+        return super.onCreateDialog(savedInstanceState)
+    }
 }

@@ -1,4 +1,4 @@
-package com.quere.moodra.view
+package com.quere.moodra.view.search
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

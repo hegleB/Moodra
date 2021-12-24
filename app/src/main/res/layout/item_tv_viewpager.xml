@@ -22,7 +22,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/movielogo"
+            android:background="@drawable/img_movielogo"
             android:scaleType="fitXY"
             app:imageUrl="@{viewpager.backdrop_path}"/>
 

@@ -40,6 +40,7 @@ class TvSearchDataAdapter(val tvItemClick: (TVshowSearch) -> Unit, val tvItemLon
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie_credit = getItem(position)
+
         holder.bind(movie_credit!!)
     }
 

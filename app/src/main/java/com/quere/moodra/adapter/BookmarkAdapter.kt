@@ -30,7 +30,7 @@ class BookmarkAdapter(val bookmarkItemClick: (Bookmark) -> Unit, val isSeleted: 
 
             binding.apply {
                 Glide.with(itemView)
-                    .load(AppConstants.base_imageUrl + bookmark.poster_path)
+                    .load(AppConstants.BASE_IMAGE_URL + bookmark.poster_path)
                     .into(bookmarkImage)
 
                 bookmarkTitle.text = bookmark.title

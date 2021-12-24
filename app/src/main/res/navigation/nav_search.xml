@@ -3,27 +3,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_search"
-    app:startDestination="@id/searchFragment">
-
+    app:startDestination="@id/nav_search_Search">
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.quere.moodra.view.SearchFragment"
-        android:label="SearchFragment"
-        tools:layout="@layout/fragment_search">
+        android:id="@+id/nav_search_Search"
+        android:name="com.quere.moodra.view.search.SearchFragment"
+        android:label="SearchFragment" >
         <action
-            android:id="@+id/action_searchFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            android:id="@+id/action_nav_search_Search_to_nav_search_SearchDetatil"
+            app:destination="@id/nav_search_SearchDetatil" />
         <action
-            android:id="@+id/action_searchFragment_to_searchDetaileFragment"
-            app:destination="@id/searchDetaileFragment" />
+            android:id="@+id/action_nav_search_Search_to_nav_search_Detail"
+            app:destination="@id/nav_search_Detail" />
     </fragment>
-
-
     <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.quere.moodra.view.DetailFragment"
+        android:id="@+id/nav_search_SearchDetatil"
+        android:name="com.quere.moodra.view.search.SearchDetaileFragment"
+        android:label="SearchDetaileFragment" >
+        <action
+            android:id="@+id/action_nav_search_SearchDetatil_to_nav_search_Detail"
+            app:destination="@id/nav_search_Detail" />
+
+        <argument
+            android:name="query"
+            app:argType="string"/>
+
+        <argument
+            android:name="type"
+            app:argType="string"/>
+
+
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_search_Video"
+        android:name="com.quere.moodra.view.detail.VideoFragment"
+        android:label="VideoFragment" />
+    <fragment
+        android:id="@+id/nav_search_Detail"
+        android:name="com.quere.moodra.view.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_nav_search_Detail_to_nav_search_Video"
+            app:destination="@id/nav_search_Video" />
+        <action
+            android:id="@+id/action_Detail_self"
+            app:destination="@id/nav_search_Detail" />
+
         <argument
             android:name="type"
             app:argType="string"/>
@@ -54,53 +81,5 @@
             app:argType="string" />
 
 
-        <action
-            android:id="@+id/action_detailFragment_to_searchFragment"
-            app:destination="@id/searchFragment"
-            app:popUpTo="@id/searchFragment"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_detailFragment_to_searchDetaileFragment"
-            app:destination="@id/searchDetaileFragment"
-            app:popUpTo="@id/searchDetaileFragment"
-            app:popUpToInclusive="true"/>
-        <action
-            android:id="@+id/action_detailFragment_self2"
-            app:destination="@id/detailFragment" />
-        <action
-            android:id="@+id/action_detailFragment_to_videoFragment3"
-            app:destination="@id/videoFragment3" />
-
     </fragment>
-
-    <fragment
-        android:id="@+id/searchDetaileFragment"
-        android:name="com.quere.moodra.view.SearchDetaileFragment"
-        android:label="fragment_search_detaile"
-        tools:layout="@layout/fragment_search_detail" >
-        <action
-            android:id="@+id/action_searchDetaileFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
-        <action
-            android:id="@+id/action_searchDetaileFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <argument
-            android:name="query"
-            app:argType="string" />
-        <argument
-            android:name="type"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/videoFragment3"
-        android:name="com.quere.moodra.view.VideoFragment"
-        android:label="VideoFragment" >
-        <action
-            android:id="@+id/action_videoFragment3_to_detailFragment"
-            app:destination="@id/detailFragment" />
-        <argument
-            android:name="videoId"
-            app:argType="string" />
-    </fragment>
-
 </navigation>

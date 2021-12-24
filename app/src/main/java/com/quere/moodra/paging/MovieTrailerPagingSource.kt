@@ -19,10 +19,11 @@ class MovieTrailerPagingSource(
         return try {
             val response = mediaService.getMovieTrailer(
                 id,
-                AppConstants.api_key,
-                AppConstants.language
+                AppConstants.API_KEY,
+                AppConstants.LANGUAGE
             )
             val photos = response.results
+
 
             LoadResult.Page(
                 data = photos,

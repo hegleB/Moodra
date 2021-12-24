@@ -45,7 +45,11 @@ class TVSearchDetailAdapter(val searchItemClick: (TVshowSearch) -> Unit, val sea
     }
 
     override fun getItemViewType(position: Int): Int {
-        return R.layout.item_tv_search_detail
+        if (position == itemCount){
+            return R.layout.search_detail_load
+        }else {
+            return R.layout.item_tv_search_detail
+        }
     }
 
     companion object SearchDiffUtil: DiffUtil.ItemCallback<TVshowSearch>() {

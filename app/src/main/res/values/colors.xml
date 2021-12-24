@@ -6,10 +6,15 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="background_dark">#000000</color>
+    <color name="black1">#000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="dark_gray">#262626</color>
-    <color name="text_secondary">#B3B3B3</color>
+
     <color name="red">#FF0000</color>
     <color name="transparent">#00000000</color>
+    <color name="gray1">#262626</color>
+    <color name="gray2">#B3B3B3</color>
+    <color name="gray3">#787878</color>
+    <color name="gray4">#9E9E9E</color>
+
+    <color name="blue1">#1565C0</color>
 </resources>

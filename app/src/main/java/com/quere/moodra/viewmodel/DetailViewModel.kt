@@ -9,14 +9,20 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.quere.moodra.AppConstants
-import com.quere.moodra.repository.Repository
+import com.quere.moodra.repository.BookmarkRepository
+import com.quere.moodra.repository.DetailRepository
+import com.quere.moodra.repository.MovieRepository
+import com.quere.moodra.repository.TVRepository
 import com.quere.moodra.retrofit.*
 import com.quere.moodra.room.Bookmark
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 
 class DetailViewModel @ViewModelInject constructor(
-    private val repository: Repository,
+    private val detailRepo: DetailRepository,
+    private val movieRepo: MovieRepository,
+    private val tvRepo: TVRepository,
+    private val bookmarkRepo : BookmarkRepository
 
 ) : ViewModel() {
 
@@ -40,7 +46,7 @@ class DetailViewModel @ViewModelInject constructor(
     fun getMovieDetailData(movieId: Int): MutableLiveData<MovieDetail> {
         scope.launch(Dispatchers.IO) {
             val getMovieDetailData =
-                repository.getMovieDetailData(movieId, AppConstants.language, AppConstants.api_key,)
+                movieRepo.getMovieDetailData(movieId, AppConstants.LANGUAGE, AppConstants.API_KEY,)
             try {
                 movie_detail_data.postValue(getMovieDetailData)
 
@@ -59,7 +65,7 @@ class DetailViewModel @ViewModelInject constructor(
     fun getTVDetailData(tvId: Integer): MutableLiveData<TVDetail> {
         scope.launch(Dispatchers.IO) {
             val getTVDetailData =
-                repository.getTVDetailData(tvId, AppConstants.language, AppConstants.api_key,)
+                tvRepo.getTVDetailData(tvId, AppConstants.LANGUAGE, AppConstants.API_KEY,)
             try {
                 tv_detail_data.postValue(getTVDetailData)
 
@@ -79,7 +85,7 @@ class DetailViewModel @ViewModelInject constructor(
 
         scope.launch(Dispatchers.IO) {
             val getMovieCredit =
-                repository.getMovieCreditData(movieId, AppConstants.api_key, AppConstants.language)
+                movieRepo.getMovieCreditData(movieId, AppConstants.API_KEY, AppConstants.LANGUAGE)
             try {
                 movie_credit_data.postValue(getMovieCredit.cast)
             } catch (e: Exception) {
@@ -93,7 +99,7 @@ class DetailViewModel @ViewModelInject constructor(
 
         scope.launch(Dispatchers.IO) {
             val getTVCredit =
-                repository.getTVCreditData(tvId, AppConstants.api_key, AppConstants.language)
+                tvRepo.getTVCreditData(tvId, AppConstants.API_KEY, AppConstants.LANGUAGE)
             try {
                 tv_credit_data.postValue(getTVCredit.cast)
             } catch (e: Exception) {
@@ -102,36 +108,37 @@ class DetailViewModel @ViewModelInject constructor(
         }
         return tv_credit_data
     }
-    fun getSimilar(id : Int) : Flow<PagingData<OtherContent>> { return repository.getSimilar(id).cachedIn(viewModelScope)}
-    fun getRecommend(Id : Int) : Flow<PagingData<OtherContent>> { return repository.getRecommend(Id).cachedIn(viewModelScope)}
-    fun getMovieTrailer(Id : Int) : Flow<PagingData<Trailer>> { return repository.getMovieTrailer(Id).cachedIn(viewModelScope)}
-    fun getTVTrailer(Id : Int) : Flow<PagingData<Trailer>> { return repository.getTVTrailer(Id).cachedIn(viewModelScope)}
+    fun getSimilar(id : Int) : Flow<PagingData<OtherContent>> { return detailRepo.getSimilar(id).cachedIn(viewModelScope)}
+    fun getRecommend(Id : Int) : Flow<PagingData<OtherContent>> { return detailRepo.getRecommend(Id).cachedIn(viewModelScope)}
+
+    fun getMovieTrailer(Id : Int) : Flow<PagingData<Trailer>> { return movieRepo.getMovieTrailer(Id).cachedIn(viewModelScope)}
+    fun getTVTrailer(Id : Int) : Flow<PagingData<Trailer>> { return tvRepo.getTVTrailer(Id).cachedIn(viewModelScope)}
 
 
     fun insert(bookmark: Bookmark) {
 
         viewModelScope.launch {
-            repository.insert(bookmark)
+            bookmarkRepo.insert(bookmark)
         }
     }
 
     fun delete(bookmark: Bookmark){
 
         viewModelScope.launch {
-            repository.delete(bookmark)
+            bookmarkRepo.delete(bookmark)
         }
 
     }
 
-    suspend fun check(id: String) = repository.check(id)
+    suspend fun check(id: String) = bookmarkRepo.check(id)
 
     fun deleteAll(){
         viewModelScope.launch {
-            repository.deleteAll()
+            bookmarkRepo.deleteAll()
         }
     }
 
-    val bookmarks = repository.getBookmark()
+    val bookmarks = bookmarkRepo.getBookmark()
 
 
 

@@ -19,8 +19,8 @@ class TVTrailerPagingSource(
         return try {
             val response = mediaService.getTVshowTrailer(
                 id,
-                AppConstants.api_key,
-                AppConstants.language
+                AppConstants.API_KEY,
+                AppConstants.LANGUAGE
             )
             val photos = response.results
 

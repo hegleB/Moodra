@@ -39,7 +39,7 @@
             android:id="@+id/item_tv_initial"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/movielogo"
+            android:background="@drawable/img_movielogo"
             android:scaleType="fitXY"
             android:layout_gravity="center"
             app:imageUrl="@{tvshow.poster_path}"/>

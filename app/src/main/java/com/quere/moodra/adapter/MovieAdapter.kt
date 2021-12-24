@@ -40,7 +40,7 @@ class MovieAdapter(val movieItemClick: (Movie) -> Unit, val movieItemLongClick: 
     inner class ViewHolder(private val binding:ItemMovieBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie){
             binding.movie = movie
-            binding.executePendingBindings() // 데이터가 수정되면 즉각 바인딩
+            binding.executePendingBindings()
 
             binding.root.setOnClickListener {
                 movieItemClick(movie)

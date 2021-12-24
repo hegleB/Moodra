@@ -8,6 +8,11 @@ class AppConstants {
         const val TOP_RATED = "top_rated"
         const val NOW_PLAYING = "now_playing"
         const val ONTHEAIR = "on_the_air"
+        const val SIMILAR = "similar"
+        const val RECOMMEND = "recommend"
+
+        const val MOVIE = "movie"
+        const val TV = "tv"
 
         const val ACTION = "28"
         const val FANTASY = "10751"
@@ -20,10 +25,10 @@ class AppConstants {
         const val MUSIC = "10402"
 
 
-        const val base_url = "https://api.themoviedb.org/3/"
-        const val language = "ko-KR"
-        const val base_imageUrl = "https://image.tmdb.org/t/p/w500"
-        const val api_key = "93852933922b9db90a3b1f240b5d5d96"
+        const val BASE_URL = "https://api.themoviedb.org/3/"
+        const val LANGUAGE = "ko-KR"
+        const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
+        const val API_KEY = "93852933922b9db90a3b1f240b5d5d96"
 
     }
 }

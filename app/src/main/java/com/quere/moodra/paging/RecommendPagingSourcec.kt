@@ -19,11 +19,12 @@ class RecommendPagingSourcec(
         return try {
             val response = mediaService.getRecommendation(
                 id,
-                AppConstants.api_key,
-                AppConstants.language,
+                AppConstants.API_KEY,
+                AppConstants.LANGUAGE,
                 1
             )
             val photos = response.results
+
 
             LoadResult.Page(
                 data = photos,

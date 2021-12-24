@@ -19,8 +19,8 @@ class SimilarPagingSource(
         return try {
             val response = mediaService.geSimilar(
                 id,
-                AppConstants.api_key,
-                AppConstants.language,
+                AppConstants.API_KEY,
+                AppConstants.LANGUAGE,
                 1
             )
             val photos = response.results

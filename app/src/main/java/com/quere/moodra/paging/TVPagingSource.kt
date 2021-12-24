@@ -7,6 +7,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.quere.moodra.AppConstants
 import com.quere.moodra.retrofit.MediaService
+import com.quere.moodra.retrofit.Movie
 
 import retrofit2.HttpException
 import java.io.IOException
@@ -24,13 +25,21 @@ class TVPagingSource(
         return try{
             val response = mediaService.getTV(
                 type,
-                AppConstants.language,
-                AppConstants.api_key,
+                AppConstants.LANGUAGE,
+                AppConstants.API_KEY,
             "KR")
             val photos = response.results
 
+            var currentList = listOf<TVshow>()
+
+            if(photos.size<18){
+                currentList = photos
+            } else {
+                currentList = photos.subList(0,18)
+            }
+
             LoadResult.Page(
-                data = photos,
+                data = currentList,
                 prevKey = if(position== STARTING_PAGE_INDEX) null else position-1,
                 nextKey = if(photos.isEmpty()) null else position+1
             )

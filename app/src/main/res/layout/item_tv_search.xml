@@ -20,7 +20,7 @@
             android:id="@+id/backdrop_image"
             android:layout_width="120dp"
             android:layout_height="150dp"
-            android:background="@drawable/movielogo"
+            android:background="@drawable/img_movielogo"
             android:scaleType="fitXY"
             app:imageUrl="@{TVsearch.poster_path}"
             app:layout_constraintBottom_toBottomOf="parent"

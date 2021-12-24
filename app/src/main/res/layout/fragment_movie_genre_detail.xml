@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.SearchDetaileFragment">
+        tools:context=".view.search.SearchDetaileFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/movie_appBarLayout"
@@ -53,6 +53,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_appBarLayout"
             tools:listitem="@layout/item_genre_movie" />
+
+        <include
+            android:id="@+id/movie_genre_detail_stl"
+            layout="@layout/item_all_simmer"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

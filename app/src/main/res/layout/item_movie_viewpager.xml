@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:background="@drawable/movielogo"
+            android:background="@drawable/img_movielogo"
             app:imageUrl="@{viewpager.backdrop_path}" />
     </androidx.cardview.widget.CardView>
 

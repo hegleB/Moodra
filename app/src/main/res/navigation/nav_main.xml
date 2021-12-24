@@ -7,7 +7,7 @@
 
     <keep_state_fragment
         android:id="@+id/homeFragment"
-        android:name="com.quere.moodra.view.HomeContainerFragment"
+        android:name="com.quere.moodra.view.home.HomeContainerFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_search_container" >
     </keep_state_fragment>
@@ -15,7 +15,7 @@
 
     <keep_state_fragment
         android:id="@+id/bookmarkFragment"
-        android:name="com.quere.moodra.view.BookmarkContainerFragment"
+        android:name="com.quere.moodra.view.bookmark.BookmarkContainerFragment"
         android:label="fragment_bookmark"
         tools:layout="@layout/fragment_bookmark_container" >
     </keep_state_fragment>
@@ -23,7 +23,7 @@
 
     <keep_state_fragment
         android:id="@+id/searchFragment"
-        android:name="com.quere.moodra.view.SearchContainerFragment"
+        android:name="com.quere.moodra.view.search.SearchContainerFragment"
 
         tools:layout="@layout/fragment_search_container" >
 

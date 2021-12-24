@@ -31,7 +31,11 @@ class TVGenreDetailAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return R.layout.item_tv_genre_detail
+        if (position == itemCount){
+            return R.layout.search_detail_load
+        }else {
+            return R.layout.item_tv_genre_detail
+        }
     }
 
 

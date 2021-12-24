@@ -2,20 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeFragment"
-        android:title="@string/title_menu_first"
-        android:icon="@drawable/home"
+        android:title="@string/home_text"
+        android:icon="@drawable/img_home"
         />
 
     <item
         android:id="@+id/searchFragment"
-        android:title="@string/title_menu_search"
-        android:icon="@drawable/search"
+        android:title="@string/search_text"
+        android:icon="@drawable/img_search"
         />
 
     <item
         android:id="@+id/bookmarkFragment"
-        android:title="@string/title_menu_second"
-        android:icon="@drawable/list" />
+        android:title="@string/bookmark_text"
+        android:icon="@drawable/img_list" />
 
 
 </menu>

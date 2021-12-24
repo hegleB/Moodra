@@ -1,4 +1,4 @@
-package com.quere.moodra.view
+package com.quere.moodra.view.search
 
 
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,23 +13,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import androidx.paging.LoadState
-import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.quere.moodra.AppConstants
 import com.quere.moodra.R
 import com.quere.moodra.adapter.*
 import com.quere.moodra.databinding.FragmentSearchBinding
 
-import com.quere.moodra.databinding.FragmentSearchTvBinding
 import com.quere.moodra.retrofit.MovieSearch
 import com.quere.moodra.retrofit.TVshowSearch
 import com.quere.moodra.viewmodel.SearchViewModel
 
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_search.*
-import kotlinx.android.synthetic.main.fragment_search_tv.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -39,7 +33,6 @@ import kotlinx.coroutines.launch
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
-    private lateinit var binding1: FragmentSearchTvBinding
     private lateinit var direction : NavDirections
 
 
@@ -118,12 +111,20 @@ class SearchFragment : Fragment() {
                 override fun onClick(p0: View?) {
                     try{
                         viewModel.query.observe(viewLifecycleOwner, Observer {
-                            direction = SearchFragmentDirections.actionSearchFragmentToSearchDetaileFragment(it,"movie")
+                            direction =
+                                SearchFragmentDirections.actionNavSearchSearchToNavSearchSearchDetatil(
+                                    it,
+                                    AppConstants.MOVIE
+                                )
                         })
 
                         findNavController().navigate(direction)
                     } catch (e:Exception){
-                        direction = SearchFragmentDirections.actionSearchFragmentToSearchDetaileFragment("","movie")
+                        direction =
+                            SearchFragmentDirections.actionNavSearchSearchToNavSearchSearchDetatil(
+                                "",
+                                AppConstants.MOVIE
+                            )
                         findNavController().navigate(direction)
                     }
                 }
@@ -134,11 +135,19 @@ class SearchFragment : Fragment() {
                 override fun onClick(p0: View?) {
                     try{
                         viewModel.query.observe(viewLifecycleOwner, Observer {
-                            direction = SearchFragmentDirections.actionSearchFragmentToSearchDetaileFragment(it,"tv")
+                            direction =
+                                SearchFragmentDirections.actionNavSearchSearchToNavSearchSearchDetatil(
+                                    it,
+                                    AppConstants.TV
+                                )
                         })
                         findNavController().navigate(direction)
                     } catch (e:Exception){
-                        direction = SearchFragmentDirections.actionSearchFragmentToSearchDetaileFragment("","tv")
+                        direction =
+                            SearchFragmentDirections.actionNavSearchSearchToNavSearchSearchDetatil(
+                                "",
+                                AppConstants.TV
+                            )
                         findNavController().navigate(direction)
                     }
                 }
@@ -166,7 +175,7 @@ class SearchFragment : Fragment() {
 
     private fun MovieSearchDialog(movie_search: MovieSearch) {
 
-        val direction = SearchFragmentDirections.actionSearchFragmentToDetailFragment(
+        val direction = SearchFragmentDirections.actionNavSearchSearchToNavSearchDetail(
             "movie",
             movie_search.title ?: "제목 없음",
             movie_search.id!!,
@@ -175,7 +184,7 @@ class SearchFragment : Fragment() {
             movie_search.poster_path ?: "이미지 없음",
             movie_search.backdrop_path ?: "이미지 없음",
             movie_search.release_date ?: "개봉날짜 없음",
-            movie_search.vote_average?: "0"
+            movie_search.vote_average ?: "0"
         )
 
         findNavController().navigate(direction)
@@ -186,7 +195,7 @@ class SearchFragment : Fragment() {
     private fun TVshowSearchDialog(tv_search: TVshowSearch) {
 
 
-        val direction = SearchFragmentDirections.actionSearchFragmentToDetailFragment(
+        val direction = SearchFragmentDirections.actionNavSearchSearchToNavSearchDetail(
             "tv",
             tv_search.name ?: "제목 없음",
             tv_search.id,
@@ -195,7 +204,7 @@ class SearchFragment : Fragment() {
             tv_search.poster_path ?: "이미지 없음",
             tv_search.poster_path ?: "이미지 없음",
             tv_search.first_air_date ?: "방영날짜 없음",
-            tv_search.vote_average?: "0"
+            tv_search.vote_average ?: "0"
         )
         findNavController().navigate(direction)
 
@@ -207,8 +216,8 @@ class SearchFragment : Fragment() {
         val adapter = MovieSearchDataAdapter({ movie -> MovieSearchDialog(movie) },
             { movie -> MovieSearchDialog(movie) })
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getMovies(query).collectLatest {
 
+            viewModel.getMovies(query).collectLatest {
                 adapter.submitData(it)
             }
         }
@@ -229,7 +238,9 @@ class SearchFragment : Fragment() {
             { tv -> TVshowSearchDialog(tv) })
 
         viewLifecycleOwner.lifecycleScope.launch {
+
             viewModel.getTvshow(query).collectLatest {
+
                 adapter.submitData(it)
             }
 
@@ -239,6 +250,9 @@ class SearchFragment : Fragment() {
             header = MovieSearchLoadStateAdapter { adapter.retry()},
             footer = MovieSearchLoadStateAdapter { adapter.retry()}
         )
+
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recyclerView.setHasFixedSize(true)
     }
 
