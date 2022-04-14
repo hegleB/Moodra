@@ -26,10 +26,10 @@
 </br>
 
 <br>
-<img width="220" alt="2021-12-13_22-40-25" src="https://user-images.githubusercontent.com/39490416/146238026-97b196ce-298c-4edc-87b1-dc468070f880.png">
-<img width="220" alt="2021-12-13_22-41-53" src="https://user-images.githubusercontent.com/39490416/146238029-151e59b8-e865-43f2-af85-d9ac99361a4b.png">
-<img width="220" alt="2021-12-13_22-44-08" src="https://user-images.githubusercontent.com/39490416/146238030-f1e558d7-c9c0-4953-9982-62dd5688e810.png">
-<img width="220" alt="2021-12-13_22-45-05" src="https://user-images.githubusercontent.com/39490416/146238032-228bff73-92ea-4b9f-92a9-8cda05259986.png">
+<img width="200" alt="2021-12-13_22-40-25" src="https://user-images.githubusercontent.com/39490416/146238026-97b196ce-298c-4edc-87b1-dc468070f880.png">
+<img width="200" alt="2021-12-13_22-41-53" src="https://user-images.githubusercontent.com/39490416/146238029-151e59b8-e865-43f2-af85-d9ac99361a4b.png">
+<img width="200" alt="2021-12-13_22-44-08" src="https://user-images.githubusercontent.com/39490416/146238030-f1e558d7-c9c0-4953-9982-62dd5688e810.png">
+<img width="200" alt="2021-12-13_22-45-05" src="https://user-images.githubusercontent.com/39490416/146238032-228bff73-92ea-4b9f-92a9-8cda05259986.png">
 </br>
 </p>
 
