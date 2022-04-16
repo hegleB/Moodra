@@ -44,7 +44,7 @@
 |Other|ViewPager2, CardView, RecyclerView|
 
 
-
+<br></br>
 # TMDB License
 <img width="200" alt="2021-12-13_22-09-52" src="https://user-images.githubusercontent.com/39490416/163661827-22eb220f-295b-4c2c-b187-78d48cd5a04b.png">
 TMDb respects the rights of copyright holders and publishers and requires all users to confirm they own the copyright or have permission from the copyright holder to upload content. We comply with the Digital Millennium Copyright Act (DMCA) and expeditiously remove content when properly notified, unless it reasonably appears to us that the content does not infringe upon copyright. Please note, however, that under Section 512(f) any person who knowingly materially misrepresents that material or activity is a copyright infringement may be subject to liability for damages. You should educate yourself as to whether content does, in fact infringe upon your copyright, or whether, for instance "fair use" under 17 U.S.C. §107 applies. If you are unsure whether the content you are reporting is infringing your legal rights, you may wish to seek legal guidance. Keep in mind that submitting intentionally misleading reports of infringement may be punishable under the Digital Millennium Copyright Act (DMCA) in the United States or similar laws in other countries.
