@@ -58,5 +58,5 @@ For claims of copyright infringement, please contact our designated agent under 
 
 Copyright Agent at: 489 S. El Camino Real, San Mateo, CA, 94402.
 
-<a href="https://www.themoviedb.org/documentation/api/terms-of-use?language=ko-KR" target="_blank"> 
-</a>
+[API Terms of Use](https://www.themoviedb.org/documentation/api/terms-of-use?language=ko-KR)
+
