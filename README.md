@@ -2,7 +2,7 @@
 ## Moodra
 
 <p align="center">
-<img width="150" alt="2021-12-13_22-09-52" src="https://user-images.githubusercontent.com/39490416/163447035-d57c7234-f3ed-462a-8702-6986d18d68d1.png">
+<img width="150" alt="2021-12-13_22-09-52" src="https://user-images.githubusercontent.com/39490416/163661942-18f79cde-a3fb-4b4f-81bd-ae41063c7587.png">
   </p>
 
 #### TV프로그램과 영화에 대한 정보를 얻을 수 있는 앱이다.
