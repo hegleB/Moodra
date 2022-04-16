@@ -57,3 +57,6 @@ TMDb respects the rights of copyright holders and publishers and requires all us
 For claims of copyright infringement, please contact our designated agent under the Digital Millennium Copyright Act:
 
 Copyright Agent at: 489 S. El Camino Real, San Mateo, CA, 94402.
+
+<a href="https://www.themoviedb.org/documentation/api/terms-of-use?language=ko-KR" target="_blank"> 
+</a>
