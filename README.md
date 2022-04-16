@@ -1,8 +1,7 @@
 
-<p align="center">
-<img width="150" alt="2021-12-13_22-09-52" src="https://user-images.githubusercontent.com/39490416/146238613-0affece2-6f08-4b65-aeb3-b9f00f8840b3.png">
-  </p>
-
+<head>
+  <meta property="og:image" content="https://user-images.githubusercontent.com/39490416/163449923-06d4b787-9fc9-438c-a9c9-dc035b9cec78.png" />
+</head>
 ## Moodra
 
 
