@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.detail.DetailFragment">
+
+    <data>
+
+        <variable
+            name="detail"
+            type="com.quere.domain.model.common.Detail" />
+
+        <variable
+            name="detailMovie"
+            type="com.quere.domain.model.movie.Movie" />
+
+        <variable
+            name="detailTV"
+            type="com.quere.domain.model.tv.TVshow" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/detail_appbarlayout"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/detail_collasingtoolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/black"
+                app:expandedTitleGravity="left|top"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                app:maxLines="3"
+                >
+
+                <ImageView
+                    android:id="@+id/detail_backdrop"
+                    detailBackdropImage="@{detail.type==true ? detailMovie.backdrop_path : detailTV.backdrop_path}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/detail_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="#00FFFFFF"
+                    android:paddingTop="15dp"
+                    app:layout_collapseMode="pin">
+
+                    <ImageView
+                        android:id="@+id/detail_arrow_back"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
+
+                    <TextView
+                        android:id="@+id/detail_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#00000000"
+                        android:textSize="20dp" />
+
+                    <ImageView
+                        android:id="@+id/detail_bookmark"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_bookmark_24"
+                        android:layout_marginRight="20dp"
+                        android:layout_gravity="right"/>
+
+
+                </androidx.appcompat.widget.Toolbar>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="40dp"
+                    android:background="@color/gray1" />
+
+                <ImageView
+                    android:id="@+id/detail_poster"
+                    imageUrl="@{detail.type==true ? detailMovie.poster_path : detailTV.poster_path}"
+                    android:layout_width="115dp"
+                    android:layout_height="140dp"
+                    android:layout_gravity="center_vertical|bottom"
+                    android:layout_marginBottom="40dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/detail_release_date"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:layout_marginBottom="130dp"
+                    android:text="@{detail.type==true ? detailMovie.release_date : detailTV.first_air_date}"
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+
+
+                <TextView
+                    android:id="@+id/detail_runtime"
+                    detailruntime="@{detail.type==true ? detailMovie.runtime : 0}"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:layout_marginBottom="90dp"
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/detail_genre"
+                    detailGenre="@{detail.type==true ? detailMovie.genres : detailTV.genres}"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="50dp"
+                    android:textColor="@color/white"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textSize="15dp" />
+
+                <com.dinuscxj.progressbar.CircleProgressBar
+                    android:id="@+id/detail_rating"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="50dp"
+                    android:background="@color/transparent"
+                    app:drawBackgroundOutsideProgress="true"
+                    app:line_count="30"
+                    app:line_width="100dp"
+                    app:progress_background_color="@color/white"
+                    app:progress_blur_radius="100dp"
+                    app:progress_blur_style="solid"
+                    app:progress_end_color="@android:color/holo_green_light"
+                    app:progress_shader="linear"
+                    app:progress_start_color="@android:color/holo_blue_light"
+                    app:progress_start_degree="-90"
+                    app:progress_stroke_cap="round"
+                    app:progress_stroke_width="15dp"
+                    app:progress_style="solid_line"
+                    app:progress_text_color="@color/white"
+                    app:progress_text_size="30dp" />
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/detail_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/detail_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="10dp"
+                    android:text="@{detail.type==true ? detailMovie.overview : detailTV.overview}"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/detail_credit_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    style="@style/RecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_overview"
+                    tools:listitem="@layout/item_credit"/>
+
+
+                <TextView
+                    android:id="@+id/detail_trailer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:text="트레일러"
+                    android:textSize="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_credit_recycler" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/detail_trailer_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    style="@style/RecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_trailer"
+                    tools:listitem="@layout/item_video" />
+
+
+                <TextView
+                    android:id="@+id/detail_similiar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:text="비슷한 콘텐츠"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_trailer_recyclerview"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/detail_similiar_recyclerview"
+                    style="@style/RecyclerViewStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_similiar"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/detail_recommend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:text="추천 콘텐츠"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_similiar_recyclerview"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/detail_recommend_recyclerview"
+                    style="@style/RecyclerViewStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_recommend" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>
