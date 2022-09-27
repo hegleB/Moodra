@@ -1,4 +1,3 @@
-include ':app'
 rootProject.name = "MovieSImpleApp"
 include ':data'
 include ':domain'
