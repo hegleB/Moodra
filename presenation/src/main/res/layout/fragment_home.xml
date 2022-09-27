@@ -5,21 +5,220 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HOME"
-            android:textColor="@color/white"
-            android:textSize="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@android:color/black"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/home_actionbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/stickbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:gravity="center"
+                    android:paddingHorizontal="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_scrollFlags="noScroll">
+
+                    <TextView
+                        android:id="@+id/home"
+                        style="@style/AppbarCurrentTextStyle"
+                        android:text="@string/home_text" />
+
+                    <TextView
+                        android:id="@+id/movies"
+                        style="@style/AppbarTextStyle"
+                        android:text="@string/movie_text" />
+
+                    <TextView
+                        android:id="@+id/tv_show"
+                        style="@style/AppbarTextStyle"
+                        android:text="@string/tv_text" />
+
+
+                </LinearLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/home_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".view.FirstFragment">
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/movie_nowplaying_text_view"
+                    style="@style/HomeRecyclerTextViewStyle"
+                    android:layout_marginTop="64dp"
+                    android:text="@string/movie_nowplaying"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_nowplaying_recyclerview"
+                    style="@style/RecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_nowplaying_text_view"
+                    tools:ignore="MissingConstraints"
+                    tools:listitem="@layout/item_movie" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/movie_toprated_text_view"
+                    style="@style/HomeRecyclerTextViewStyle"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/movie_toprated"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_nowplaying_recyclerview" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_toprated_recyclerview"
+                    style="@style/RecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_toprated_text_view"
+                    tools:ignore="MissingConstraints"
+                    tools:listitem="@layout/item_movie" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/movie_popular_text_view"
+                    style="@style/HomeRecyclerTextViewStyle"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/movie_popular"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_toprated_recyclerview" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_popular_recyclerview"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    style="@style/RecyclerViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_popular_text_view"
+                    tools:ignore="MissingConstraints"
+                    tools:listitem="@layout/item_movie" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/movie_upcoming_text_view"
+                    style="@style/HomeRecyclerTextViewStyle"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/movie_upcoming"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_popular_recyclerview" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_upcoming_recyclerview"
+                    style="@style/RecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_upcoming_text_view"
+                    app:layout_constraintVertical_bias="0.003"
+                    tools:listitem="@layout/item_movie" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_ontheair_text_view"
+                    style="@style/HomeRecyclerTextViewStyle"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/tv_nowplaying"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_upcoming_recyclerview" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tv_ontheair_recyclerview"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    style="@style/RecyclerViewStyle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_ontheair_text_view"
+                    tools:listitem="@layout/item_tvshow" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_toprated_text_view"
+                    style="@style/HomeRecyclerTextViewStyle"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/tv_toprated"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_ontheair_recyclerview" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tv_toprated_recyclerview"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    style="@style/RecyclerViewStyle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_toprated_text_view"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:listitem="@layout/item_tvshow" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_popular_text_view"
+                    style="@style/HomeRecyclerTextViewStyle"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/tv_popular"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_toprated_recyclerview" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tv_popular_recyclerview"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    style="@style/RecyclerViewStyle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_popular_text_view"
+                    tools:listitem="@layout/item_tvshow" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/home_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+        <!--            <include layout="@layout/item_home_shimmer"/>-->
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
