@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#42000000"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/movie_actionbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/stickbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:gravity="center"
+                    android:paddingHorizontal="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_scrollFlags="noScroll">
+
+                    <TextView
+                        android:id="@+id/home"
+                        android:text="@string/home_text"
+                        style="@style/AppbarTextStyle" />
+
+                    <TextView
+                        android:id="@+id/movies_tv"
+                        android:text="@string/movie_text"
+                        style="@style/AppbarCurrentTextStyle" />
+
+                    <TextView
+                        android:id="@+id/tv_show_tv"
+                        android:text="@string/tv_text"
+                        style="@style/AppbarTextStyle"/>
+                </LinearLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/move_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".view.MovieFragment">
+
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/movie_popular_viewpager"
+                    style="@style/GenreViewPagerStyle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/movie_viewpader_number"
+                    style="@style/GenreViewPagerCounterStyle"
+                    app:layout_constraintBottom_toTopOf="@+id/movie_indicator_layout"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_popular_viewpager"/>
+
+                <RelativeLayout
+                    android:id="@+id/movie_indicator_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_popular_viewpager">
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/movie_action_action_text_view"
+                    android:text="#액션"
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_indicator_layout"
+                    app:layout_constraintVertical_bias="0.0" />
+
+
+                <TextView
+                    android:id="@+id/movie_action_detail"
+                    style="@style/GenreAllTextStyle"
+                    app:layout_constraintBottom_toBottomOf="@+id/movie_action_action_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_action_action_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/movie_action_action_text_view"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_indicator_layout"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_action_action_recyclerview"
+                    style="@style/GenreRecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_action_action_text_view"
+                    tools:listitem="@layout/item_genre"
+                    tools:ignore="MissingConstraints" />
+
+
+                <TextView
+                    android:id="@+id/movie_fantasy_text_view"
+                    android:text="#판타지"
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_action_action_recyclerview"
+                    tools:ignore="MissingConstraints" />
+
+
+                <TextView
+                    android:id="@+id/movie_fantasy_detail"
+                    style="@style/GenreAllTextStyle"
+                    app:layout_constraintBottom_toBottomOf="@+id/movie_fantasy_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_fantasy_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/movie_fantasy_text_view"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_action_action_recyclerview"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_fantasy_recyclerview"
+                    style="@style/GenreRecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_fantasy_text_view"
+                    tools:listitem="@layout/item_genre"
+                    tools:ignore="MissingConstraints" />
+
+
+                <TextView
+                    android:id="@+id/movie_animation_text_view"
+                    android:text="#애니메이션"
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_fantasy_recyclerview"
+                    tools:ignore="MissingConstraints" />
+
+
+                <TextView
+                    android:id="@+id/movie_animation_detail"
+                    style="@style/GenreAllTextStyle"
+                    app:layout_constraintBottom_toBottomOf="@+id/movie_animation_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_animation_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/movie_animation_text_view"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_animation_recyclerview"
+                    style="@style/GenreRecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_animation_text_view"
+                    tools:listitem="@layout/item_genre"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/movie_music_text_view"
+                    android:text="#뮤직"
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_animation_recyclerview"
+                    tools:ignore="MissingConstraints" />
+
+
+                <TextView
+                    android:id="@+id/movie_music_detail"
+                    style="@style/GenreAllTextStyle"
+                    app:layout_constraintBottom_toBottomOf="@+id/movie_music_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_music_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/movie_music_text_view"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_music_recyclerview"
+                    style="@style/GenreRecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_music_text_view"
+                    tools:listitem="@layout/item_genre"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/movie_comedy_text_view"
+                    android:text="#코미디"
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_music_recyclerview"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/movie_comedy_detail"
+                    style="@style/GenreAllTextStyle"
+                    app:layout_constraintBottom_toBottomOf="@+id/movie_comedy_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_comedy_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/movie_comedy_text_view"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_comedy_recyclerview"
+                    style="@style/GenreRecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_comedy_text_view"
+                    tools:listitem="@layout/item_genre"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/movie_romance_text_view"
+                    android:text="#로맨스"
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_comedy_recyclerview"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/movie_romance_detail"
+                    style="@style/GenreAllTextStyle"
+                    app:layout_constraintBottom_toBottomOf="@+id/movie_romance_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_romance_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/movie_romance_text_view"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_romance_recyclerview"
+                    style="@style/GenreRecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_romance_text_view"
+                    tools:listitem="@layout/item_genre"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/movie_crime_text_view"
+                    android:text="#범죄"
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_romance_recyclerview"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/movie_crime_detail"
+                    style="@style/GenreAllTextStyle"
+                    app:layout_constraintBottom_toBottomOf="@+id/movie_crime_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_crime_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/movie_crime_text_view"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_crime_recyclerview"
+                    style="@style/GenreRecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_crime_text_view"
+                    tools:listitem="@layout/item_genre"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/movie_mystery_text_view"
+                    android:text="#미스테리"
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_crime_recyclerview"
+                    tools:ignore="MissingConstraints" />
+
+
+                <TextView
+                    android:id="@+id/movie_mystery_detail"
+                    style="@style/GenreAllTextStyle"
+                    app:layout_constraintBottom_toBottomOf="@+id/movie_mystery_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_mystery_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/movie_mystery_text_view"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_mystery_recyclerview"
+                    style="@style/GenreRecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_mystery_text_view"
+                    tools:listitem="@layout/item_genre"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/movie_horror_text_view"
+                    android:text="#호러"
+                    style="@style/GenreTextViewStyle"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_mystery_recyclerview"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/movie_horror_detail"
+                    style="@style/GenreAllTextStyle"
+                    app:layout_constraintBottom_toBottomOf="@+id/movie_horror_text_view"
+                    app:layout_constraintEnd_toEndOf="@+id/movie_horror_text_view"
+                    app:layout_constraintHorizontal_bias="0.952"
+                    app:layout_constraintStart_toStartOf="@+id/movie_horror_text_view"
+                    app:layout_constraintVertical_bias="0.677" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movie_horror_recyclerview"
+                    style="@style/GenreRecyclerViewStyle"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_horror_text_view"
+                    tools:listitem="@layout/item_genre"
+                    tools:ignore="MissingConstraints" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/movie_stl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/item_genre_shimmer"/>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
