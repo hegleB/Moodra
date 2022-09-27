@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SearchView">
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:inputType">text</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:background">@null</item>
+        <item name="android:hint">@string/search_text</item>
+        <item name="android:imeOptions">actionSearch|flagNoExtractUi</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+    </style>
+
+
+    <style name="BookmarkTextStyle">
+
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:visibility">visible</item>
+
+    </style>
+
+
+    <style name="AppbarTextStyle">
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:background">?selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">15dp</item>
+
+    </style>
+
+
+
+    <style name="AppbarCurrentTextStyle">
+
+
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:background">@drawable/shape_bottom_line</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">15dp</item>
+
+    </style>
+
+
+    <style name="CollapsedTitleText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">#C5C5C5</item>
+        <item name="background">@color/black</item>
+
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="ExpandedTitleText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">22dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="background">@color/black</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="hintTextColor">@color/gray1</item>
+
+    </style>
+
+
+    <style name="HomeRecyclerTextViewStyle">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">28dp</item>
+
+    </style>
+
+    <style name="RecyclerViewStyle">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:orientation">horizontal</item>
+
+
+    </style>
+
+
+    <style name="GenreViewPagerStyle">
+
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">250dp</item>
+
+    </style>
+
+
+    <style name="GenreViewPagerCounterStyle">
+
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/shape_round_corner</item>
+
+    </style>
+
+
+    <style name="GenreTextViewStyle">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textSize">30dp</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+
+    <style name="GenreAllTextStyle">
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">전체보기></item>
+
+    </style>
+
+
+    <style name="GenreRecyclerViewStyle">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:orientation">horizontal</item>
+
+    </style>
+
+
+    <style name="SearchRecyclerTexrViewStyle">
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">30dp</item>
+        <item name="android:layout_marginTop">28dp</item>
+        <item name="android:textSize">25dp</item>
+    </style>
+
+
+    <style name="SearchAllViewTextStyle">
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">44dp</item>
+        <item name="android:text">전체보기 ></item>
+        <item name="android:textSize">12dp</item>
+
+
+    </style>
+
+
+    <style name="SearchRecyclerViewStyle">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">180dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:orientation">horizontal</item>
+
+    </style>
+
+
+</resources>
