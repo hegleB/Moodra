@@ -10,8 +10,9 @@ import com.quere.presenation.R
 import com.quere.presenation.base.BaseActivity
 import com.quere.presenation.databinding.ActivityMainBinding
 import com.quere.presenation.utils.KeepStateNavigator
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun init() {
@@ -32,12 +33,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         navController.setGraph(R.navigation.nav_main)
 
         val appBarConfiguration = AppBarConfiguration.Builder(
-            R.id.homeNavFragment,
+            R.id.homeFragment,
             R.id.searchNavFragment,
             R.id.bookmarkNavFragment,
         ).build()
 
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+
         NavigationUI.setupWithNavController(binding.bottomNavigation, navController)
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener(object :
