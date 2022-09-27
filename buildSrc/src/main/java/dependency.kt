@@ -3,7 +3,7 @@ import Versions.PAGING_VERSION
 import Versions.ROOM_VERSION
 
 object Versions {
-    const val NAV_VERSION = "2.4.0-alpha10"
+    const val NAV_VERSION = "2.5.2"
     const val ROOM_VERSION = "2.4.3"
     const val PAGING_VERSION = "3.1.1"
 
@@ -23,7 +23,7 @@ object AndroidX {
 }
 
 object KTX {
-    const val CORE = "androidx.core:core-ktx:1.6.0"
+    const val CORE = "androidx.core:core-ktx:1.5.0"
 }
 
 
@@ -57,12 +57,14 @@ object Coroutines {
 }
 
 object NavComponent {
+    const val NAVIGATION_COMMON = "androidx.navigation:navigation-common-ktx:$NAV_VERSION"
     const val NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:$NAV_VERSION"
     const val NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:$NAV_VERSION"
     const val NAVIGATION_DYNAMIC_FEATURES_FRAGMENT =
         "androidx.navigation:navigation-dynamic-features-fragment:$NAV_VERSION"
     const val NAVIGATION_TESTING = "androidx.navigation:navigation-testing:$NAV_VERSION"
     const val NAVIGATION_COMPOSE = "androidx.navigation:navigation-compose:2.4.0-alpha10"
+
 }
 
 object Room {
