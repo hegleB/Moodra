@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
+import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -27,36 +28,67 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail) {
 
-    val DetailArgs by navArgs<DetailFragmentArgs>()
+    val detailArgs by navArgs<DetailFragmentArgs>()
     private val detailViewModel: DetailViewModel by activityViewModels()
-    private lateinit var type: String
-    private lateinit var title : String
 
     override fun initView() {
 
-        binding.detail = DetailArgs.detail
+        binding.viewmodel = detailViewModel
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            when (DetailArgs.detail.type) {
-                true -> {
-
-                    binding.detailMovie = detailViewModel.getMovieDetail(DetailArgs.detail.id!!)
-                }
-                else -> {
-                    binding.detailTV = detailViewModel.getTVDetail(DetailArgs.detail.id!!)
-                }
-            }
+        initState()
+        observeViewModel()
+        initRecyclerview()
+        getSimulateProgress()
+        paintTitle()
 
 
+    }
+
+    private fun observeViewModel() {
+
+        detailViewModel.arrowDetail.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            findNavController().popBackStack()
+            it.consume()
         }
-        if (DetailArgs.detail.type) {
-            type = "movie"
-            title = DetailArgs.detail.title!!
-        } else {
-            type = "tv"
-            title = DetailArgs.detail.name!!
-        }
+    }
 
+
+    private fun initState() {
+        detailViewModel.setDetail(detailArgs.detail)
+
+    }
+
+    private fun initRecyclerview() {
+        binding.apply {
+
+            getCreditRecyclerView(
+                detailCreditRecycler,
+                detailArgs.detail.id?:0,
+                detailArgs.detail.type
+            )
+            getTrailerRecyclerView(
+                detailTrailerRecyclerview,
+                detailArgs.detail.id?:0,
+                detailArgs.detail.type
+            )
+            getContentRecyclerView(
+                detailSimiliarRecyclerview,
+                detailArgs.detail.id?:0,
+                AppConstants.SIMILAR,
+                detailArgs.detail.type
+            )
+            getContentRecyclerView(
+                detailRecommendRecyclerview,
+                detailArgs.detail.id?:0,
+                AppConstants.RECOMMEND,
+                detailArgs.detail.type
+            )
+        }
+    }
+
+    private fun paintTitle() {
+        val title = detailArgs.detail.title?:""
         val spannable: Spannable = SpannableString(title)
         spannable.setSpan(
             BackgroundColorSpan(
@@ -64,29 +96,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             ), 0, title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        getSimulateProgress((DetailArgs.detail.vote_average!!.toFloat() * 10).toInt())
-
-        binding.apply {
-            detailArrowBack.setOnClickListener { it.findNavController().popBackStack() }
-            detailCollasingtoolbar.title = spannable
-
-
-
-            getCreditRecyclerView(detailCreditRecycler, DetailArgs.detail.id!!, type)
-            getTrailerRecyclerView(detailTrailerRecyclerview, DetailArgs.detail.id!!, type)
-            getContentRecyclerView(
-                detailSimiliarRecyclerview,
-                DetailArgs.detail.id!!,
-                AppConstants.SIMILAR,
-                type
-            )
-            getContentRecyclerView(
-                detailRecommendRecyclerview,
-                DetailArgs.detail.id!!,
-                AppConstants.RECOMMEND,
-                type
-            )
-        }
+        binding.detailCollasingtoolbar.title = spannable
     }
 
     private fun getCreditRecyclerView(recyclerView: RecyclerView, Id: Int, type: String) {
@@ -164,11 +174,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private fun doOnClick(content: OtherContent) {
 
-        when(type){
+        when (detailArgs.detail.type) {
             "movie" -> {
                 val deailtTotherdetail = DetailFragmentDirections.actionDetailFragmentSelf(
                     Detail(
-                        true,
+                        "movie",
                         content.title!!,
                         "",
                         listOf(),
@@ -184,25 +194,26 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     )
                 )
                 findNavController().navigate(deailtTotherdetail)
-            } else -> {
-            val deailtTotherdetail = DetailFragmentDirections.actionDetailFragmentSelf(
-                Detail(
-                    false,
-                    "",
-                    content.name!!,
-                    listOf(),
-                    content.id,
-                    content.overview!!,
-                    false,
-                    content.poster_path!!,
-                    content.backdrop_path!!,
-                    content.first_air_date!!,
-                    0,
-                    content.video,
-                    content.vote_average!!
+            }
+            else -> {
+                val deailtTotherdetail = DetailFragmentDirections.actionDetailFragmentSelf(
+                    Detail(
+                        "tv",
+                        "",
+                        content.name!!,
+                        listOf(),
+                        content.id,
+                        content.overview!!,
+                        false,
+                        content.poster_path!!,
+                        content.backdrop_path!!,
+                        content.first_air_date!!,
+                        0,
+                        content.video,
+                        content.vote_average!!
+                    )
                 )
-            )
-            findNavController().navigate(deailtTotherdetail)
+                findNavController().navigate(deailtTotherdetail)
             }
         }
 
@@ -210,7 +221,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
 
-    fun getSimulateProgress(count: Int) {
+    fun getSimulateProgress() {
+
+        val voteAverage = detailArgs.detail.vote_average ?: "0"
+        val count = (voteAverage.toFloat()*10).toInt()
+
         val animator = ValueAnimator.ofInt(0, count)
         animator.addUpdateListener { animation ->
             val progress = animation.animatedValue as Int

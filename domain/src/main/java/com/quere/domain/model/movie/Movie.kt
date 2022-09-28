@@ -1,17 +1,16 @@
 package com.quere.domain.model.movie
 
-import android.os.Parcelable
 import com.quere.domain.model.common.Genre
-import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
-@Parcelize
+
 data class Movies(
     val page: Integer,
     val results: List<Movie>
 
-) : Parcelable
+) : Serializable
 
-@Parcelize
+
 data class Movie(
     val backdrop_path: String,
     val id: Int,
@@ -26,4 +25,4 @@ data class Movie(
     val video: Boolean,
     val vote_average: String,
     val vote_count: Int
-): Parcelable
+): Serializable

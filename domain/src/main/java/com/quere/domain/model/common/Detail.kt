@@ -1,12 +1,9 @@
 package com.quere.domain.model.common
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
-
-@Parcelize
 data class Detail(
-    val type :Boolean,
+    val type :String = "",
     val title : String? = "",
     val name : String?= "",
     val genres: List<Genre>?= null,
@@ -19,4 +16,4 @@ data class Detail(
     val runtime: Int? = null,
     val video : Boolean?=false,
     val vote_average : String?=""
-) : Parcelable
+) : Serializable

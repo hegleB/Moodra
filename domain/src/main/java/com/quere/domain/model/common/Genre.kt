@@ -1,17 +1,15 @@
 package com.quere.domain.model.common
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
-@Parcelize
+
 data class Genres(
     val id: Integer,
     val results: List<Detail>
-) : Parcelable
+) : Serializable
 
 
-@Parcelize
 data class Genre(
     val id: Int,
     val name: String?
-) : Parcelable
+) : Serializable

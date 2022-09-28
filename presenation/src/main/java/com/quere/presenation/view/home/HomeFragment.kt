@@ -1,6 +1,12 @@
 package com.quere.presenation.view.home
 
 
+import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
+import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -15,6 +21,7 @@ import com.quere.presenation.base.BaseFragment
 import com.quere.presenation.view.adapter.HorizontalItemDecorator
 import com.quere.presenation.view.adapter.MoviePagingAdapter
 import com.quere.presenation.view.adapter.TVPagingAdapter
+import com.quere.presenation.viewmodel.DetailViewModel
 import com.quere.presenation.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -24,54 +31,78 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val homeViewModel: HomeViewModel by activityViewModels()
+    private val detailViewModel : DetailViewModel by activityViewModels()
 
     override fun initView() {
 
+        observeViewModel()
+
         binding.apply {
 
-            movies.setOnClickListener {HomeToMovieGenre()}
-            tvShow.setOnClickListener { HomeToTVGenre() }
+            viewmodel = homeViewModel
 
             getMovieRecyclerView(movieNowplayingRecyclerview, AppConstants.NOW_PLAYING)
             getMovieRecyclerView(movieTopratedRecyclerview, AppConstants.TOP_RATED)
             getMovieRecyclerView(moviePopularRecyclerview, AppConstants.POPULAR)
             getMovieRecyclerView(movieUpcomingRecyclerview, AppConstants.UPCOMING)
 
-            geTVRecyclerView(tvOntheairRecyclerview, AppConstants.ONTHEAIR)
-            geTVRecyclerView(tvTopratedRecyclerview, AppConstants.TOP_RATED)
-            geTVRecyclerView(tvPopularRecyclerview, AppConstants.POPULAR)
+            getTVRecyclerView(tvOntheairRecyclerview, AppConstants.ONTHEAIR)
+            getTVRecyclerView(tvTopratedRecyclerview, AppConstants.TOP_RATED)
+            getTVRecyclerView(tvPopularRecyclerview, AppConstants.POPULAR)
         }
     }
+
+    private fun observeViewModel() {
+
+        homeViewModel.fragmentMovieGenre.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            showMovieGenre()
+            it.consume()
+        }
+
+        homeViewModel.fragmentTVGenre.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            showTVGenre()
+            it.consume()
+        }
+
+    }
+
+
 
 
     private fun getMovieRecyclerView(recyclerView: RecyclerView, type: String) {
         val movieAdapter: MoviePagingAdapter by lazy {
             MoviePagingAdapter(
-                ItemClick = { doOnClick(it) }
+                ItemClick = {
+                    showMovieDetail(it)
+                }
             )
         }
         recyclerView.adapter = movieAdapter
 
         recyclerView.addItemDecoration(HorizontalItemDecorator(10))
-        getMovieFlow(type, movieAdapter)
+        collectMovieFlow(type, movieAdapter)
 
     }
 
-    private fun geTVRecyclerView(recyclerView: RecyclerView, type: String) {
+    private fun getTVRecyclerView(recyclerView: RecyclerView, type: String) {
 
         val tvAdapter: TVPagingAdapter by lazy {
             TVPagingAdapter(
-                ItemClick = { doOnClick(it) }
+                ItemClick = {
+                    showTVDetail(it)
+                }
             )
         }
 
         recyclerView.adapter = tvAdapter
         recyclerView.addItemDecoration(HorizontalItemDecorator(10))
-        getTVFlow(type, tvAdapter)
+        collectTVFlow(type, tvAdapter)
 
     }
 
-    private fun getMovieFlow(type: String, movieAdapter: MoviePagingAdapter) {
+    private fun collectMovieFlow(type: String, movieAdapter: MoviePagingAdapter) {
 
 
         when (type) {
@@ -79,6 +110,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 viewLifecycleOwner.lifecycleScope.launch {
                     homeViewModel.now_movie().collectLatest { movieList ->
                         movieAdapter.submitData(movieList)
+
                     }
                 }
             }
@@ -108,7 +140,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
-    private fun getTVFlow(type: String, tvAdapter: TVPagingAdapter) {
+    private fun collectTVFlow(type: String, tvAdapter: TVPagingAdapter) {
 
 
         when (type) {
@@ -139,62 +171,64 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
-    private fun doOnClick(item: Any) {
-        when (item) {
 
-            is Movie -> {
-                val MovieToDetail = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                    Detail(
-                        true,
-                        item.title,
-                        "",
-                        listOf(),
-                        item.id,
-                        item.overview,
-                        false,
-                        item.poster_path,
-                        item.backdrop_path,
-                        item.release_date,
-                        item.runtime,
-                        item.video,
-                        item.vote_average
-                    )
+    private fun showMovieDetail(item: Movie) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val movie = detailViewModel.getMovieDetail(item.id)
+            val MovieToDetail = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                Detail(
+                    "movie",
+                    movie.title,
+                    "",
+                    movie.genres,
+                    movie.id,
+                    movie.overview,
+                    false,
+                    movie.poster_path,
+                    movie.backdrop_path,
+                    movie.release_date,
+                    movie.runtime,
+                    movie.video,
+                    movie.vote_average
                 )
-                findNavController().navigate(MovieToDetail)
-            }
-            is TVshow -> {
-                val TvToDetail = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                    Detail(
-                        false,
-                        "",
-                        item.name!!,
-                        listOf(),
-                        item.id,
-                        item.overview!!,
-                        false,
-                        item.poster_path!!,
-                        item.backdrop_path!!,
-                        item.first_air_date!!,
-                        0,
-                        item.video,
-                        item.vote_average!!
-                    )
-                )
-                findNavController().navigate(TvToDetail)
-            }
-
+            )
+            findNavController().navigate(MovieToDetail)
         }
+
     }
 
-    private fun HomeToMovieGenre(){
-        val moveGenre = HomeFragmentDirections.actionHomeFragmentToMovieGenreFragment()
+    private fun showTVDetail(item: TVshow) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val tv = detailViewModel.getTVDetail(item.id)
+            val TvToDetail = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                Detail(
+                    "tv",
+                    "",
+                    tv.name!!,
+                    tv.genres,
+                    tv.id,
+                    tv.overview!!,
+                    false,
+                    tv.poster_path!!,
+                    tv.backdrop_path!!,
+                    tv.first_air_date!!,
+                    0,
+                    tv.video,
+                    tv.vote_average!!
+                )
+            )
+            findNavController().navigate(TvToDetail)
+        }
 
+    }
+
+    private fun showMovieGenre() {
+        val moveGenre = HomeFragmentDirections.actionHomeFragmentToMovieGenreFragment()
         findNavController().navigate(moveGenre)
     }
 
-    private fun HomeToTVGenre(){
+    private fun showTVGenre() {
         val tvGenre = HomeFragmentDirections.actionHomeFragmentToTVGenreFragment()
-
         findNavController().navigate(tvGenre)
     }
 

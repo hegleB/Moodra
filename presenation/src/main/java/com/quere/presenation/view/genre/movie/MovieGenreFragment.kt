@@ -26,11 +26,13 @@ class MovieGenreFragment : BaseFragment<com.quere.presenation.databinding.Fragme
     private var viewpager_pos = 0
 
     override fun initView() {
+
+        observeViewModel()
+
         binding.apply {
             movieStl.visibility = View.GONE
 
-            home.setOnClickListener { MovieGenreToHome() }
-            tvShowTv.setOnClickListener { MovieGenreToTVGenre() }
+            viewmodel = genreViewModel
 
             getViewPager(moviePopularViewpager)
             getMovieViewPagerCurrentItem(moviePopularViewpager)
@@ -48,12 +50,28 @@ class MovieGenreFragment : BaseFragment<com.quere.presenation.databinding.Fragme
         }
     }
 
+    private fun observeViewModel() {
+
+        genreViewModel.fragmentHome.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            showHome()
+            it.consume()
+        }
+
+        genreViewModel.fragmentTv.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            showTV()
+            it.consume()
+        }
+
+    }
+
 
 
     private fun getGenreRecyclerView(recyclerView: RecyclerView, genre: String) {
         val genreAdapter: GenreAdapter by lazy {
             GenreAdapter(
-                ItemClick = { doOnClick(it) }
+                ItemClick = { showDetail(it) }
             )
         }
         recyclerView.adapter = genreAdapter
@@ -99,7 +117,6 @@ class MovieGenreFragment : BaseFragment<com.quere.presenation.databinding.Fragme
             AppConstants.COMEDY -> {
                 viewLifecycleOwner.lifecycleScope.launch{
                     genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
-
                         genreAdapter.submitData(genreList)
                     }
                 }
@@ -107,7 +124,6 @@ class MovieGenreFragment : BaseFragment<com.quere.presenation.databinding.Fragme
             AppConstants.ROMANCE -> {
                 viewLifecycleOwner.lifecycleScope.launch{
                     genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
-
                         genreAdapter.submitData(genreList)
                     }
                 }
@@ -115,7 +131,6 @@ class MovieGenreFragment : BaseFragment<com.quere.presenation.databinding.Fragme
             AppConstants.CRIME -> {
                 viewLifecycleOwner.lifecycleScope.launch{
                     genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
-
                         genreAdapter.submitData(genreList)
                     }
                 }
@@ -131,7 +146,6 @@ class MovieGenreFragment : BaseFragment<com.quere.presenation.databinding.Fragme
             AppConstants.HORROR -> {
                 viewLifecycleOwner.lifecycleScope.launch{
                     genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
-
                         genreAdapter.submitData(genreList)
                     }
                 }
@@ -143,7 +157,7 @@ class MovieGenreFragment : BaseFragment<com.quere.presenation.databinding.Fragme
     private fun getViewPager(viewpager: ViewPager2){
         val viewpagerAdapter : ViewPagerAdapter by lazy {
             ViewPagerAdapter(
-                ItemClick = {doOnClick(it)}
+                ItemClick = {showDetail(it)}
             )
         }
 
@@ -185,10 +199,10 @@ class MovieGenreFragment : BaseFragment<com.quere.presenation.databinding.Fragme
     }
 
 
-    private fun doOnClick(item: Detail) {
+    private fun showDetail(item: Detail) {
         val GenreToDetail = MovieGenreFragmentDirections.actionMovieGenreFragmentToDetailFragment(
             Detail(
-                true,
+                "movie",
                 item.title,
                 "",
                 listOf(),
@@ -206,13 +220,13 @@ class MovieGenreFragment : BaseFragment<com.quere.presenation.databinding.Fragme
         findNavController().navigate(GenreToDetail)
     }
 
-    private fun MovieGenreToTVGenre(){
+    private fun showTV(){
         val moveGenre = MovieGenreFragmentDirections.actionMovieGenreFragmentToTVGenreFragment()
 
         findNavController().navigate(moveGenre)
     }
 
-    private fun MovieGenreToHome(){
+    private fun showHome(){
         val moveGenre = MovieGenreFragmentDirections.actionMovieGenreFragmentToHomeFragment()
 
         findNavController().navigate(moveGenre)

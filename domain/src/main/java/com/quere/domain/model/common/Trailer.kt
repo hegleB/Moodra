@@ -1,17 +1,14 @@
 package com.quere.domain.model.common
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 
+import java.io.Serializable
 
-@Parcelize
 data class Trailers(
     val id: Integer,
     val results: List<Trailer>
 
-) : Parcelable
+) : Serializable
 
-@Parcelize
 data class Trailer(
     val name: String,
     val key: String,
@@ -19,4 +16,4 @@ data class Trailer(
     val size: Integer,
     val type: String,
     val id: String
-) : Parcelable
+) : Serializable

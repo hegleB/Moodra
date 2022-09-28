@@ -30,11 +30,13 @@ class TVGenreFragment : BaseFragment<FragmentTVGenreBinding>(R.layout.fragment_t
     private val genreViewModel: GenreViewModel by activityViewModels()
     private var viewpager_pos = 0
     override fun initView() {
+
+        observeViewModel()
+
         binding.apply {
             tvStl.visibility = View.GONE
 
-            home.setOnClickListener { TVGenreToHome() }
-            moviesTv.setOnClickListener { TVGenreToMovieGenre() }
+            viewmodel = genreViewModel
 
             getViewPager(tvPopularViewpager)
             getTVViewPagerCurrentItem(tvPopularViewpager)
@@ -49,6 +51,22 @@ class TVGenreFragment : BaseFragment<FragmentTVGenreBinding>(R.layout.fragment_t
 
 
         }
+    }
+
+    private fun observeViewModel() {
+
+        genreViewModel.fragmentHome.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            showHome()
+            it.consume()
+        }
+
+        genreViewModel.fragmentMovie.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            showMovie()
+            it.consume()
+        }
+
     }
 
     private fun getGenreRecyclerView(recyclerView: RecyclerView, genre: String) {
@@ -191,7 +209,7 @@ class TVGenreFragment : BaseFragment<FragmentTVGenreBinding>(R.layout.fragment_t
     private fun doOnClick(item: Detail) {
         val GenreToDetail = TVGenreFragmentDirections.actionTVGenreFragmentToDetailFragment(
             Detail(
-                false,
+                "tv",
                     "",
                 item.name,
                 listOf(),
@@ -209,13 +227,12 @@ class TVGenreFragment : BaseFragment<FragmentTVGenreBinding>(R.layout.fragment_t
         findNavController().navigate(GenreToDetail)
     }
 
-    private fun TVGenreToMovieGenre(){
+    private fun showMovie(){
         val tvGenre = TVGenreFragmentDirections.actionTVGenreFragmentToMovieGenreFragment()
-
         findNavController().navigate(tvGenre)
     }
 
-    private fun TVGenreToHome(){
+    private fun showHome(){
         val tvGenre = TVGenreFragmentDirections.actionTVGenreFragmentToHomeFragment()
 
         findNavController().navigate(tvGenre)

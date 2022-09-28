@@ -1,17 +1,16 @@
 package com.quere.domain.model.tv
 
-import android.os.Parcelable
 import com.quere.domain.model.common.Genre
-import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
-@Parcelize
+
 data class TVshows(
 
     val page: String,
     val results: List<TVshow>
-) : Parcelable
+) : Serializable
 
-@Parcelize
+
 data class TVshow(
     val name: String?,
     val episode_run_time: List<Int> = listOf(),
@@ -24,5 +23,4 @@ data class TVshow(
     val first_air_date: String?,
     val video: Boolean,
     val id: Int,
-
-    ) : Parcelable
+) : Serializable

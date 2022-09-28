@@ -8,8 +8,8 @@
     <data>
 
         <variable
-            name="genre"
-            type="com.quere.domain.model.common.Detail" />
+            name="viewmodel"
+            type="com.quere.presenation.viewmodel.GenreViewModel" />
 
     </data>
 
@@ -43,11 +43,13 @@
                     <TextView
                         android:id="@+id/home"
                         style="@style/AppbarTextStyle"
+                        android:onClick="@{() -> viewmodel.showHome()}"
                         android:text="@string/home_text" />
 
                     <TextView
                         android:id="@+id/movies_tv"
                         style="@style/AppbarTextStyle"
+                        android:onClick="@{() -> viewmodel.showMovie()}"
                         android:text="@string/movie_text" />
 
                     <TextView

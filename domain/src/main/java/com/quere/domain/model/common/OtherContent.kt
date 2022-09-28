@@ -1,16 +1,13 @@
 package com.quere.domain.model.common
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
-@Parcelize
 data class OtherContents(
     val id: Int,
     val results : List<OtherContent>
 
-) : Parcelable
+) : Serializable
 
-@Parcelize
 data class OtherContent(
     val id: Int,
     val adult: Boolean,
@@ -28,4 +25,4 @@ data class OtherContent(
     val video: Boolean,
     val vote_average: String,
     val vote_count: Int,
-): Parcelable
+) : Serializable

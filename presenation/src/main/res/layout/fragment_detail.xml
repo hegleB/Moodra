@@ -7,16 +7,8 @@
     <data>
 
         <variable
-            name="detail"
-            type="com.quere.domain.model.common.Detail" />
-
-        <variable
-            name="detailMovie"
-            type="com.quere.domain.model.movie.Movie" />
-
-        <variable
-            name="detailTV"
-            type="com.quere.domain.model.tv.TVshow" />
+            name="viewmodel"
+            type="com.quere.presenation.viewmodel.DetailViewModel" />
 
     </data>
 
@@ -46,7 +38,7 @@
 
                 <ImageView
                     android:id="@+id/detail_backdrop"
-                    detailBackdropImage="@{detail.type==true ? detailMovie.backdrop_path : detailTV.backdrop_path}"
+                    detailBackdropImage="@{viewmodel.backdropPath}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
@@ -67,6 +59,7 @@
                         android:id="@+id/detail_arrow_back"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:onClick="@{() -> viewmodel.backDetail()}"
                         android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
 
                     <TextView
@@ -96,7 +89,7 @@
 
                 <ImageView
                     android:id="@+id/detail_poster"
-                    imageUrl="@{detail.type==true ? detailMovie.poster_path : detailTV.poster_path}"
+                    imageUrl="@{viewmodel.postPath}"
                     android:layout_width="115dp"
                     android:layout_height="140dp"
                     android:layout_gravity="center_vertical|bottom"
@@ -111,14 +104,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|bottom"
                     android:layout_marginBottom="130dp"
-                    android:text="@{detail.type==true ? detailMovie.release_date : detailTV.first_air_date}"
+                    android:text="@{viewmodel.releaseDate}"
                     android:textColor="@color/white"
                     android:textSize="15dp" />
 
 
                 <TextView
                     android:id="@+id/detail_runtime"
-                    detailruntime="@{detail.type==true ? detailMovie.runtime : 0}"
+                    detailruntime="@{viewmodel.runtime}"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|bottom"
@@ -128,7 +121,7 @@
 
                 <TextView
                     android:id="@+id/detail_genre"
-                    detailGenre="@{detail.type==true ? detailMovie.genres : detailTV.genres}"
+                    detailGenre="@{viewmodel.genre}"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|bottom"
@@ -189,7 +182,7 @@
                     android:paddingStart="10dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="10dp"
-                    android:text="@{detail.type==true ? detailMovie.overview : detailTV.overview}"
+                    android:text="@{viewmodel.overview}"
                     android:textColor="@color/white"
                     android:textSize="16dp"
                     app:layout_constraintEnd_toEndOf="parent"

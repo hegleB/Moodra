@@ -5,6 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.quere.presenation.viewmodel.GenreViewModel" />
+
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,6 +44,7 @@
                     <TextView
                         android:id="@+id/home"
                         android:text="@string/home_text"
+                        android:onClick="@{() -> viewmodel.showHome()}"
                         style="@style/AppbarTextStyle" />
 
                     <TextView
@@ -45,6 +55,7 @@
                     <TextView
                         android:id="@+id/tv_show_tv"
                         android:text="@string/tv_text"
+                        android:onClick="@{() -> viewmodel.showTV()}"
                         style="@style/AppbarTextStyle"/>
                 </LinearLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
