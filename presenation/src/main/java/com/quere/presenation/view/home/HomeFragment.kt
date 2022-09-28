@@ -68,9 +68,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     }
 
-
-
-
     private fun getMovieRecyclerView(recyclerView: RecyclerView, type: String) {
         val movieAdapter: MoviePagingAdapter by lazy {
             MoviePagingAdapter(
