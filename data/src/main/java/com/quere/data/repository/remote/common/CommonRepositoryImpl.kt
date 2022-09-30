@@ -3,10 +3,7 @@ package com.quere.data.repository.remote.common
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.quere.data.paging.common.GenrePagingSource
-import com.quere.data.paging.common.GenreViewPagerPagingSource
-import com.quere.data.paging.common.RecommendPagingSource
-import com.quere.data.paging.common.SimilarPagingSource
+import com.quere.data.paging.common.*
 import com.quere.data.repository.remote.movie.PAGE_SIZE
 import com.quere.data.service.commonservice.CommonService
 import com.quere.domain.model.common.*
@@ -45,11 +42,21 @@ class CommonRepositoryImpl @Inject constructor(
         }.flow
     }
 
-    override suspend fun getGenrePopular(type: String?): Flow<PagingData<Detail>>? {
+    override suspend fun getMoviePopular(): Flow<PagingData<Detail>>? {
         return Pager(PagingConfig(PAGE_SIZE)) {
-            GenreViewPagerPagingSource(commonService, type!!)
+            GenreViewPagerPagingSource(commonService, "movie")
         }.flow
     }
 
+    override suspend fun getTvPopular(): Flow<PagingData<Detail>>? {
+        return Pager(PagingConfig(PAGE_SIZE)) {
+            GenreViewPagerPagingSource(commonService, "tv")
+        }.flow
+    }
 
+    override suspend fun getGenreAll(type: String?, genre: String?): Flow<PagingData<Detail>>? {
+       return Pager(PagingConfig(PAGE_SIZE)) {
+           GenreAllPagingSource(commonService, type!!,genre!!)
+       }.flow
+    }
 }

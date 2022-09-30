@@ -26,12 +26,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/movie_actionbar"
+                android:id="@+id/collasingtoolBar_movieGenre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:id="@+id/stickbar_layout"
+                    android:id="@+id/linearLayout_movieGenre_stickbar"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:gravity="center"
@@ -42,18 +42,18 @@
                     app:layout_scrollFlags="noScroll">
 
                     <TextView
-                        android:id="@+id/home"
+                        android:id="@+id/textView_movieGenre_homeActionBar"
                         android:text="@string/home_text"
                         android:onClick="@{() -> viewmodel.showHome()}"
                         style="@style/AppbarTextStyle" />
 
                     <TextView
-                        android:id="@+id/movies_tv"
+                        android:id="@+id/textView_movieGenre_movieActionBar"
                         android:text="@string/movie_text"
                         style="@style/AppbarCurrentTextStyle" />
 
                     <TextView
-                        android:id="@+id/tv_show_tv"
+                        android:id="@+id/textView_movieGenre_tvActionBar"
                         android:text="@string/tv_text"
                         android:onClick="@{() -> viewmodel.showTV()}"
                         style="@style/AppbarTextStyle"/>
@@ -63,7 +63,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/move_scrollview"
+            android:id="@+id/nestedScrollView_moveGenre"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -75,253 +75,263 @@
 
 
                 <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/movie_popular_viewpager"
+                    android:id="@+id/viewPager_movieGenre_popular"
                     style="@style/GenreViewPagerStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/movie_viewpader_number"
+                    android:id="@+id/textView_movieGenre_page"
                     style="@style/GenreViewPagerCounterStyle"
-                    app:layout_constraintBottom_toTopOf="@+id/movie_indicator_layout"
-                    app:layout_constraintEnd_toEndOf="@+id/movie_popular_viewpager"/>
+                    postionViewPager="@{viewmodel.pageMovieViewPager}"
+                    app:layout_constraintBottom_toTopOf="@+id/relativeLayout_movieGenre_indicator"
+                    app:layout_constraintEnd_toEndOf="@+id/viewPager_movieGenre_popular"/>
 
                 <RelativeLayout
-                    android:id="@+id/movie_indicator_layout"
+                    android:id="@+id/relativeLayout_movieGenre_indicator"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_popular_viewpager">
+                    app:layout_constraintTop_toBottomOf="@+id/viewPager_movieGenre_popular">
 
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/movie_action_action_text_view"
+                    android:id="@+id/textView_movieGenre_action"
                     android:text="#액션"
                     style="@style/GenreTextViewStyle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_indicator_layout"
+                    app:layout_constraintTop_toBottomOf="@+id/relativeLayout_movieGenre_indicator"
                     app:layout_constraintVertical_bias="0.0" />
 
 
                 <TextView
-                    android:id="@+id/movie_action_detail"
+                    android:id="@+id/textView_movieGenre_actionAll"
                     style="@style/GenreAllTextStyle"
-                    app:layout_constraintBottom_toBottomOf="@+id/movie_action_action_text_view"
-                    app:layout_constraintEnd_toEndOf="@+id/movie_action_action_text_view"
+                    android:onClick="@{() -> viewmodel.showAction()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_movieGenre_action"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_movieGenre_action"
                     app:layout_constraintHorizontal_bias="0.952"
-                    app:layout_constraintStart_toStartOf="@+id/movie_action_action_text_view"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_indicator_layout"
+                    app:layout_constraintStart_toStartOf="@+id/textView_movieGenre_action"
+                    app:layout_constraintTop_toBottomOf="@+id/relativeLayout_movieGenre_indicator"
                     app:layout_constraintVertical_bias="0.677" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/movie_action_action_recyclerview"
+                    android:id="@+id/recyclerView_movieGenre_action"
                     style="@style/GenreRecyclerViewStyle"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_action_action_text_view"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_movieGenre_actionAll"
                     tools:listitem="@layout/item_genre"
                     tools:ignore="MissingConstraints" />
 
 
                 <TextView
-                    android:id="@+id/movie_fantasy_text_view"
+                    android:id="@+id/textView_movieGenre_fantasy"
                     android:text="#판타지"
                     style="@style/GenreTextViewStyle"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_action_action_recyclerview"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_movieGenre_action"
                     tools:ignore="MissingConstraints" />
 
 
                 <TextView
-                    android:id="@+id/movie_fantasy_detail"
+                    android:id="@+id/textView_movieGenre_fantasyAll"
                     style="@style/GenreAllTextStyle"
-                    app:layout_constraintBottom_toBottomOf="@+id/movie_fantasy_text_view"
-                    app:layout_constraintEnd_toEndOf="@+id/movie_fantasy_text_view"
+                    android:onClick="@{() -> viewmodel.showFantasy()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_movieGenre_fantasy"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_movieGenre_fantasy"
                     app:layout_constraintHorizontal_bias="0.952"
-                    app:layout_constraintStart_toStartOf="@+id/movie_fantasy_text_view"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_action_action_recyclerview"
+                    app:layout_constraintStart_toStartOf="@+id/textView_movieGenre_fantasy"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_movieGenre_action"
                     app:layout_constraintVertical_bias="0.677" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/movie_fantasy_recyclerview"
+                    android:id="@+id/recyclerView_movieGenre_fantasy"
                     style="@style/GenreRecyclerViewStyle"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_fantasy_text_view"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_movieGenre_fantasy"
                     tools:listitem="@layout/item_genre"
                     tools:ignore="MissingConstraints" />
 
 
                 <TextView
-                    android:id="@+id/movie_animation_text_view"
+                    android:id="@+id/textView_movieGenre_animation"
                     android:text="#애니메이션"
                     style="@style/GenreTextViewStyle"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_fantasy_recyclerview"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_movieGenre_fantasy"
                     tools:ignore="MissingConstraints" />
 
 
                 <TextView
-                    android:id="@+id/movie_animation_detail"
+                    android:id="@+id/textView_movieGenre_animationAll"
                     style="@style/GenreAllTextStyle"
-                    app:layout_constraintBottom_toBottomOf="@+id/movie_animation_text_view"
-                    app:layout_constraintEnd_toEndOf="@+id/movie_animation_text_view"
+                    android:onClick="@{() -> viewmodel.showAnimation()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_movieGenre_animation"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_movieGenre_animation"
                     app:layout_constraintHorizontal_bias="0.952"
-                    app:layout_constraintStart_toStartOf="@+id/movie_animation_text_view"
+                    app:layout_constraintStart_toStartOf="@+id/textView_movieGenre_animation"
                     app:layout_constraintVertical_bias="0.677" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/movie_animation_recyclerview"
+                    android:id="@+id/recyclerView_movieGenre_animation"
                     style="@style/GenreRecyclerViewStyle"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_animation_text_view"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_movieGenre_animation"
                     tools:listitem="@layout/item_genre"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
-                    android:id="@+id/movie_music_text_view"
+                    android:id="@+id/textView_movieGenre_music"
                     android:text="#뮤직"
                     style="@style/GenreTextViewStyle"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_animation_recyclerview"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_movieGenre_animation"
                     tools:ignore="MissingConstraints" />
 
 
                 <TextView
-                    android:id="@+id/movie_music_detail"
+                    android:id="@+id/textView_movieGenre_musicAll"
                     style="@style/GenreAllTextStyle"
-                    app:layout_constraintBottom_toBottomOf="@+id/movie_music_text_view"
-                    app:layout_constraintEnd_toEndOf="@+id/movie_music_text_view"
+                    android:onClick="@{() -> viewmodel.showMusic()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_movieGenre_music"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_movieGenre_music"
                     app:layout_constraintHorizontal_bias="0.952"
-                    app:layout_constraintStart_toStartOf="@+id/movie_music_text_view"
+                    app:layout_constraintStart_toStartOf="@+id/textView_movieGenre_music"
                     app:layout_constraintVertical_bias="0.677" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/movie_music_recyclerview"
+                    android:id="@+id/recyclerView_movieGenre_music"
                     style="@style/GenreRecyclerViewStyle"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_music_text_view"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_movieGenre_music"
                     tools:listitem="@layout/item_genre"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
-                    android:id="@+id/movie_comedy_text_view"
+                    android:id="@+id/textView_movieGenre_comedy"
                     android:text="#코미디"
                     style="@style/GenreTextViewStyle"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_music_recyclerview"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_movieGenre_music"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
-                    android:id="@+id/movie_comedy_detail"
+                    android:id="@+id/textView_movieGenre_comedyAll"
                     style="@style/GenreAllTextStyle"
-                    app:layout_constraintBottom_toBottomOf="@+id/movie_comedy_text_view"
-                    app:layout_constraintEnd_toEndOf="@+id/movie_comedy_text_view"
+                    android:onClick="@{() -> viewmodel.showComedy()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_movieGenre_comedy"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_movieGenre_comedy"
                     app:layout_constraintHorizontal_bias="0.952"
-                    app:layout_constraintStart_toStartOf="@+id/movie_comedy_text_view"
+                    app:layout_constraintStart_toStartOf="@+id/textView_movieGenre_comedy"
                     app:layout_constraintVertical_bias="0.677" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/movie_comedy_recyclerview"
+                    android:id="@+id/recyclerView_movieGenre_comedy"
                     style="@style/GenreRecyclerViewStyle"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_comedy_text_view"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_movieGenre_comedy"
                     tools:listitem="@layout/item_genre"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
-                    android:id="@+id/movie_romance_text_view"
+                    android:id="@+id/textView_movieGenre_romance"
                     android:text="#로맨스"
                     style="@style/GenreTextViewStyle"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_comedy_recyclerview"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_movieGenre_comedy"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
-                    android:id="@+id/movie_romance_detail"
+                    android:id="@+id/textView_movieGenre_romanceAll"
                     style="@style/GenreAllTextStyle"
-                    app:layout_constraintBottom_toBottomOf="@+id/movie_romance_text_view"
-                    app:layout_constraintEnd_toEndOf="@+id/movie_romance_text_view"
+                    android:onClick="@{() -> viewmodel.showRomancee()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_movieGenre_romance"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_movieGenre_romance"
                     app:layout_constraintHorizontal_bias="0.952"
-                    app:layout_constraintStart_toStartOf="@+id/movie_romance_text_view"
+                    app:layout_constraintStart_toStartOf="@+id/textView_movieGenre_romance"
                     app:layout_constraintVertical_bias="0.677" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/movie_romance_recyclerview"
+                    android:id="@+id/recyclerView_movieGenre_romance"
                     style="@style/GenreRecyclerViewStyle"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_romance_text_view"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_movieGenre_romance"
                     tools:listitem="@layout/item_genre"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
-                    android:id="@+id/movie_crime_text_view"
+                    android:id="@+id/textView_movieGenre_crime"
                     android:text="#범죄"
                     style="@style/GenreTextViewStyle"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_romance_recyclerview"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_movieGenre_romance"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
-                    android:id="@+id/movie_crime_detail"
+                    android:id="@+id/textView_movieGenre_crimeAll"
                     style="@style/GenreAllTextStyle"
-                    app:layout_constraintBottom_toBottomOf="@+id/movie_crime_text_view"
-                    app:layout_constraintEnd_toEndOf="@+id/movie_crime_text_view"
+                    android:onClick="@{() -> viewmodel.showCrime()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_movieGenre_crime"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_movieGenre_crime"
                     app:layout_constraintHorizontal_bias="0.952"
-                    app:layout_constraintStart_toStartOf="@+id/movie_crime_text_view"
+                    app:layout_constraintStart_toStartOf="@+id/textView_movieGenre_crime"
                     app:layout_constraintVertical_bias="0.677" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/movie_crime_recyclerview"
+                    android:id="@+id/recyclerView_movieGenre_crime"
                     style="@style/GenreRecyclerViewStyle"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_crime_text_view"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_movieGenre_crime"
                     tools:listitem="@layout/item_genre"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
-                    android:id="@+id/movie_mystery_text_view"
+                    android:id="@+id/textView_movieGenre_mystery"
                     android:text="#미스테리"
                     style="@style/GenreTextViewStyle"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_crime_recyclerview"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_movieGenre_crime"
                     tools:ignore="MissingConstraints" />
 
 
                 <TextView
-                    android:id="@+id/movie_mystery_detail"
+                    android:id="@+id/textView_movieGenre_mysteryAll"
                     style="@style/GenreAllTextStyle"
-                    app:layout_constraintBottom_toBottomOf="@+id/movie_mystery_text_view"
-                    app:layout_constraintEnd_toEndOf="@+id/movie_mystery_text_view"
+                    android:onClick="@{() -> viewmodel.showMystery()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_movieGenre_mystery"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_movieGenre_mystery"
                     app:layout_constraintHorizontal_bias="0.952"
-                    app:layout_constraintStart_toStartOf="@+id/movie_mystery_text_view"
+                    app:layout_constraintStart_toStartOf="@+id/textView_movieGenre_mystery"
                     app:layout_constraintVertical_bias="0.677" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/movie_mystery_recyclerview"
+                    android:id="@+id/recyclerView_movieGenre_mystery"
                     style="@style/GenreRecyclerViewStyle"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_mystery_text_view"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_movieGenre_mystery"
                     tools:listitem="@layout/item_genre"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
-                    android:id="@+id/movie_horror_text_view"
+                    android:id="@+id/textView_movieGenre_horror"
                     android:text="#호러"
                     style="@style/GenreTextViewStyle"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_mystery_recyclerview"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_movieGenre_mystery"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
-                    android:id="@+id/movie_horror_detail"
+                    android:id="@+id/textView_movieGenre_horrorAll"
                     style="@style/GenreAllTextStyle"
-                    app:layout_constraintBottom_toBottomOf="@+id/movie_horror_text_view"
-                    app:layout_constraintEnd_toEndOf="@+id/movie_horror_text_view"
+                    android:onClick="@{() -> viewmodel.showHorror()}"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_movieGenre_horror"
+                    app:layout_constraintEnd_toEndOf="@+id/textView_movieGenre_horror"
                     app:layout_constraintHorizontal_bias="0.952"
-                    app:layout_constraintStart_toStartOf="@+id/movie_horror_text_view"
+                    app:layout_constraintStart_toStartOf="@+id/textView_movieGenre_horror"
                     app:layout_constraintVertical_bias="0.677" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/movie_horror_recyclerview"
+                    android:id="@+id/recyclerView_movieGenre_horror"
                     style="@style/GenreRecyclerViewStyle"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/movie_horror_text_view"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_movieGenre_horrorAll"
                     tools:listitem="@layout/item_genre"
                     tools:ignore="MissingConstraints" />
 
@@ -330,7 +340,7 @@
         </androidx.core.widget.NestedScrollView>
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/movie_stl"
+            android:id="@+id/stil_movieGenre"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

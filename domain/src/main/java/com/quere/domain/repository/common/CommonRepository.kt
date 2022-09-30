@@ -14,6 +14,8 @@ interface CommonRepository {
     suspend fun getCredit(type:String?,id :Int?) : Credit?
     suspend fun getTrailer(type:String?,id :Int?) : Trailers?
     suspend fun getGenre(type:String?,genre : String?) : Flow<PagingData<Detail>>?
-    suspend fun getGenrePopular(type:String?) : Flow<PagingData<Detail>>?
+    suspend fun getMoviePopular() : Flow<PagingData<Detail>>?
+    suspend fun getTvPopular() : Flow<PagingData<Detail>>?
+    suspend fun getGenreAll(type:String?,genre : String?) : Flow<PagingData<Detail>>?
 
 }
