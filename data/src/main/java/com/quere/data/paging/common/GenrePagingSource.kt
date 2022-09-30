@@ -17,7 +17,6 @@ class GenrePagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Detail> {
 
         dataList = service.getGenre(type,genre,1).results
-        println("Genre : " + dataList)
 
         return super.load(params)
     }
