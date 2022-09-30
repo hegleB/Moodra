@@ -36,4 +36,12 @@ object TextBindingAdatper {
             textView.setText("")
         }
     }
+
+    @BindingAdapter("postionViewPager")
+    @JvmStatic
+    fun setPositionViewPager(textView: TextView, page: Int) {
+        val currentPage = "${page%20+1} / 20"
+
+        textView.setText(currentPage)
+    }
 }
