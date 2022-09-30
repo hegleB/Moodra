@@ -41,14 +41,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
             viewmodel = homeViewModel
 
-            getMovieRecyclerView(movieNowplayingRecyclerview, AppConstants.NOW_PLAYING)
-            getMovieRecyclerView(movieTopratedRecyclerview, AppConstants.TOP_RATED)
-            getMovieRecyclerView(moviePopularRecyclerview, AppConstants.POPULAR)
-            getMovieRecyclerView(movieUpcomingRecyclerview, AppConstants.UPCOMING)
+            getMovieRecyclerView(recyclerViewHomeMovieNowplaying, AppConstants.NOW_PLAYING)
+            getMovieRecyclerView(recyclerViewHomeMovieToprated, AppConstants.TOP_RATED)
+            getMovieRecyclerView(recyclerViewHomeMoviePopular, AppConstants.POPULAR)
+            getMovieRecyclerView(recyclerViewHomeMovieUpcoming, AppConstants.UPCOMING)
 
-            getTVRecyclerView(tvOntheairRecyclerview, AppConstants.ONTHEAIR)
-            getTVRecyclerView(tvTopratedRecyclerview, AppConstants.TOP_RATED)
-            getTVRecyclerView(tvPopularRecyclerview, AppConstants.POPULAR)
+            getTVRecyclerView(recyclerViewHomeTvOnTheAir, AppConstants.ONTHEAIR)
+            getTVRecyclerView(recyclerViewHomeTvTopraged, AppConstants.TOP_RATED)
+            getTVRecyclerView(recyclerViewHomeTvPopular, AppConstants.POPULAR)
         }
     }
 

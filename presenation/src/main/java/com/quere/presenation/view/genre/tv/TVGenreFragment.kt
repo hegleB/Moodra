@@ -1,7 +1,8 @@
 package com.quere.presenation.view.genre.tv
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,10 +18,13 @@ import com.quere.presenation.base.BaseFragment
 import com.quere.presenation.databinding.FragmentTVGenreBinding
 import com.quere.presenation.view.adapter.GenreAdapter
 import com.quere.presenation.view.adapter.HorizontalItemDecorator
-import com.quere.presenation.view.adapter.ViewPagerAdapter
+import com.quere.presenation.view.adapter.TVViewPagerAdapter
+import com.quere.presenation.view.genre.movie.MovieGenreFragmentDirections
+import com.quere.presenation.viewmodel.DetailViewModel
 import com.quere.presenation.viewmodel.GenreViewModel
 
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -28,26 +32,26 @@ import kotlinx.coroutines.launch
 class TVGenreFragment : BaseFragment<FragmentTVGenreBinding>(R.layout.fragment_t_v_genre) {
 
     private val genreViewModel: GenreViewModel by activityViewModels()
-    private var viewpager_pos = 0
+    private val detailViewModel: DetailViewModel by activityViewModels()
+
     override fun initView() {
 
         observeViewModel()
 
         binding.apply {
-            tvStl.visibility = View.GONE
+            stlTvGenre.visibility = View.GONE
 
             viewmodel = genreViewModel
+            getViewPager(viewPagerTvGenrePopular)
+            getTVViewPagerCurrentItem(viewPagerTvGenrePopular)
 
-            getViewPager(tvPopularViewpager)
-            getTVViewPagerCurrentItem(tvPopularViewpager)
-
-            getGenreRecyclerView(tvAnimationRecyclerview, AppConstants.ANIMATION)
-            getGenreRecyclerView(tvFantasyRecyclerview, AppConstants.FANTASY)
-            getGenreRecyclerView(tvMusicRecyclerview, AppConstants.MUSIC)
-            getGenreRecyclerView(tvComedyRecyclerview, AppConstants.COMEDY)
-            getGenreRecyclerView(tvRomanceRecyclerview, AppConstants.ROMANCE)
-            getGenreRecyclerView(tvCrimeRecyclerview, AppConstants.CRIME)
-            getGenreRecyclerView(tvMysteryRecyclerview, AppConstants.MYSTERY)
+            getGenreRecyclerView(recyclerViewTvGenreAnimation, AppConstants.ANIMATION)
+            getGenreRecyclerView(recyclerViewTvGenreFantasy, AppConstants.FANTASY)
+            getGenreRecyclerView(recyclerViewTvGenreMusic, AppConstants.MUSIC)
+            getGenreRecyclerView(recyclerViewTvGenreComedy, AppConstants.COMEDY)
+            getGenreRecyclerView(recyclerViewTvGenreRomance, AppConstants.ROMANCE)
+            getGenreRecyclerView(recyclerViewTvGenreCrime, AppConstants.CRIME)
+            getGenreRecyclerView(recyclerViewTvGenreMystery, AppConstants.MYSTERY)
 
 
         }
@@ -67,6 +71,56 @@ class TVGenreFragment : BaseFragment<FragmentTVGenreBinding>(R.layout.fragment_t
             it.consume()
         }
 
+        genreViewModel.animation.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            showMovieGenreAll("애니메이션")
+            it.consume()
+        }
+
+        genreViewModel.fantasy.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            showMovieGenreAll("판타지")
+            it.consume()
+        }
+
+        genreViewModel.music.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            showMovieGenreAll("뮤직")
+            it.consume()
+        }
+
+        genreViewModel.comedy.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            showMovieGenreAll("코미디")
+            it.consume()
+        }
+
+        genreViewModel.romance.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            showMovieGenreAll("로맨스")
+            it.consume()
+        }
+
+        genreViewModel.crime.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            showMovieGenreAll("범죄")
+            it.consume()
+        }
+
+        genreViewModel.mystery.observe(viewLifecycleOwner) {
+            if (it.consumed) return@observe
+            showMovieGenreAll("미스테리")
+            it.consume()
+        }
+
+    }
+
+    private fun showMovieGenreAll(genre: String) {
+        val genreAll = TVGenreFragmentDirections.actionTVGenreFragmentToGenreAllFragment(
+            "tv",genre
+        )
+
+        findNavController().navigate(genreAll)
     }
 
     private fun getGenreRecyclerView(recyclerView: RecyclerView, genre: String) {
@@ -77,80 +131,79 @@ class TVGenreFragment : BaseFragment<FragmentTVGenreBinding>(R.layout.fragment_t
         }
         recyclerView.adapter = genreAdapter
         recyclerView.addItemDecoration(HorizontalItemDecorator(10))
-        collectFlow("tv",genre, genreAdapter)
+        collectFlow("tv", genre, genreAdapter)
 
     }
 
-    private fun collectFlow(type: String, genre: String,genreAdapter: GenreAdapter) {
+    private fun collectFlow(type: String, genre: String, genreAdapter: GenreAdapter) {
 
         when (genre) {
             AppConstants.ANIMATION -> {
-                viewLifecycleOwner.lifecycleScope.launch{
-                    genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    genreViewModel.getGenre(type, genre)!!.collectLatest { genreList ->
 
                         genreAdapter.submitData(genreList)
                     }
                 }
             }
             AppConstants.ACTION -> {
-                viewLifecycleOwner.lifecycleScope.launch{
-                    genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    genreViewModel.getGenre(type, genre)!!.collectLatest { genreList ->
 
                         genreAdapter.submitData(genreList)
                     }
                 }
             }
             AppConstants.FANTASY -> {
-                viewLifecycleOwner.lifecycleScope.launch{
-                    genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
-
+                viewLifecycleOwner.lifecycleScope.launch {
+                    genreViewModel.getGenre(type, genre)!!.collectLatest { genreList ->
                         genreAdapter.submitData(genreList)
                     }
                 }
             }
             AppConstants.MUSIC -> {
-                viewLifecycleOwner.lifecycleScope.launch{
-                    genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    genreViewModel.getGenre(type, genre)!!.collectLatest { genreList ->
 
                         genreAdapter.submitData(genreList)
                     }
                 }
             }
             AppConstants.COMEDY -> {
-                viewLifecycleOwner.lifecycleScope.launch{
-                    genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    genreViewModel.getGenre(type, genre)!!.collectLatest { genreList ->
 
                         genreAdapter.submitData(genreList)
                     }
                 }
             }
             AppConstants.ROMANCE -> {
-                viewLifecycleOwner.lifecycleScope.launch{
-                    genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    genreViewModel.getGenre(type, genre)!!.collectLatest { genreList ->
 
                         genreAdapter.submitData(genreList)
                     }
                 }
             }
             AppConstants.CRIME -> {
-                viewLifecycleOwner.lifecycleScope.launch{
-                    genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    genreViewModel.getGenre(type, genre)!!.collectLatest { genreList ->
 
                         genreAdapter.submitData(genreList)
                     }
                 }
             }
             AppConstants.MYSTERY -> {
-                viewLifecycleOwner.lifecycleScope.launch{
-                    genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    genreViewModel.getGenre(type, genre)!!.collectLatest { genreList ->
 
                         genreAdapter.submitData(genreList)
                     }
                 }
             }
             AppConstants.HORROR -> {
-                viewLifecycleOwner.lifecycleScope.launch{
-                    genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    genreViewModel.getGenre(type, genre)!!.collectLatest { genreList ->
 
                         genreAdapter.submitData(genreList)
                     }
@@ -160,32 +213,44 @@ class TVGenreFragment : BaseFragment<FragmentTVGenreBinding>(R.layout.fragment_t
 
     }
 
-    private fun getViewPager(viewpager: ViewPager2){
-        val viewpagerAdapter : ViewPagerAdapter by lazy {
-            ViewPagerAdapter(
-                ItemClick = {doOnClick(it)}
+    private fun getViewPager(viewpager: ViewPager2) {
+        val viewpagerAdapter: TVViewPagerAdapter by lazy {
+            TVViewPagerAdapter(
+                ItemClick = { doOnClick(it) }
             )
         }
 
         viewpager.adapter = viewpagerAdapter
         viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        lifecycleScope.launch {
+            delay(50)
+            viewpager.setCurrentItem(0)
+
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            genreViewModel.getGenrePopular("tv").collectLatest { viewpaerList ->
+            genreViewModel.getTVPopular().collectLatest { viewpaerList ->
                 viewpagerAdapter.submitData(viewpaerList)
             }
         }
 
-    }
-    private fun getTVViewPagerCurrentItem(viewpager: ViewPager2){
 
-        var total_item: Int? = null
-        total_item = 20
-        var current_item = 1
-        binding.tvViewpaderNumber.text = "$current_item /$total_item"
+
+    }
+
+    private fun getTVViewPagerCurrentItem(viewpager: ViewPager2) {
+
+
+
+        lifecycleScope.launch {
+
+            delay(100)
+            genreViewModel.pageTVViewPager.observe(viewLifecycleOwner) {
+                viewpager.setCurrentItem(it, true)
+            }
+        }
 
         viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-
 
             override fun onPageScrolled(
                 position: Int,
@@ -193,46 +258,56 @@ class TVGenreFragment : BaseFragment<FragmentTVGenreBinding>(R.layout.fragment_t
                 positionOffsetPixels: Int
             ) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                current_item = (position + 1) % total_item!!
-                if (current_item % 20 == 0) current_item = 20
-
-                binding.tvViewpaderNumber.text = "$current_item/$total_item"
-                viewpager_pos = position
+                Log.d("seq", "TV onPageScrolled : $position")
+                if (positionOffsetPixels == 0) {
+                    viewpager.setCurrentItem(position)
+                }
             }
 
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                Log.d("seq", "TV postion : $position")
+                if (position!=0) {
+                    genreViewModel.setPositionTVViewPager(position % 20)
+                }
+
+            }
         })
 
-    }
 
+    }
 
 
     private fun doOnClick(item: Detail) {
-        val GenreToDetail = TVGenreFragmentDirections.actionTVGenreFragmentToDetailFragment(
-            Detail(
-                "tv",
+        viewLifecycleOwner.lifecycleScope.launch {
+            val tv = detailViewModel.getTVDetail(item.id?:0)
+            val GenreToDetail = TVGenreFragmentDirections.actionTVGenreFragmentToDetailFragment(
+                Detail(
+                    "tv",
                     "",
-                item.name,
-                listOf(),
-                item.id,
-                item.overview,
-                false,
-                item.poster_path,
-                item.backdrop_path,
-                item.release_date,
-                item.runtime,
-                item.video,
-                item.vote_average
+                    tv.name,
+                    tv.genres,
+                    tv.id,
+                    tv.overview,
+                    false,
+                    tv.poster_path,
+                    tv.backdrop_path,
+                    tv.first_air_date,
+                    tv.episode_run_time.sum(),
+                    tv.video,
+                    tv.vote_average
+                )
             )
-        )
-        findNavController().navigate(GenreToDetail)
+            findNavController().navigate(GenreToDetail)
+        }
     }
 
-    private fun showMovie(){
+    private fun showMovie() {
         val tvGenre = TVGenreFragmentDirections.actionTVGenreFragmentToMovieGenreFragment()
         findNavController().navigate(tvGenre)
     }
 
-    private fun showHome(){
+    private fun showHome() {
         val tvGenre = TVGenreFragmentDirections.actionTVGenreFragmentToHomeFragment()
 
         findNavController().navigate(tvGenre)

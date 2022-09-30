@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
+import com.quere.domain.model.common.Bookmark
 import com.quere.domain.model.common.Detail
 import com.quere.domain.model.common.OtherContent
 import com.quere.domain.model.common.Trailer
@@ -51,6 +52,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             findNavController().popBackStack()
             it.consume()
         }
+
+        detailViewModel.isBookmark.observe(viewLifecycleOwner) {
+            changeBookmarkimage(it)
+        }
     }
 
 
@@ -63,23 +68,23 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         binding.apply {
 
             getCreditRecyclerView(
-                detailCreditRecycler,
+                recyclerViewDetailCredit,
                 detailArgs.detail.id?:0,
                 detailArgs.detail.type
             )
             getTrailerRecyclerView(
-                detailTrailerRecyclerview,
+                recyclerViewDetailTrailer,
                 detailArgs.detail.id?:0,
                 detailArgs.detail.type
             )
             getContentRecyclerView(
-                detailSimiliarRecyclerview,
+                recyclerViewDetailSimiliar,
                 detailArgs.detail.id?:0,
                 AppConstants.SIMILAR,
                 detailArgs.detail.type
             )
             getContentRecyclerView(
-                detailRecommendRecyclerview,
+                recyclerViewDetailRecommend,
                 detailArgs.detail.id?:0,
                 AppConstants.RECOMMEND,
                 detailArgs.detail.type
@@ -96,7 +101,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             ), 0, title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        binding.detailCollasingtoolbar.title = spannable
+        binding.collasingtoolBarDetail.title = spannable
     }
 
     private fun getCreditRecyclerView(recyclerView: RecyclerView, Id: Int, type: String) {
@@ -119,7 +124,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun getTrailerRecyclerView(recyclerView: RecyclerView, Id: Int, type: String) {
         val trailerAdapter: TrailerAdapter by lazy {
             TrailerAdapter(
-                ItemClick = { trailerDialog(it) }
+                ItemClick = { showtrailerDialog(it) }
             )
         }
         recyclerView.adapter = trailerAdapter
@@ -229,15 +234,15 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         val animator = ValueAnimator.ofInt(0, count)
         animator.addUpdateListener { animation ->
             val progress = animation.animatedValue as Int
-            if (binding.detailRating != null) {
-                binding.detailRating.setProgress(progress)
+            if (binding.circleProgressBarDetailRating != null) {
+                binding.circleProgressBarDetailRating.setProgress(progress)
             }
         }
         animator.duration = 800
         animator.start()
     }
 
-    private fun trailerDialog(trailer: Trailer) {
+    private fun showtrailerDialog(trailer: Trailer) {
 
         val args = Bundle()
         args.putString("key", trailer.key)
@@ -245,6 +250,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         dialogFragment.setArguments(args)
         dialogFragment.show(requireActivity().supportFragmentManager, "Sample Dialog Fragment")
 
+    }
+
+    private fun changeBookmarkimage(isBookmark : Boolean) {
+        if (isBookmark) {
+            binding.imageViewDetailBookmark.setImageResource(R.drawable.ic_baseline_bookmark_exist)
+        } else {
+            binding.imageViewDetailBookmark.setImageResource(R.drawable.ic_baseline_bookmark_24)
+        }
     }
 
 

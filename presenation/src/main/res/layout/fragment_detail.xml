@@ -19,14 +19,14 @@
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/detail_appbarlayout"
+            android:id="@+id/appbarLayout_detail"
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/detail_collasingtoolbar"
+                android:id="@+id/collasingtoolBar_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
@@ -37,7 +37,7 @@
                 >
 
                 <ImageView
-                    android:id="@+id/detail_backdrop"
+                    android:id="@+id/imageView_detail_backdrop"
                     detailBackdropImage="@{viewmodel.backdropPath}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -48,7 +48,7 @@
 
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/detail_toolbar"
+                    android:id="@+id/toolbar_detail"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="#00FFFFFF"
@@ -56,21 +56,21 @@
                     app:layout_collapseMode="pin">
 
                     <ImageView
-                        android:id="@+id/detail_arrow_back"
+                        android:id="@+id/imageView_detail_arrow_back"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:onClick="@{() -> viewmodel.backDetail()}"
                         android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
 
                     <TextView
-                        android:id="@+id/detail_text"
+                        android:id="@+id/textView_detail_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#00000000"
                         android:textSize="20dp" />
 
                     <ImageView
-                        android:id="@+id/detail_bookmark"
+                        android:id="@+id/imageView_detail_bookmark"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/ic_baseline_bookmark_24"
@@ -88,7 +88,7 @@
                     android:background="@color/gray1" />
 
                 <ImageView
-                    android:id="@+id/detail_poster"
+                    android:id="@+id/imageView_detail_poster"
                     imageUrl="@{viewmodel.postPath}"
                     android:layout_width="115dp"
                     android:layout_height="140dp"
@@ -99,7 +99,7 @@
                     android:scaleType="fitXY" />
 
                 <TextView
-                    android:id="@+id/detail_release_date"
+                    android:id="@+id/textView_detail_release_date"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|bottom"
@@ -110,7 +110,7 @@
 
 
                 <TextView
-                    android:id="@+id/detail_runtime"
+                    android:id="@+id/textView_detail_runtime"
                     detailruntime="@{viewmodel.runtime}"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
                     android:textSize="15dp" />
 
                 <TextView
-                    android:id="@+id/detail_genre"
+                    android:id="@+id/textView_detail_genre"
                     detailGenre="@{viewmodel.genre}"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
@@ -133,7 +133,7 @@
                     android:textSize="15dp" />
 
                 <com.dinuscxj.progressbar.CircleProgressBar
-                    android:id="@+id/detail_rating"
+                    android:id="@+id/circleProgressBar_detail_rating"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="bottom|right"
@@ -164,7 +164,7 @@
 
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/detail_scroll"
+            android:id="@+id/nestedScrollView_detail_scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -175,7 +175,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/detail_overview"
+                    android:id="@+id/textView_detail_overview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
@@ -191,18 +191,18 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/detail_credit_recycler"
+                    android:id="@+id/recyclerView_detail_credit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     style="@style/RecyclerViewStyle"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_overview"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_detail_overview"
                     tools:listitem="@layout/item_credit"/>
 
 
                 <TextView
-                    android:id="@+id/detail_trailer"
+                    android:id="@+id/textView_detail_trailer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -210,21 +210,21 @@
                     android:text="트레일러"
                     android:textSize="20dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_credit_recycler" />
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_detail_credit" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/detail_trailer_recyclerview"
+                    android:id="@+id/recyclerView_detail_trailer"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     style="@style/RecyclerViewStyle"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_trailer"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_detail_trailer"
                     tools:listitem="@layout/item_video" />
 
 
                 <TextView
-                    android:id="@+id/detail_similiar"
+                    android:id="@+id/textView_detail_similiar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -233,11 +233,11 @@
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_trailer_recyclerview"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_detail_trailer"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/detail_similiar_recyclerview"
+                    android:id="@+id/recyclerView_detail_similiar"
                     style="@style/RecyclerViewStyle"
                     android:layout_width="0dp"
                     android:layout_height="200dp"
@@ -246,11 +246,11 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_similiar"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_detail_similiar"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/detail_recommend"
+                    android:id="@+id/textView_detail_recommend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -259,11 +259,11 @@
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_similiar_recyclerview"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_detail_similiar"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/detail_recommend_recyclerview"
+                    android:id="@+id/recyclerView_detail_recommend"
                     style="@style/RecyclerViewStyle"
                     android:layout_width="0dp"
                     android:layout_height="200dp"
@@ -271,7 +271,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_recommend" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView_detail_recommend" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

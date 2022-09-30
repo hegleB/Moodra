@@ -17,16 +17,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun init() {
 
-        val navController : NavController = Navigation.findNavController(this, R.id.main_fragment)
+        val navController : NavController = Navigation.findNavController(this, R.id.fragment_main)
 
         val fagmentMagnger = supportFragmentManager
-        val parentFragment  = fagmentMagnger.findFragmentById(R.id.main_fragment)
+        val parentFragment  = fagmentMagnger.findFragmentById(R.id.fragment_main)
 
         navController.navigatorProvider.addNavigator(
             KeepStateNavigator(
                 this,
                 parentFragment!!.getChildFragmentManager(),
-                R.id.main_fragment
+                R.id.fragment_main
             )
 
         )
@@ -39,9 +39,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         ).build()
 
 
-        NavigationUI.setupWithNavController(binding.bottomNavigation, navController)
+        NavigationUI.setupWithNavController(binding.bottomNavigationMain, navController)
 
-        binding.bottomNavigation.setOnNavigationItemSelectedListener(object :
+        binding.bottomNavigationMain.setOnNavigationItemSelectedListener(object :
             BottomNavigationView.OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
