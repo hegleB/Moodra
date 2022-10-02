@@ -21,7 +21,7 @@ class TVshowRepositoryImpl @Inject constructor(
         }.flow
     }
 
-    override suspend fun getTvDetail(id: Int?): TVshow? {
-        return tvService.getTVDetail(id!!)
+    override suspend fun getTvDetail(id: Int?): TVshow {
+        return tvService.getTVDetail(id?:0)
     }
 }

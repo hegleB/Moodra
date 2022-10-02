@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface TVshowRepository {
 
     suspend fun getTvshow(type: String?) : Flow<PagingData<TVshow>>
-    suspend fun getTvDetail(id:Int?) : TVshow?
+    suspend fun getTvDetail(id:Int?) : TVshow
 
 }

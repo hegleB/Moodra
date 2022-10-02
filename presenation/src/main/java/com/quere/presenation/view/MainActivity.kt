@@ -32,12 +32,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         )
         navController.setGraph(R.navigation.nav_main)
 
-        val appBarConfiguration = AppBarConfiguration.Builder(
-            R.id.homeFragment,
-            R.id.searchNavFragment,
-            R.id.bookmarkNavFragment,
-        ).build()
-
 
         NavigationUI.setupWithNavController(binding.bottomNavigationMain, navController)
 
