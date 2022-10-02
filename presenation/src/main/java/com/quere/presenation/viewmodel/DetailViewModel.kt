@@ -19,6 +19,7 @@ import com.quere.domain.usecase.*
 import com.quere.presenation.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,7 +29,10 @@ class DetailViewModel @Inject constructor(
     private val getMovieDetailRepoUseCase: GetMovieDetailRepoUseCase,
     private val getTrailerRepoUseCase: GetTrailerRepoUseCase,
     private val getCreditRepoUseCase: GetCreditRepoUseCase,
-    private val getTVDetailRepoUseCase: GetTVDetailRepoUseCase
+    private val getTVDetailRepoUseCase: GetTVDetailRepoUseCase,
+    private val checkBookmarkUseCase : CheckBookmarkUseCase,
+    private val deleteBookmarkUseCase: DeleteBookmarkUseCase,
+    private val saveBookmarkUseCase: SaveBookmarkUseCase
 ) : ViewModel() {
 
     suspend fun getMovieDetail(id: Int): Movie {
@@ -123,7 +127,16 @@ class DetailViewModel @Inject constructor(
     val arrowDetail: LiveData<Event<Unit>>
         get() = _arrowDetail
 
+    private val _isBookmark = MutableLiveData<Boolean>(false)
+    val isBookmark : LiveData<Boolean>
+        get() = _isBookmark
+
+    private val _deleteBookmark = MutableLiveData<Bookmark>()
+    val deleteBookmark : LiveData<Bookmark> = _deleteBookmark
+
     fun setDetail(detail: Detail) {
+        _deleteBookmark.value = Bookmark(detail.id, detail.type, detail.title, detail.name, detail.overview, detail.is_adult,
+        detail.poster_path, detail.backdrop_path, detail.release_date, detail.runtime, detail.video, detail.vote_average)
         _type.value = detail.type
         _name.value = detail.name
         _title.value = detail.title
@@ -138,6 +151,34 @@ class DetailViewModel @Inject constructor(
         _video.value = detail.video
         _voteAverage.value = (detail.vote_average!!.toFloat() * 10).toInt()
 
+    }
+
+    fun checkBookmark() = viewModelScope.launch {
+        _isBookmark.value = checkBookmarkUseCase.checkBookmark(_id.value.toString() ?: "") ?: false
+    }
+
+    fun uptateSavedState() {
+        when (_isBookmark.value) {
+            true -> {
+                deleteSaved()
+                _isBookmark.value = false
+            }
+            else -> {
+                saveBookmark(_deleteBookmark.value?:Bookmark())
+                _isBookmark.value = true
+            }
+
+        }
+    }
+
+    private fun deleteSaved() = viewModelScope.launch {
+        if (_deleteBookmark.value != null) deleteBookmarkUseCase.deleteBookmarkUseCase(_deleteBookmark.value!!)
+    }
+
+    private fun saveBookmark(bookmark: Bookmark) = viewModelScope.launch {
+        if (bookmark!=null) {
+            saveBookmarkUseCase.saveBookmarkUseCase(bookmark)
+        }
     }
 
     fun backDetail() {

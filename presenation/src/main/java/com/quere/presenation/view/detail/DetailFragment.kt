@@ -21,6 +21,7 @@ import com.quere.presenation.R
 import com.quere.presenation.base.BaseFragment
 import com.quere.presenation.databinding.FragmentDetailBinding
 import com.quere.presenation.view.adapter.*
+import com.quere.presenation.viewmodel.BookmarkViewModel
 import com.quere.presenation.viewmodel.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -31,6 +32,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     val detailArgs by navArgs<DetailFragmentArgs>()
     private val detailViewModel: DetailViewModel by activityViewModels()
+    private val bookmarkViewModel : BookmarkViewModel by activityViewModels()
 
     override fun initView() {
 
@@ -41,7 +43,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         initRecyclerview()
         getSimulateProgress()
         paintTitle()
-
+        viewModelCallback()
 
     }
 
@@ -53,14 +55,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             it.consume()
         }
 
+    }
+
+    private fun viewModelCallback() {
         detailViewModel.isBookmark.observe(viewLifecycleOwner) {
             changeBookmarkimage(it)
         }
     }
 
-
     private fun initState() {
         detailViewModel.setDetail(detailArgs.detail)
+        detailViewModel.checkBookmark()
 
     }
 
@@ -93,7 +98,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun paintTitle() {
-        val title = detailArgs.detail.title?:""
+        var title = ""
+
+        if (detailArgs.detail.type == "movie") {
+            title = detailArgs.detail.title?:""
+        } else {
+            title = detailArgs.detail.name?:""
+        }
+        
         val spannable: Spannable = SpannableString(title)
         spannable.setSpan(
             BackgroundColorSpan(
@@ -110,7 +122,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
 
         recyclerView.adapter = creditAdapter
-
         recyclerView.addItemDecoration(HorizontalItemDecorator(10))
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -184,18 +195,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 val deailtTotherdetail = DetailFragmentDirections.actionDetailFragmentSelf(
                     Detail(
                         "movie",
-                        content.title!!,
+                        content.title?:"",
                         "",
                         listOf(),
                         content.id,
-                        content.overview!!,
+                        content.overview?:"",
                         false,
-                        content.poster_path!!,
-                        content.backdrop_path!!,
-                        content.release_date!!,
+                        content.poster_path?:"",
+                        content.backdrop_path?:"",
+                        content.release_date?:"",
                         0,
                         content.video,
-                        content.vote_average!!
+                        content.vote_average?:""
                     )
                 )
                 findNavController().navigate(deailtTotherdetail)
@@ -205,17 +216,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     Detail(
                         "tv",
                         "",
-                        content.name!!,
+                        content.name?:"",
                         listOf(),
                         content.id,
-                        content.overview!!,
+                        content.overview?:"",
                         false,
-                        content.poster_path!!,
-                        content.backdrop_path!!,
-                        content.first_air_date!!,
+                        content.poster_path?:"",
+                        content.backdrop_path?:"",
+                        content.first_air_date?:"",
                         0,
                         content.video,
-                        content.vote_average!!
+                        content.vote_average?:""
                     )
                 )
                 findNavController().navigate(deailtTotherdetail)

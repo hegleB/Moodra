@@ -14,7 +14,7 @@ class BookmarkContainerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        println("SearchContainerFragment")
+
         return inflater.inflate(R.layout.fragment_bookmark_container, container, false)
     }
 }

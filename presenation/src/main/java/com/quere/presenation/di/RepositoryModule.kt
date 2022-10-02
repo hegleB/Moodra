@@ -1,11 +1,14 @@
 package com.quere.presenation.di
 
+import com.quere.data.database.BookmarkDao
+import com.quere.data.repository.local.BookmarkRepositoryImpl
 import com.quere.data.repository.remote.common.CommonRepositoryImpl
 import com.quere.data.repository.remote.movie.MovieRepositoryImpl
 import com.quere.data.repository.remote.tv.TVshowRepositoryImpl
 import com.quere.data.service.commonservice.CommonService
 import com.quere.data.service.movieservice.MovieService
 import com.quere.data.service.tvservice.TVService
+import com.quere.domain.repository.bookmark.BookmarkRepository
 import com.quere.domain.repository.common.CommonRepository
 import com.quere.domain.repository.movie.MovieRepository
 import com.quere.domain.repository.tv.TVshowRepository
@@ -42,6 +45,15 @@ object RepositoryModule {
     ) : CommonRepository {
         return CommonRepositoryImpl(
             commonService
+        )
+    }
+
+    @Provides
+    fun provideBookmarkRepository(
+        bookmarkDao: BookmarkDao
+    ) : BookmarkRepository {
+        return BookmarkRepositoryImpl(
+            bookmarkDao
         )
     }
 }

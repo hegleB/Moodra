@@ -5,15 +5,19 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity(tableName = "bookmark_table")
-class Bookmark(
+data class Bookmark(
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Int? = null,
-    var title: String? = null,
-    var overview: String? = null,
-    var isAdult: Boolean? = false,
-    var poster_path: String? = null,
-    var backdrop_path: String? = null,
-    var relese_date: String? = null,
-    var vote_average: String? = null,
-) : Serializable
+    @PrimaryKey
+    val id : Int?= null,
+    val type :String = "",
+    val title : String? = "",
+    val name : String?= "",
+    val overview : String? = "",
+    val is_adult : Boolean?=false,
+    val poster_path : String?="",
+    val backdrop_path: String?="",
+    val release_date : String?="",
+    val runtime: Int? = null,
+    val video : Boolean?=false,
+    val vote_average : String?=""
+)   : Serializable

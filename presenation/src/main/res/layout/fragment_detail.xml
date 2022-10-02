@@ -73,6 +73,7 @@
                         android:id="@+id/imageView_detail_bookmark"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:onClick="@{() -> viewmodel.uptateSavedState()}"
                         android:src="@drawable/ic_baseline_bookmark_24"
                         android:layout_marginRight="20dp"
                         android:layout_gravity="right"/>
