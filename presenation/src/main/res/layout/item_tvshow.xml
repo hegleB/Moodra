@@ -66,6 +66,8 @@
                 android:layout_marginEnd="3dp"
                 android:layout_marginBottom="1dp"
                 android:text="@{tvshow.vote_average}"
+                android:textSize="11dp"
+                android:gravity="center"
                 android:textColor="#FFFFFF" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
