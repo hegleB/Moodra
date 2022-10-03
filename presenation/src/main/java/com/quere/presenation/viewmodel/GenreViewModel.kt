@@ -1,10 +1,6 @@
 package com.quere.presenation.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.quere.domain.model.common.Detail
@@ -22,10 +18,43 @@ class GenreViewModel @Inject constructor(
     private val getTvPopularRepoUseCase: GetTvPopularRepoUseCase
 ) : ViewModel() {
 
+    private var currentGenreResult: Flow<PagingData<Detail>>? = null
+    private var currentMoviePopularResult: Flow<PagingData<Detail>>? = null
+    private var currentTVPopularResult: Flow<PagingData<Detail>>? = null
+
     suspend fun getGenre(type:String,genre:String) = getGenreRepoUseCase.getGenre(type,genre)
-    suspend fun getGenreAll(type: String, genre: String) = getGenreAllRepoUseCase.getGenreAll(type,genre)
-    suspend fun getMoviePopular() : Flow<PagingData<Detail>> { return getMoviePopularRepoUseCase.getMoviePopular()!!.cachedIn(viewModelScope)}
-    suspend fun getTVPopular() : Flow<PagingData<Detail>> { return getTvPopularRepoUseCase.getTvPopular()!!.cachedIn(viewModelScope)}
+    suspend fun getGenreAll(type: String, genre: String) : Flow<PagingData<Detail>> {
+        var lastResult = currentGenreResult
+        if (lastResult != null) {
+            return lastResult
+        }
+
+        val newResult: Flow<PagingData<Detail>> =
+            getGenreAllRepoUseCase.getGenreAll(type,genre).cachedIn(viewModelScope)
+        currentGenreResult = newResult
+        return newResult
+    }
+
+    suspend fun getMoviePopular() : Flow<PagingData<Detail>> {
+        var lastResult = currentMoviePopularResult
+        if (lastResult != null) {
+            return lastResult
+        }
+        val newResult : Flow<PagingData<Detail>> =  getMoviePopularRepoUseCase.getMoviePopular().cachedIn(viewModelScope)
+        currentMoviePopularResult =newResult
+
+        return newResult
+    }
+    suspend fun getTVPopular() : Flow<PagingData<Detail>> {
+        var lastResult = currentTVPopularResult
+        if (lastResult != null) {
+            return lastResult
+        }
+        val newResult : Flow<PagingData<Detail>> =  getTvPopularRepoUseCase.getTvPopular().cachedIn(viewModelScope)
+        currentTVPopularResult =newResult
+
+        return newResult
+    }
 
     private val _fragmentHome : MutableLiveData<Event<Unit>> = MutableLiveData()
     val fragmentHome : LiveData<Event<Unit>>
@@ -100,38 +129,47 @@ class GenreViewModel @Inject constructor(
     }
 
     fun showAnimation() {
+        currentGenreResult=null
         _animation.value = Event(Unit)
     }
 
     fun showFantasy() {
+        currentGenreResult=null
         _fantasy.value = Event(Unit)
     }
 
     fun showAction() {
+        currentGenreResult=null
         _action.value = Event(Unit)
     }
 
     fun showMusic() {
+        currentGenreResult=null
         _music.value = Event(Unit)
     }
 
     fun showComedy() {
+        currentGenreResult=null
         _comedy.value = Event(Unit)
     }
 
     fun showRomancee() {
+        currentGenreResult=null
         _romance.value = Event(Unit)
     }
 
     fun showCrime() {
+        currentGenreResult=null
         _crime.value = Event(Unit)
     }
 
     fun showMystery() {
+        currentGenreResult=null
         _mystery.value = Event(Unit)
     }
 
     fun showHorror() {
+        currentGenreResult=null
         _horror.value = Event(Unit)
     }
 
@@ -145,7 +183,6 @@ class GenreViewModel @Inject constructor(
     }
 
     fun setGenre(genre : String) {
-        Log.d("genre", "genre : $genre")
         _genre.postValue(genre)
 
     }
