@@ -1,13 +1,10 @@
 package com.quere.presenation.viewmodel
 
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quere.domain.model.common.Bookmark
-import com.quere.domain.model.common.Detail
 import com.quere.domain.usecase.DeleteAllBookarmkUseCase
 import com.quere.domain.usecase.DeleteBookmarkUseCase
 import com.quere.domain.usecase.GetBookmarkRepoUseCase
@@ -16,7 +13,6 @@ import com.quere.presenation.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel

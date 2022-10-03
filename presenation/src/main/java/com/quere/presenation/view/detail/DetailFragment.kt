@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
-import android.util.Log
+import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
-import com.quere.domain.model.common.Bookmark
 import com.quere.domain.model.common.Detail
 import com.quere.domain.model.common.OtherContent
 import com.quere.domain.model.common.Trailer
@@ -34,10 +32,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private val detailViewModel: DetailViewModel by activityViewModels()
     private val bookmarkViewModel : BookmarkViewModel by activityViewModels()
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        // handle back button
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigateUp()
+        }
+
+    }
+
     override fun initView() {
 
         binding.viewmodel = detailViewModel
-
         initState()
         observeViewModel()
         initRecyclerview()
@@ -51,7 +57,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
         detailViewModel.arrowDetail.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            findNavController().popBackStack()
+            findNavController().navigateUp()
             it.consume()
         }
 

@@ -1,11 +1,8 @@
 package com.quere.data.repository.local
 
-import androidx.lifecycle.LiveData
 import com.quere.data.database.BookmarkDao
 import com.quere.domain.model.common.Bookmark
-import com.quere.domain.model.common.Detail
 import com.quere.domain.repository.bookmark.BookmarkRepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class BookmarkRepositoryImpl @Inject constructor(

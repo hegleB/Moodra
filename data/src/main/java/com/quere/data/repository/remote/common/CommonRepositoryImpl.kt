@@ -16,13 +16,13 @@ class CommonRepositoryImpl @Inject constructor(
 ) : CommonRepository {
 
 
-    override suspend fun getSimilar(type: String?, id: Int?): Flow<PagingData<OtherContent>>? {
+    override suspend fun getSimilar(type: String?, id: Int?): Flow<PagingData<OtherContent>> {
         return Pager(PagingConfig(PAGE_SIZE)) {
             SimilarPagingSource(commonService, type!!,id)
         }.flow
     }
 
-    override suspend fun getRecommend(type: String?, id: Int?): Flow<PagingData<OtherContent>>? {
+    override suspend fun getRecommend(type: String?, id: Int?): Flow<PagingData<OtherContent>> {
         return Pager(PagingConfig(PAGE_SIZE)) {
             RecommendPagingSource(commonService, type!!,id)
         }.flow
@@ -32,31 +32,31 @@ class CommonRepositoryImpl @Inject constructor(
         return commonService.getCredit(type!!,id!!)
     }
 
-    override suspend fun getTrailer(type: String?, id: Int?): Trailers? {
+    override suspend fun getTrailer(type: String?, id: Int?): Trailers {
         return commonService.getTrailer(type!!, id!!)
     }
 
-    override suspend fun getGenre(type: String?, genre: String?): Flow<PagingData<Detail>>? {
+    override suspend fun getGenre(type: String?, genre: String?): Flow<PagingData<Detail>> {
         return Pager(PagingConfig(PAGE_SIZE)) {
             GenrePagingSource(commonService, type!!,genre!!)
         }.flow
     }
 
-    override suspend fun getMoviePopular(): Flow<PagingData<Detail>>? {
+    override suspend fun getMoviePopular(): Flow<PagingData<Detail>> {
         return Pager(PagingConfig(PAGE_SIZE)) {
             GenreViewPagerPagingSource(commonService, "movie")
         }.flow
     }
 
-    override suspend fun getTvPopular(): Flow<PagingData<Detail>>? {
+    override suspend fun getTvPopular(): Flow<PagingData<Detail>> {
         return Pager(PagingConfig(PAGE_SIZE)) {
             GenreViewPagerPagingSource(commonService, "tv")
         }.flow
     }
 
-    override suspend fun getGenreAll(type: String?, genre: String?): Flow<PagingData<Detail>>? {
+    override suspend fun getGenreAll(type: String, genre: String): Flow<PagingData<Detail>> {
        return Pager(PagingConfig(PAGE_SIZE)) {
-           GenreAllPagingSource(commonService, type!!,genre!!)
+           GenreAllPagingSource(commonService, type,genre)
        }.flow
     }
 }

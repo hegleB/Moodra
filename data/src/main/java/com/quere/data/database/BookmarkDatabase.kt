@@ -2,7 +2,6 @@ package com.quere.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import com.quere.domain.model.common.Bookmark
 
 @Database(entities = [Bookmark::class], version = 1, exportSchema = false)

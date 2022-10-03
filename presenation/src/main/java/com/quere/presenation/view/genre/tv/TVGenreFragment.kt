@@ -1,11 +1,6 @@
 package com.quere.presenation.view.genre.tv
 
-import android.content.Context
-import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -19,12 +14,9 @@ import com.quere.presenation.databinding.FragmentTVGenreBinding
 import com.quere.presenation.view.adapter.GenreAdapter
 import com.quere.presenation.view.adapter.HorizontalItemDecorator
 import com.quere.presenation.view.adapter.TVViewPagerAdapter
-import com.quere.presenation.view.genre.movie.MovieGenreFragmentDirections
 import com.quere.presenation.viewmodel.DetailViewModel
 import com.quere.presenation.viewmodel.GenreViewModel
-
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -73,51 +65,51 @@ class TVGenreFragment : BaseFragment<FragmentTVGenreBinding>(R.layout.fragment_t
 
         genreViewModel.animation.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("애니메이션")
+            showMovieGenreAll("애니메이션",AppConstants.ANIMATION)
             it.consume()
         }
 
         genreViewModel.fantasy.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("판타지")
+            showMovieGenreAll("판타지",AppConstants.FANTASY)
             it.consume()
         }
 
         genreViewModel.music.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("뮤직")
+            showMovieGenreAll("뮤직",AppConstants.MUSIC)
             it.consume()
         }
 
         genreViewModel.comedy.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("코미디")
+            showMovieGenreAll("코미디",AppConstants.COMEDY)
             it.consume()
         }
 
         genreViewModel.romance.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("로맨스")
+            showMovieGenreAll("로맨스",AppConstants.ROMANCE)
             it.consume()
         }
 
         genreViewModel.crime.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("범죄")
+            showMovieGenreAll("범죄",AppConstants.CRIME)
             it.consume()
         }
 
         genreViewModel.mystery.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("미스테리")
+            showMovieGenreAll("미스테리",AppConstants.MYSTERY)
             it.consume()
         }
 
     }
 
-    private fun showMovieGenreAll(genre: String) {
+    private fun showMovieGenreAll(genre: String, genreId: String) {
         val genreAll = TVGenreFragmentDirections.actionTVGenreFragmentToGenreAllFragment(
-            "tv",genre
+            "tv",genre,genreId
         )
 
         findNavController().navigate(genreAll)
@@ -222,11 +214,6 @@ class TVGenreFragment : BaseFragment<FragmentTVGenreBinding>(R.layout.fragment_t
 
         viewpager.adapter = viewpagerAdapter
         viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        lifecycleScope.launch {
-            delay(50)
-            viewpager.setCurrentItem(0)
-
-        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             genreViewModel.getTVPopular().collectLatest { viewpaerList ->
@@ -240,16 +227,6 @@ class TVGenreFragment : BaseFragment<FragmentTVGenreBinding>(R.layout.fragment_t
 
     private fun getTVViewPagerCurrentItem(viewpager: ViewPager2) {
 
-
-
-        lifecycleScope.launch {
-
-            delay(100)
-            genreViewModel.pageTVViewPager.observe(viewLifecycleOwner) {
-                viewpager.setCurrentItem(it, true)
-            }
-        }
-
         viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
             override fun onPageScrolled(
@@ -258,19 +235,7 @@ class TVGenreFragment : BaseFragment<FragmentTVGenreBinding>(R.layout.fragment_t
                 positionOffsetPixels: Int
             ) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                Log.d("seq", "TV onPageScrolled : $position")
-                if (positionOffsetPixels == 0) {
-                    viewpager.setCurrentItem(position)
-                }
-            }
-
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                Log.d("seq", "TV postion : $position")
-                if (position!=0) {
-                    genreViewModel.setPositionTVViewPager(position % 20)
-                }
-
+                genreViewModel.setPositionTVViewPager(position % 20)
             }
         })
 

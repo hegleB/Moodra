@@ -1,10 +1,7 @@
 package com.quere.data.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.quere.domain.model.common.Bookmark
-import com.quere.domain.model.common.Detail
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookmarkDao {

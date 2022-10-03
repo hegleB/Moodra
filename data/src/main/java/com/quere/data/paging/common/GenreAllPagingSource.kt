@@ -3,9 +3,7 @@ package com.quere.data.paging.common
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.quere.data.service.commonservice.CommonService
-import com.quere.data.service.movieservice.MovieService
 import com.quere.domain.model.common.Detail
-import com.quere.domain.model.movie.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext

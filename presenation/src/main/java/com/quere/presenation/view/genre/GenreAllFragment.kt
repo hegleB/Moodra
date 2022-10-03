@@ -1,6 +1,5 @@
 package com.quere.presenation.view.genre
 
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
@@ -16,8 +15,10 @@ import com.quere.presenation.base.BaseFragment
 import com.quere.presenation.databinding.FragmentGenreAllBinding
 import com.quere.presenation.view.adapter.GenreAllAdapter
 import com.quere.presenation.view.adapter.HorizontalItemDecorator
+import com.quere.presenation.view.adapter.SearchDetailLoadStateAdapter
 import com.quere.presenation.viewmodel.DetailViewModel
 import com.quere.presenation.viewmodel.GenreViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -31,6 +32,7 @@ class GenreAllFragment : BaseFragment<FragmentGenreAllBinding>(R.layout.fragment
 
         init()
         observeViewModel()
+        initToolbar()
         getGenreAllRecyclerView(binding.recyclerviewGenreAll)
 
     }
@@ -38,27 +40,28 @@ class GenreAllFragment : BaseFragment<FragmentGenreAllBinding>(R.layout.fragment
     private fun init() {
         setHasOptionsMenu(true)
 
+    }
+
+    private fun initToolbar() {
         binding.apply {
+            textViewGenreAllGenre.setText(genreArgs.genre)
             toolbarGenreAll.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios_24)
             toolbarGenreAll.setNavigationOnClickListener(object : View.OnClickListener {
                 override fun onClick(p0: View?) {
-                    findNavController().navigateUp()
+                    findNavController().popBackStack()
                 }
-
             })
         }
     }
 
     private fun observeViewModel() {
         genreViewModel.setGenre(genreArgs.genre)
-        binding.textViewGenreAllGenre.setText(genreArgs.genre)
-
     }
 
     private fun getGenreAllRecyclerView(recyclerView: RecyclerView) {
         val genreAdapter: GenreAllAdapter by lazy {
             GenreAllAdapter(
-                ItemClick = { showDetail(genreArgs.type,it) }
+                ItemClick = { showDetail(genreArgs.type, it) }
             )
         }
         val gridLayout = GridLayoutManager(requireContext(), 3)
@@ -71,6 +74,14 @@ class GenreAllFragment : BaseFragment<FragmentGenreAllBinding>(R.layout.fragment
 
         }
 
+        recyclerView.layoutManager = gridLayout
+        recyclerView.adapter = genreAdapter.withLoadStateFooter(
+            footer = SearchDetailLoadStateAdapter { genreAdapter.retry() }
+        )
+        recyclerView.addItemDecoration(HorizontalItemDecorator(10))
+
+
+        collectFlow(genreArgs.type, genreArgs.genreId, genreAdapter)
         genreAdapter.addLoadStateListener { loadState ->
             binding.apply {
 
@@ -83,20 +94,16 @@ class GenreAllFragment : BaseFragment<FragmentGenreAllBinding>(R.layout.fragment
                 }
             }
         }
-
-        binding.recyclerviewGenreAll.layoutManager = gridLayout
-        recyclerView.adapter = genreAdapter
-        recyclerView.addItemDecoration(HorizontalItemDecorator(10))
-        collectFlow(genreArgs.type, genreArgs.genre, genreAdapter)
     }
 
     private fun collectFlow(type: String, genre: String, genreAdapter: GenreAllAdapter) {
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            genreViewModel.getGenreAll(type, genre)!!.collectLatest { genreList ->
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            genreViewModel.getGenreAll(type, genre).collectLatest { genreList ->
                 genreAdapter.submitData(genreList)
             }
         }
+
 
     }
 

@@ -1,13 +1,7 @@
 package com.quere.presenation.view.genre.movie
 
 
-import android.content.Context
-import android.content.res.Configuration
-import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -24,7 +18,6 @@ import com.quere.presenation.view.adapter.MovieViewPagerAdapter
 import com.quere.presenation.viewmodel.DetailViewModel
 import com.quere.presenation.viewmodel.GenreViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -73,55 +66,55 @@ class MovieGenreFragment : BaseFragment<FragmentMovieGenreBinding>(R.layout.frag
 
         genreViewModel.animation.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("애니메이션")
+            showMovieGenreAll("애니메이션",AppConstants.ANIMATION)
             it.consume()
         }
 
         genreViewModel.fantasy.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("판타지")
+            showMovieGenreAll("판타지",AppConstants.FANTASY)
             it.consume()
         }
 
         genreViewModel.action.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("액션")
+            showMovieGenreAll("액션",AppConstants.ACTION)
             it.consume()
         }
 
         genreViewModel.music.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("뮤직")
+            showMovieGenreAll("뮤직",AppConstants.MUSIC)
             it.consume()
         }
 
         genreViewModel.comedy.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("코미디")
+            showMovieGenreAll("코미디",AppConstants.COMEDY)
             it.consume()
         }
 
         genreViewModel.romance.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("로맨스")
+            showMovieGenreAll("로맨스",AppConstants.ROMANCE)
             it.consume()
         }
 
         genreViewModel.crime.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("범죄")
+            showMovieGenreAll("범죄",AppConstants.CRIME)
             it.consume()
         }
 
         genreViewModel.mystery.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("미스테리")
+            showMovieGenreAll("미스테리",AppConstants.MYSTERY)
             it.consume()
         }
 
         genreViewModel.horror.observe(viewLifecycleOwner) {
             if (it.consumed) return@observe
-            showMovieGenreAll("호러")
+            showMovieGenreAll("호러",AppConstants.HORROR)
             it.consume()
         }
 
@@ -138,9 +131,9 @@ class MovieGenreFragment : BaseFragment<FragmentMovieGenreBinding>(R.layout.frag
         collectFlow("movie",genre, genreAdapter)
     }
 
-    private fun showMovieGenreAll(genre: String) {
+    private fun showMovieGenreAll(genre: String,genreId:String) {
         val genreAll = MovieGenreFragmentDirections.actionMovieGenreFragmentToGenreAllFragment(
-            "movie",genre
+            "movie",genre,genreId
         )
 
         findNavController().navigate(genreAll)
@@ -205,7 +198,6 @@ class MovieGenreFragment : BaseFragment<FragmentMovieGenreBinding>(R.layout.frag
             AppConstants.MYSTERY -> {
                 viewLifecycleOwner.lifecycleScope.launch{
                     genreViewModel.getGenre(type,genre)!!.collectLatest { genreList ->
-
                         genreAdapter.submitData(genreList)
                     }
                 }
@@ -230,7 +222,6 @@ class MovieGenreFragment : BaseFragment<FragmentMovieGenreBinding>(R.layout.frag
 
         viewpager.adapter = viewpagerAdapter
         viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        viewpager.setCurrentItem(0,true)
 
         viewLifecycleOwner.lifecycleScope.launch {
             genreViewModel.getMoviePopular().collectLatest { viewpaerList ->
@@ -243,16 +234,6 @@ class MovieGenreFragment : BaseFragment<FragmentMovieGenreBinding>(R.layout.frag
 
     private fun getMovieViewPagerCurrentItem(viewpager: ViewPager2){
 
-        viewpager.setCurrentItem(0,true)
-
-        lifecycleScope.launch {
-            delay(100)
-
-            genreViewModel.pageMovieViewPager.observe(viewLifecycleOwner) {
-                viewpager.setCurrentItem(it, true)
-
-            }
-        }
         viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
             override fun onPageScrolled(
@@ -261,25 +242,12 @@ class MovieGenreFragment : BaseFragment<FragmentMovieGenreBinding>(R.layout.frag
                 positionOffsetPixels: Int
             ) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                if (positionOffsetPixels == 0) {
-                    viewpager.setCurrentItem(position)
-                }
-            }
-
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                if (position!=0) {
-                    genreViewModel.setPositionMovieViewPager(position % 20)
-                }
+                genreViewModel.setPositionMovieViewPager(position % 20)
             }
         })
 
 
     }
-
-
-
-
 
     private fun showDetail(item: Detail) {
 
@@ -319,6 +287,4 @@ class MovieGenreFragment : BaseFragment<FragmentMovieGenreBinding>(R.layout.frag
 
         findNavController().navigate(moveGenre)
     }
-
-
 }

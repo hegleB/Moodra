@@ -1,17 +1,11 @@
 package com.quere.presenation.viewmodel
 
-import android.R
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.BackgroundColorSpan
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.quere.domain.model.common.*
 import com.quere.domain.model.movie.Movie
 import com.quere.domain.model.tv.TVshow

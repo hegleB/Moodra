@@ -14,7 +14,7 @@ class MoviePagingAdapter(private val ItemClick : (Movie) -> Unit) : BasePagingAd
     companion object {
         private val itemCallback = object : DiffUtil.ItemCallback<Movie>() {
             override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-                return oldItem.hashCode() == newItem.hashCode()
+                return oldItem.title == newItem.title
             }
 
             override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
@@ -52,6 +52,4 @@ class MoviePagingAdapter(private val ItemClick : (Movie) -> Unit) : BasePagingAd
 
         }
     }
-
-
 }

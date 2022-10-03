@@ -24,7 +24,7 @@ interface TVService {
     @GET("search/tv")
     suspend fun getTVshowSeach(
         @Query("query") query: String,
-        @Query("page") page: Integer
+        @Query("page") page: Int
     ): TVshows
 
     @GET("tv/{tv_id}/videos")
@@ -35,12 +35,11 @@ interface TVService {
     @GET("discover/tv")
     suspend fun getTVGenre(
         @Query("with_genres") with_genres: String,
-        @Query("page") page: Integer
+        @Query("page") page: Int
     ): TVshows
 
     @GET("tv/{tv_id}/credits")
     suspend fun getTVCredit(
-        @Path("tv_id") tvId: Integer
+        @Path("tv_id") tvId: Int
     ): Credit
-
 }

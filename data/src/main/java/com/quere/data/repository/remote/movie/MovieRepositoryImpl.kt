@@ -5,7 +5,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.quere.data.paging.movie.MoviePagingSource
 import com.quere.data.service.movieservice.MovieService
-import com.quere.domain.model.common.*
 import com.quere.domain.model.movie.Movie
 import com.quere.domain.repository.movie.MovieRepository
 import kotlinx.coroutines.flow.Flow

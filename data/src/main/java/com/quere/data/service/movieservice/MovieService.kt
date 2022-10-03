@@ -21,14 +21,6 @@ interface MovieService {
     @GET("search/movie")
     suspend fun getMovieSeach(
         @Query("query") query: String,
-        @Query("page") page: Integer,
+        @Query("page") page: Int,
     ): Movies
-
-
-
-
-
-
-
-
 }
