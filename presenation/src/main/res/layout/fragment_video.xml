@@ -13,7 +13,7 @@
         tools:context=".ui.view.video.VideoActivity">
 
         <ImageView
-            android:id="@+id/video_iv_finish_button"
+            android:id="@+id/imageView_video_finish"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="end"

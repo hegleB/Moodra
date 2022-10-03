@@ -14,7 +14,7 @@ class TVPagingAdapter(private val ItemClick : (TVshow) -> Unit) : BasePagingAdap
     companion object {
         private val itemCallback = object : DiffUtil.ItemCallback<TVshow>() {
             override fun areItemsTheSame(oldItem: TVshow, newItem: TVshow): Boolean {
-                return oldItem.hashCode() == newItem.hashCode()
+                return oldItem.name == newItem.name
             }
 
             override fun areContentsTheSame(oldItem: TVshow, newItem: TVshow): Boolean {
