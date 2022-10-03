@@ -10,5 +10,36 @@
         android:id="@+id/searchNavFragment"
         android:name="com.quere.presenation.view.search.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search"/>
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchNavFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_searchNavFragment_to_searchAllFragment"
+            app:destination="@id/searchAllFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.quere.presenation.view.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="detail"
+            app:argType="com.quere.domain.model.common.Detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchAllFragment"
+        android:name="com.quere.presenation.view.search.SearchAllFragment"
+        android:label="SearchAllFragment" >
+        <action
+            android:id="@+id/action_searchAllFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <argument
+            android:name="query"
+            app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+    </fragment>
 </navigation>
