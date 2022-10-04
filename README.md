@@ -1,6 +1,6 @@
 
 <p align="center">
-<img width="150" alt="2021-12-13_22-09-52" src="https://user-images.githubusercontent.com/39490416/163661942-18f79cde-a3fb-4b4f-81bd-ae41063c7587.png">
+<img width="100" alt="2021-12-13_22-09-52" src="https://user-images.githubusercontent.com/39490416/163661942-18f79cde-a3fb-4b4f-81bd-ae41063c7587.png">
   </p>
 
 <p align="center">
@@ -50,7 +50,7 @@
 
 
 # Project Architecture
-<img width="2000" alt="clean_architecture" src="https://user-images.githubusercontent.com/39490416/193833099-4a7dd588-13fe-43a8-bf47-82e04b482b0f.png">
+<img width="500" alt="clean_architecture" src="https://user-images.githubusercontent.com/39490416/193833099-4a7dd588-13fe-43a8-bf47-82e04b482b0f.png">
 
 ### Data Layer
 
