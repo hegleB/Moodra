@@ -50,7 +50,7 @@
 
 
 # Project Architecture
-<img width="500" alt="clean_architecture" src="https://user-images.githubusercontent.com/39490416/193833099-4a7dd588-13fe-43a8-bf47-82e04b482b0f.png">
+<img width="1000" alt="clean_architecture" src="https://user-images.githubusercontent.com/39490416/193833099-4a7dd588-13fe-43a8-bf47-82e04b482b0f.png">
 
 ### Data Layer
 
